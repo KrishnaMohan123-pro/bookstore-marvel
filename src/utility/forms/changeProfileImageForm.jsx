@@ -19,7 +19,7 @@ export default function ChangeProfileImageForm() {
   return (
     <form onSubmit={(e) => handleImageUpload(e)} style={{ padding: "3rem" }}>
       <Input
-        inputProps={{ accept: ".jpg" }}
+        inputProps={{ accept: ".jpg, .png" }}
         type="file"
         onChange={(e) => handleImageChange(e)}
       />

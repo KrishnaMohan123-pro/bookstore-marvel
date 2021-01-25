@@ -37,15 +37,6 @@ export default function AddNewBookForm() {
             price: prevValue.price,
             title: prevValue.title,
           };
-        case "id":
-          return {
-            description: prevValue.description,
-            id: value,
-            image: prevValue.image,
-            publishedOn: prevValue.publishedOn,
-            price: prevValue.price,
-            title: prevValue.title,
-          };
         case "image":
           return {
             description: prevValue.description,
@@ -117,17 +108,6 @@ export default function AddNewBookForm() {
         variant="outlined"
         onChange={handleChange}
         type="text"
-      />
-      <TextField
-        className="mt-2"
-        color="primary"
-        id="id"
-        label="ID"
-        style={{ width: "100%" }}
-        variant="outlined"
-        onChange={handleChange}
-        type="text"
-        required
       />
       <TextField
         className="mt-2"
