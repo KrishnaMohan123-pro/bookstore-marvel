@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addAddress } from "../../actions/authActions";
 
 export default function AddAddressForm() {
-  const userAddress = useSelector((state) => state.auth.user.address);
-  const [address, setAddress] = useState(userAddress);
+  const [address, setAddress] = useState({
+    addressLine1: "",
+    addressLine2: "",
+    pin: "",
+    city: "",
+    state: "",
+    country: "",
+  });
   const dispatch = useDispatch();
 
   function handleChange(e) {
@@ -91,7 +97,6 @@ export default function AddAddressForm() {
         variant="outlined"
         onChange={handleChange}
         type="text"
-        value={address.addressLine1}
         required
       />
       <TextField
@@ -103,7 +108,6 @@ export default function AddAddressForm() {
         variant="outlined"
         onChange={handleChange}
         type="text"
-        value={address.addressLine2}
       />
       <TextField
         className="mt-2"
@@ -114,7 +118,6 @@ export default function AddAddressForm() {
         variant="outlined"
         onChange={handleChange}
         type="text"
-        value={address.pin}
         required
       />
       <TextField
@@ -126,7 +129,6 @@ export default function AddAddressForm() {
         variant="outlined"
         onChange={handleChange}
         type="text"
-        value={address.city}
         required
       />
       <TextField
@@ -138,7 +140,6 @@ export default function AddAddressForm() {
         variant="outlined"
         onChange={handleChange}
         type="text"
-        value={address.state}
         required
       />
       <TextField
@@ -150,7 +151,6 @@ export default function AddAddressForm() {
         variant="outlined"
         onChange={handleChange}
         type="text"
-        value={address.country}
         required
       />
       <br />
