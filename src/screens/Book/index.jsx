@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 export default function Book(props) {
   const dispatch = useDispatch();
   const comics = useSelector((state) => state.comics);
+  const newBooks = useSelector((state) => state.newBooks);
   const loader = useSelector((state) => state.loader.data);
   console.log(newBooks);
   useEffect(() => {
