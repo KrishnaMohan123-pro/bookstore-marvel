@@ -10,8 +10,16 @@ export function addNewBook(book) {
     firebase
       .firestore()
       .collection("new-books")
-      .doc(book.id)
-      .set({ book: book });
+      .add({})
+      .then((docRef) => {
+        firebase
+          .firestore()
+          .collection("new-books")
+          .doc(docRef.id)
+          .update({ book: { ...book, id: docRef.id } });
+        newBooks.push({ book: { ...book, id: docRef.id } });
+        dispatch(addNewBookAction(newBooks));
+      });
   };
 }
 export function fetchNewBooks() {
