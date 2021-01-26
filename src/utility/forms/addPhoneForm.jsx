@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addPhone } from "../../actions/authActions";
 export default function AddAddressForm() {
-  const userPhone = useSelector((state) => state.auth.user.phone);
   const dispatch = useDispatch();
-  const [phone, setPhone] = useState(userPhone);
+  const [phone, setPhone] = useState("");
   function handleChange(e) {
     setPhone(e.target.value);
   }
@@ -28,7 +27,6 @@ export default function AddAddressForm() {
         variant="outlined"
         onChange={handleChange}
         type="text"
-        value={phone}
       />
       <br />
       <Button variant="contained" color="primary" type="submit">
