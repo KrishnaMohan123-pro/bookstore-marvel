@@ -8,7 +8,8 @@ export default function AddNewBookForm() {
   const [newBook, setNewBook] = useState({
     description: "",
     id: "",
-    image: "",
+    image:
+      "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg",
     publishedOn: "",
     price: 0,
     title: "",

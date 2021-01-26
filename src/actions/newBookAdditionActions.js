@@ -7,7 +7,6 @@ export function addNewBook(book) {
   return async (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
     const newBooks = getState().newBooks;
-
     firebase
       .firestore()
       .collection("new-books")

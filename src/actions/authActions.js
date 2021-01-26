@@ -160,6 +160,7 @@ export function addAddress(address) {
             lname: user.lname,
             phone: user.phone,
             photoURL: user.photoURL,
+            role: user.role,
           },
           uid
         )
@@ -190,6 +191,7 @@ export function addPhone(phone) {
             phone: phone,
             photoURL: user.photoURL,
             address: user.address,
+            role: user.role,
           },
           uid
         )

@@ -39,17 +39,6 @@ export default function Navbar() {
               <Button
                 color="inherit"
                 variant="text"
-                onClick={() => {
-                  dispatch({ type: "LOGGED_OUT" });
-                  dispatch(logout());
-                  history.push("/");
-                }}
-              >
-                SIGNOUT
-              </Button>
-              <Button
-                color="inherit"
-                variant="text"
                 style={{ position: "relative" }}
                 onClick={() => {
                   history.push("/cart");
@@ -65,6 +54,17 @@ export default function Navbar() {
                 }}
               >
                 <Avatar alt={userName} src={userImage} />
+              </Button>
+              <Button
+                color="inherit"
+                variant="text"
+                onClick={() => {
+                  dispatch({ type: "LOGGED_OUT" });
+                  dispatch(logout());
+                  history.push("/");
+                }}
+              >
+                SIGNOUT
               </Button>
             </Fragment>
           ) : (

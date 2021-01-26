@@ -4,16 +4,44 @@ import Loader from "../../components/Loader/loader";
 import CartButton from "../../components/CartButton/CartButton";
 import { Container, Grid } from "@material-ui/core";
 import { fetchComics } from "../../actions/FetchActions/comicsFetch";
+import { fetchComicsAction } from "../../actions/actionCreators/fetchDataActionCreators";
 import { useDispatch, useSelector } from "react-redux";
 export default function Book(props) {
   const dispatch = useDispatch();
   const newBooks = useSelector((state) => state.newBooks);
   const comics = useSelector((state) => state.comics);
   const loader = useSelector((state) => state.loader.data);
+  console.log(newBooks);
   useEffect(() => {
-    dispatch(fetchComics(props.id));
-  }, [dispatch, props.id]);
-  if (loader) {
+    let flag = false;
+    let pos = 0;
+    for (let i = 0; i < newBooks.length; i += 1) {
+      if (props.id === newBooks[i].book.id) {
+        pos = i;
+        flag = true;
+        break;
+      }
+    }
+
+    if (flag)
+      dispatch(
+        fetchComicsAction({
+          characters: [],
+          creators: [],
+          description: newBooks[pos].book.description,
+          id: newBooks[pos].book.id,
+          image:
+            newBooks[pos].book.image.length === 0
+              ? "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
+              : newBooks[pos].book.image,
+          price: newBooks[pos].book.price,
+          publishDate: newBooks[pos].book.publishedOn,
+          title: newBooks[pos].book.title,
+        })
+      );
+    else if (newBooks.length !== 0) dispatch(fetchComics(props.id));
+  }, [dispatch, props.id, newBooks]);
+  if (loader || newBooks.length === 0) {
     return <Loader />;
   }
   if (comics.error) {

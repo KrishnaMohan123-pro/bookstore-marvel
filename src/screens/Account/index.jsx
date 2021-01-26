@@ -151,7 +151,7 @@ export default function Account() {
                   <InputDialog
                     childComponent={<AddNewBookForm />}
                     dialogName="New_Book"
-                    dialogLabel="Add New Book"
+                    dialogLabel="Add New Item"
                     dialogVisible={dialog.addBookDialogVisible}
                   />
                 ) : null}

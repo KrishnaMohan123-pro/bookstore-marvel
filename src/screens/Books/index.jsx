@@ -14,7 +14,9 @@ export default function Books() {
   return (
     <div>
       <section className="New Arrivals" style={{ margin: "3rem 0" }}>
-        <p>New Arrivals</p>
+        <div className="character-section">
+          <p className="character-name">New Arrivals</p>
+        </div>
         <Container>
           <Grid container>
             <Carousel
