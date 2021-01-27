@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Grid, Container } from "@material-ui/core";
+import { Button, Grid, Container, Divider } from "@material-ui/core";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import Selector from "../../components/Selector/selector";
 import "./styles.css";
@@ -17,7 +17,11 @@ import { querySearched } from "../../actions/queryActions";
 export default function Characters({ match }) {
   const dispatch = useDispatch();
   const loader = useSelector((state) => state.loader.data);
-
+  const newBooks = useSelector((state) => state.newBooks);
+  const searchedNewBooks = newBooks.filter((book) =>
+    book.book.title.toLowerCase().startsWith(match.params.query.toLowerCase())
+  );
+  console.log(newBooks, searchedNewBooks);
   const [filter, setFilter] = useState("characters");
   const [sort, setSort] = useState("modified");
   const genericSearchResult = useSelector((state) => state.genericSearch);
@@ -92,18 +96,65 @@ export default function Characters({ match }) {
             </Grid>
           </Grid>
           <Grid item lg={10} style={{ border: "0.1rem grey solid" }}>
-            {loader ? (
-              <Loader />
-            ) : genericSearchResult.total === 0 ? (
-              <p>No Data found</p>
-            ) : (
-              <div>
-                <Grid container spacing={4}>
-                  {genericSearchResult.results.map((item) => {
+            <Grid container direction="row">
+              <Grid item>
+                {loader ? (
+                  <Loader />
+                ) : genericSearchResult.total === 0 ? (
+                  <p>No Data found</p>
+                ) : (
+                  <div>
+                    <Grid container spacing={4}>
+                      {genericSearchResult.results.map((item) => {
+                        return (
+                          <Grid
+                            item
+                            key={item.id}
+                            xl={3}
+                            lg={4}
+                            md={6}
+                            sm={12}
+                            xs={12}
+                          >
+                            <ProductCard
+                              type={
+                                filter === "characters"
+                                  ? "character"
+                                  : filter === "comics"
+                                  ? "book"
+                                  : filter
+                              }
+                              endYear={item.endYear}
+                              id={item.id}
+                              img={
+                                item.thumbnail.path +
+                                "." +
+                                item.thumbnail.extension
+                              }
+                              price={item.prices && item.prices[0].price}
+                              title={item.name ? item.name : item.title}
+                              startYear={item.startYear}
+                            />
+                          </Grid>
+                        );
+                      })}
+                    </Grid>
+                  </div>
+                )}
+              </Grid>
+            </Grid>
+            <Divider variant="fullWidth" />
+            <Grid item>
+              <p style={{ fontFamily: "Goldman", fontSize: "2rem" }}>
+                Our Collections
+              </p>
+              {searchedNewBooks.length === 0
+                ? "No Results Found"
+                : searchedNewBooks.map((item) => {
                     return (
                       <Grid
                         item
-                        key={item.id}
+                        key={item.book.id}
                         xl={3}
                         lg={4}
                         md={6}
@@ -111,28 +162,18 @@ export default function Characters({ match }) {
                         xs={12}
                       >
                         <ProductCard
-                          type={
-                            filter === "characters"
-                              ? "character"
-                              : filter === "comics"
-                              ? "book"
-                              : filter
-                          }
+                          type="book"
                           endYear={item.endYear}
-                          id={item.id}
-                          img={
-                            item.thumbnail.path + "." + item.thumbnail.extension
-                          }
-                          price={item.prices && item.prices[0].price}
-                          title={item.name ? item.name : item.title}
-                          startYear={item.startYear}
+                          id={item.book.id}
+                          img={item.book.image}
+                          price={item.book.price}
+                          title={item.name ? item.name : item.book.title}
+                          startYear={item.book.startYear}
                         />
                       </Grid>
                     );
                   })}
-                </Grid>
-              </div>
-            )}
+            </Grid>
           </Grid>
         </Grid>
       </Container>
