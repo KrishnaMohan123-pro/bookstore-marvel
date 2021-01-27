@@ -76,18 +76,14 @@ export default function SideDrawer() {
         </IconButton>
       </div>
       {showOptions ? (
-        <div className="side-drawer-options">
+        <div
+          className="side-drawer-options"
+          onBlur={() => {
+            setShowOptions(false);
+          }}
+        >
           <SearchBar />
-          <ButtonGroup orientation="vertical">
-            <Button
-              color="inherit"
-              variant="text"
-              onClick={() => {
-                history.push("/account");
-              }}
-            >
-              Account
-            </Button>
+          <ButtonGroup orientation="vertical" className="mt-2">
             <Button
               color="inherit"
               variant="text"

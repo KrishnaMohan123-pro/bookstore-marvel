@@ -36,21 +36,22 @@ export default function Home() {
                       style={{ color: "#fff" }}
                     >
                       <Grid container>
-                        <Grid item lg={5}>
+                        <Grid item lg={5} md={5} sm={12} xs={12}>
                           <img
+                            className="home-screen-character-image"
                             alt={character.name}
                             src={character.image}
-                            style={{ width: "50%" }}
                           />
                         </Grid>
-                        <Grid item lg={7} style={{ padding: "2rem" }}>
-                          <p
-                            style={{
-                              fontFamily: "Goldman",
-                              fontSize: "4rem",
-                              textDecoration: "underline",
-                            }}
-                          >
+                        <Grid
+                          item
+                          lg={7}
+                          md={7}
+                          sm={12}
+                          xs={12}
+                          style={{ padding: "2rem" }}
+                        >
+                          <p className="home-screen-character-name">
                             {character.name.toUpperCase()}
                           </p>
                         </Grid>
@@ -66,6 +67,7 @@ export default function Home() {
       <section id="links">
         <div className="container">
           <div className="row no-gutters p-2">
+            <div className=" col-sm-4 "></div>
             <div className="links-col col-sm-4 ">
               <Link to="/popular">
                 <p>
@@ -74,26 +76,7 @@ export default function Home() {
                 <p className="link-text">Popular and Trending</p>
               </Link>
             </div>
-            <div className="links-col col-sm-4">
-              <Link to="/">
-                <p>
-                  <i className="fas fa-user fa-3x"></i>
-                </p>
-                <p className="link-text">
-                  Any favourite Character?
-                  <br />
-                  Try me.....
-                </p>
-              </Link>
-            </div>
-            <div className="links-col col-sm-4">
-              <Link to="/">
-                <p>
-                  <i className="fas fa-search fa-3x"></i>
-                </p>
-                <p className="link-text">Search for your favourite series</p>
-              </Link>
-            </div>
+            <div className=" col-sm-4 "></div>
           </div>
         </div>
       </section>

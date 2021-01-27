@@ -9,7 +9,8 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 
 export default function Books() {
   const newBooks = useSelector((state) => state.newBooks);
-  console.log(newBooks);
+  let slidesToShow =
+    window.innerWidth > 1000 ? 3 : window.innerWidth > 700 ? 2 : 1;
 
   return (
     <div>
@@ -20,7 +21,7 @@ export default function Books() {
         <Container>
           <Grid container>
             <Carousel
-              slidesToShow={3}
+              slidesToShow={slidesToShow}
               speed={500}
               dragging={false}
               autoGenerateStyleTag={true}
