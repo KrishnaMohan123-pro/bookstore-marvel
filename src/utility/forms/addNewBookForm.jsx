@@ -114,10 +114,13 @@ export default function AddNewBookForm() {
         className="mt-2"
         color="primary"
         id="publishedOn"
+        label="Publish Date"
         style={{ width: "100%" }}
         variant="outlined"
         onChange={handleChange}
         type="date"
+        InputLabelProps={{ shrink: true }}
+        value={null}
         required
       />
       <TextField
