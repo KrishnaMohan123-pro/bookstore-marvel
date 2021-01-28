@@ -10,7 +10,13 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 export default function Books() {
   const newBooks = useSelector((state) => state.newBooks);
   let slidesToShow =
-    window.innerWidth > 1000 ? 3 : window.innerWidth > 700 ? 2 : 1;
+    newBooks.length < 3
+      ? newBooks.length
+      : window.innerWidth > 1000
+      ? 3
+      : window.innerWidth > 700
+      ? 2
+      : 1;
 
   return (
     <div>
