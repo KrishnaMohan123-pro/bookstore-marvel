@@ -13,25 +13,30 @@ import {
   characterSortOptions,
 } from "../../utility/sortsAndFilters/sort";
 import { querySearched } from "../../actions/queryActions";
+import { useLocation } from "react-router-dom";
 
-export default function Characters({ match }) {
+export default function Characters() {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const query = location.search.slice(7);
   const loader = useSelector((state) => state.loader.data);
   const newBooks = useSelector((state) => state.newBooks);
   const searchedNewBooks = newBooks.filter((book) =>
-    book.book.title.toLowerCase().startsWith(match.params.query.toLowerCase())
+    book.book.title.toLowerCase().startsWith(query.toLowerCase())
   );
   console.log(newBooks, searchedNewBooks);
   const [filter, setFilter] = useState("characters");
   const [sort, setSort] = useState("modified");
   const genericSearchResult = useSelector((state) => state.genericSearch);
   useEffect(() => {
-    dispatch(querySearched(match.params.query));
-    dispatch(search(match.params.query, sort, filter));
-    return () => {
-      dispatch(querySearched(""));
-    };
-  }, [dispatch, match.params.query, sort, filter]);
+    if (query.length !== 0) {
+      dispatch(querySearched(query));
+      dispatch(search(query, sort, filter));
+      return () => {
+        dispatch(querySearched(""));
+      };
+    }
+  }, [dispatch, query, sort, filter]);
   const sortOptions =
     filter === "characters"
       ? characterSortOptions
@@ -48,6 +53,9 @@ export default function Characters({ match }) {
   function clearSortAndFilter() {
     setSort("");
     setFilter("characters");
+  }
+  if (query.length === 0) {
+    return <p>PLEASE ENTER A NAME</p>;
   }
   if (loader) {
     return <Loader />;

@@ -28,7 +28,6 @@ export default function SearchBar() {
   useEffect(() => {
     setName(query);
   }, [query]);
-  console.log(`name:${name}`, `query:${query}`);
   function onInputChange(event) {
     setName(event.target.value);
     setShowDropDown(true);
@@ -40,7 +39,11 @@ export default function SearchBar() {
     setShowDropDown(false);
 
     if (name.length > 0) {
-      history.push(`/search/q=${name}`);
+      history.push({
+        pathname: "/search",
+        search: `?query=${name}`,
+        state: { query: name },
+      });
     }
   }
 

@@ -71,7 +71,7 @@ function App() {
           <ProtectedRoute path="/admin" exact component={Admin} />
           <Route exact path="/popular" render={() => <Books />} />
           <Route exact path="/book/:book_id" component={bookDetail} />
-          <Route exact path="/search/q=:query" component={Characters} />
+          <Route exact path="/search" component={Characters} />
           <Route
             exact
             path="/character/:character_id"
