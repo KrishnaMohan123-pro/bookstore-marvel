@@ -4,7 +4,7 @@ import "./styles.css";
 import { Link } from "react-router-dom";
 import CartCard from "../../components/cartCard/cartCard";
 import PayButton from "../../services/razorPay/frontend/index";
-import { Container, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import SaveItemsButton from "../../components/Buttons/saveItemsButton";
 export default function Cart() {
   const cartItems = useSelector((state) => state.cart).cart;
@@ -60,7 +60,7 @@ export default function Cart() {
         </p>
       </div>
       <PayButton />
-      <Container>
+      <div className="container">
         <Grid container direction="column">
           <h1>Saved Characters</h1>
           {savedItems.character.length === 0
@@ -70,7 +70,7 @@ export default function Cart() {
                   <Grid
                     item
                     id={item.id}
-                    style={{ marginTop: "1rem", border: "solid 0.15rem grey" }}
+                    style={{ border: "solid 0.15rem grey" }}
                   >
                     <Grid container style={{ padding: "1.5rem" }}>
                       <Grid item lg={3} md={3} sm={12} xs={12}>
@@ -109,7 +109,7 @@ export default function Cart() {
                   <Grid
                     item
                     id={item.id}
-                    style={{ marginTop: "1rem", border: "solid 0.15rem grey" }}
+                    style={{ border: "solid 0.15rem grey" }}
                   >
                     <Grid container style={{ padding: "1.5rem" }}>
                       <Grid item lg={3} md={3} sm={12} xs={12}>
@@ -139,7 +139,7 @@ export default function Cart() {
                 );
               })}
         </Grid>
-      </Container>
+      </div>
     </div>
   );
 }
