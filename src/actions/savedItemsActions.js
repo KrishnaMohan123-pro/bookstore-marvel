@@ -13,6 +13,7 @@ import {
 
 export function saveItem(type, item) {
   return (dispatch, getState, { getFirebase }) => {
+    dispatch(firebaseLoadingAction());
     const firebase = getFirebase();
     const uid = getState().auth.uid;
     const savedItems = getState().savedItems;
@@ -34,6 +35,37 @@ export function saveItem(type, item) {
         const prevCharacter = savedItems.character;
         prevCharacter.push(item);
         dispatch(saveCharacterAction(prevCharacter));
+        break;
+      default:
+        console.log("default");
+    }
+    dispatch(stopLoadingAction());
+  };
+}
+export function removeItem(type, item) {
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+    const savedItems = getState().savedItems;
+    const uid = getState().auth.uid;
+    firebase
+      .firestore()
+      .collection("cart")
+      .doc(uid)
+      .collection(type)
+      .doc(item.id.toString())
+      .delete();
+    switch (type) {
+      case "series":
+        const prevSeries = savedItems.series;
+        const newSeries = prevSeries.filter((series) => series.id !== item.id);
+        dispatch(removeSeriesAction(newSeries));
+        break;
+      case "character":
+        const prevCharacter = savedItems.character;
+        const newCharacter = prevCharacter.filter(
+          (singleCharacter) => singleCharacter.id !== item.id
+        );
+        dispatch(removeCharacterAction(newCharacter));
         break;
       default:
         console.log("default");
