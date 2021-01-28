@@ -17,6 +17,7 @@ import { initialiseUser } from "./actions/authActions";
 import { initialiseCart } from "./actions/cartActions";
 import { fetchNewBooks } from "./actions/newBookAdditionActions";
 import HourglassFullTwoToneIcon from "@material-ui/icons/HourglassFullTwoTone";
+import { initialiseSavedItems } from "./actions/savedItemsActions";
 
 function bookDetail({ match }) {
   return <Book id={match.params.book_id} />;
@@ -55,6 +56,7 @@ function App() {
     dispatch({ type: "LOGGED_IN" });
     dispatch(initialiseUser(uid));
     dispatch(initialiseCart(uid));
+    dispatch(initialiseSavedItems(uid));
     dispatch(fetchNewBooks());
   }
   if (!isLoaded) {

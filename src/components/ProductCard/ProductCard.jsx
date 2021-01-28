@@ -1,12 +1,12 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import CartButton from "../CartButton/CartButton";
+import SaveItemsButton from "../Buttons/saveItemsButton";
 
 const useStyles = makeStyles({
   root: {
@@ -80,14 +80,12 @@ export default function ProductCard(props) {
             title={props.title}
           />
         ) : (
-          <Link
-            to={"/" + props.type + "/" + props.id}
-            style={{ margin: "0px auto" }}
-          >
-            <Button variant="contained" color="primary">
-              Know More
-            </Button>
-          </Link>
+          <SaveItemsButton
+            id={props.id}
+            img={props.img}
+            title={props.title}
+            type={props.type}
+          />
         )}
       </CardActions>
     </Card>
