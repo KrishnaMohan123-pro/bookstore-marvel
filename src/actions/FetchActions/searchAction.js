@@ -13,7 +13,6 @@ import {
   stopLoadingAction,
 } from "../actionCreators/loadActionCreators";
 export function search(name, sort, filter) {
-  console.log(sort, filter);
   return (dispatch, getState, { getFirebase }) => {
     dispatch(dataLoadingAction());
     switch (filter) {
@@ -35,7 +34,6 @@ export function search(name, sort, filter) {
         break;
       case "comics":
         fetchComicsWithStartName(name, sort).then((res) => {
-          console.log(res);
           dispatch(
             searchAction({ total: res.data.total, results: res.data.results })
           );

@@ -78,8 +78,6 @@ export function initialiseSavedItems(uid) {
     const firebase = getFirebase();
     const seriesDataArray = [];
     const characterDataArray = [];
-    console.log("saved items");
-    console.log(uid);
     const seriesResponse = await firebase
       .firestore()
       .collection("cart")
@@ -92,7 +90,6 @@ export function initialiseSavedItems(uid) {
       .doc(uid)
       .collection("character")
       .get();
-    console.log(characterResponse);
     seriesResponse.forEach((doc) => {
       seriesDataArray.push(doc.data());
     });

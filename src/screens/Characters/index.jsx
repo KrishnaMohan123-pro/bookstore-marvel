@@ -19,17 +19,13 @@ export default function Characters() {
   const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
+  var searchParams = new URLSearchParams(location.search);
   // Query Name
-  const query = location.search.slice(7, location.search.indexOf("sort") - 1);
+  const query = searchParams.get("query");
   // Query sort
-  const sortQuery = location.search.slice(
-    location.search.indexOf("sort") + 5,
-    location.search.indexOf("filter") - 1
-  );
+  const sortQuery = searchParams.get("sort");
   // Query Filter
-  const filterQuery = location.search.slice(
-    location.search.indexOf("filter") + 7
-  );
+  const filterQuery = searchParams.get("filter");
 
   const loader = useSelector((state) => state.loader.data);
   const newBooks = useSelector((state) => state.newBooks);
@@ -90,13 +86,7 @@ export default function Characters() {
   }
 
   if (genericSearchResult.total === 0) {
-    return (
-      <p>
-        NO DATA FOUND
-        <br />
-        PLEASE ENTER A VALID NAME, SORT AND FILTER
-      </p>
-    );
+    return <p>NO ITEMS FOUND MATCHING YOUR QUERY</p>;
   }
 
   return (
