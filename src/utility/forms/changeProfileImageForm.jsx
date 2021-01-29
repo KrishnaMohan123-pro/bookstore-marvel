@@ -12,7 +12,6 @@ export default function ChangeProfileImageForm() {
   }
   function handleImageUpload(e) {
     e.preventDefault();
-    console.log(newProfileImage);
     if (newProfileImage) dispatch(uploadImage(newProfileImage));
     else toast.error("Please upload an image");
   }

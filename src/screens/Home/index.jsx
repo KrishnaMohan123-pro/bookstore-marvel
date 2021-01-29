@@ -5,10 +5,7 @@ import { Link } from "react-router-dom";
 import Carousel from "nuka-carousel";
 import { Grid, Container } from "@material-ui/core";
 import topCharacters from "../../utility/characters/homeScreenCharacters";
-import { useSelector } from "react-redux";
 export default function Home() {
-  const savedItems = useSelector((state) => state.savedItems);
-  console.log(savedItems);
   return (
     <section className="home-body">
       <section>

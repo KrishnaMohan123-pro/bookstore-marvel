@@ -78,7 +78,7 @@ export default function Characters() {
   function clearSortAndFilter() {
     history.push({
       pathname: "/search",
-      search: `?query=${query}&sort=${"modified"}&filter=${"characters"}`,
+      search: `?query=${query}&sort=${characterSortOptions[1].value}&filter=${filterOptions[0].value}`,
     });
   }
   if (!location.search.includes("sort") || !location.search.includes("filter"))

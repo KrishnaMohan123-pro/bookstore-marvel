@@ -15,7 +15,6 @@ export default function Account() {
   const auth = useSelector((state) => state.auth);
   const dialog = useSelector((state) => state.dialog);
   const role = useSelector((state) => state.auth.user.role);
-  console.log(user);
 
   if (!loggedIn) {
     return (

@@ -10,7 +10,6 @@ export default function Cart() {
   const cartItems = useSelector((state) => state.cart).cart;
   const loggedIn = useSelector((state) => state.loggedIn);
   const savedItems = useSelector((state) => state.savedItems);
-  console.log(savedItems);
 
   if (!loggedIn) {
     return (
@@ -69,7 +68,7 @@ export default function Cart() {
                 return (
                   <Grid
                     item
-                    id={item.id}
+                    key={item.id}
                     style={{ border: "solid 0.15rem grey" }}
                   >
                     <Grid container style={{ padding: "1.5rem" }}>
@@ -108,7 +107,7 @@ export default function Cart() {
                 return (
                   <Grid
                     item
-                    id={item.id}
+                    key={item.id}
                     style={{ border: "solid 0.15rem grey" }}
                   >
                     <Grid container style={{ padding: "1.5rem" }}>
