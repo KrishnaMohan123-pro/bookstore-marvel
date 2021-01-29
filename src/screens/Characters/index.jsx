@@ -49,13 +49,18 @@ export default function Characters() {
     }
   }, [dispatch, query, sortQuery, filterQuery, location.search]);
 
-  const sortOptions =
-    filterQuery === "characters"
-      ? characterSortOptions
-      : filterQuery === "comics"
-      ? comicsSortOptions
-      : seriesSortOptions;
-
+  const sortOptions = () => {
+    switch (filterQuery) {
+      case "characters":
+        return characterSortOptions;
+      case "series":
+        return seriesSortOptions;
+      case "comics":
+        return comicsSortOptions;
+      default:
+        return characterSortOptions;
+    }
+  };
   function handleSortChange(e) {
     history.push({
       pathname: "/search",
@@ -76,6 +81,14 @@ export default function Characters() {
       search: `?query=${query}&sort=${"modified"}&filter=${"characters"}`,
     });
   }
+  if (!location.search.includes("sort") || !location.search.includes("filter"))
+    return (
+      <p>
+        PLEASE CHECK THE URL
+        <br />
+        MAY BE MISSPELLED SORT OR FILTER
+      </p>
+    );
 
   if (query.length === 0) {
     return <p>PLEASE ENTER A NAME</p>;
@@ -83,10 +96,6 @@ export default function Characters() {
 
   if (loader) {
     return <Loader />;
-  }
-
-  if (genericSearchResult.total === 0) {
-    return <p>NO ITEMS FOUND MATCHING YOUR QUERY</p>;
   }
 
   return (
@@ -98,7 +107,7 @@ export default function Characters() {
               <Grid item>
                 <span>
                   <Selector
-                    options={sortOptions}
+                    options={sortOptions()}
                     onChange={handleSortChange}
                     value={sortQuery}
                     label="SORT"
@@ -116,7 +125,7 @@ export default function Characters() {
                 </span>
               </Grid>
               <Grid item>
-                {sortQuery.length === 0 ||
+                {sortQuery === "modified" &&
                 filterQuery === "characters" ? null : (
                   <Button
                     size="small"
@@ -130,8 +139,47 @@ export default function Characters() {
             </Grid>
           </Grid>
           <Grid item lg={10} style={{ border: "0.1rem grey solid" }}>
-            <Grid container direction="row">
+            <Grid container direction="column">
               <Grid item>
+                <p style={{ fontFamily: "Goldman", fontSize: "2rem" }}>
+                  Our Collections
+                </p>
+                {searchedNewBooks.length === 0 ? (
+                  <p>
+                    <br />
+                    No Results Found
+                  </p>
+                ) : (
+                  searchedNewBooks.map((item) => {
+                    return (
+                      <Grid
+                        item
+                        key={item.book.id}
+                        xl={3}
+                        lg={4}
+                        md={6}
+                        sm={12}
+                        xs={12}
+                      >
+                        <ProductCard
+                          type="book"
+                          endYear={item.endYear}
+                          id={item.book.id}
+                          img={item.book.image}
+                          price={item.book.price}
+                          title={item.name ? item.name : item.book.title}
+                          startYear={item.book.startYear}
+                        />
+                      </Grid>
+                    );
+                  })
+                )}
+              </Grid>
+              <Divider variant="fullWidth" style={{ margin: "2rem 0" }} />
+              <Grid item>
+                <p style={{ fontFamily: "Goldman", fontSize: "2rem" }}>
+                  Marvel Collection
+                </p>
                 {loader ? (
                   <Loader />
                 ) : genericSearchResult.total === 0 ? (
@@ -176,37 +224,6 @@ export default function Characters() {
                   </div>
                 )}
               </Grid>
-            </Grid>
-            <Divider variant="fullWidth" />
-            <Grid item>
-              <p style={{ fontFamily: "Goldman", fontSize: "2rem" }}>
-                Our Collections
-              </p>
-              {searchedNewBooks.length === 0
-                ? "No Results Found"
-                : searchedNewBooks.map((item) => {
-                    return (
-                      <Grid
-                        item
-                        key={item.book.id}
-                        xl={3}
-                        lg={4}
-                        md={6}
-                        sm={12}
-                        xs={12}
-                      >
-                        <ProductCard
-                          type="book"
-                          endYear={item.endYear}
-                          id={item.book.id}
-                          img={item.book.image}
-                          price={item.book.price}
-                          title={item.name ? item.name : item.book.title}
-                          startYear={item.book.startYear}
-                        />
-                      </Grid>
-                    );
-                  })}
             </Grid>
           </Grid>
         </Grid>
