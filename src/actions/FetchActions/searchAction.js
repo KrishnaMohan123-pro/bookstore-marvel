@@ -13,6 +13,7 @@ import {
   stopLoadingAction,
 } from "../actionCreators/loadActionCreators";
 export function search(name, sort, filter) {
+  console.log(sort, filter);
   return (dispatch, getState, { getFirebase }) => {
     dispatch(dataLoadingAction());
     switch (filter) {

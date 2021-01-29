@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Button, Grid, Container, Divider } from "@material-ui/core";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import Selector from "../../components/Selector/selector";
@@ -13,55 +13,90 @@ import {
   characterSortOptions,
 } from "../../utility/sortsAndFilters/sort";
 import { querySearched } from "../../actions/queryActions";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 export default function Characters() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
-  const query = location.search.slice(7);
+  // Query Name
+  const query = location.search.slice(7, location.search.indexOf("sort") - 1);
+  // Query sort
+  const sortQuery = location.search.slice(
+    location.search.indexOf("sort") + 5,
+    location.search.indexOf("filter") - 1
+  );
+  // Query Filter
+  const filterQuery = location.search.slice(
+    location.search.indexOf("filter") + 7
+  );
+
   const loader = useSelector((state) => state.loader.data);
   const newBooks = useSelector((state) => state.newBooks);
   const searchedNewBooks = newBooks.filter((book) =>
     book.book.title.toLowerCase().startsWith(query.toLowerCase())
   );
-  console.log(newBooks, searchedNewBooks);
-  const [filter, setFilter] = useState("characters");
-  const [sort, setSort] = useState("modified");
   const genericSearchResult = useSelector((state) => state.genericSearch);
   useEffect(() => {
-    if (query.length !== 0) {
-      dispatch(querySearched(query));
-      dispatch(search(query, sort, filter));
-      return () => {
-        dispatch(querySearched(""));
-      };
+    if (
+      location.search.includes("sort") ||
+      location.search.includes("filter") ||
+      location.search.includes("query")
+    ) {
+      if (query.length !== 0) {
+        dispatch(querySearched(query));
+        dispatch(search(query, sortQuery, filterQuery));
+        return () => {
+          dispatch(querySearched(""));
+        };
+      }
     }
-  }, [dispatch, query, sort, filter]);
+  }, [dispatch, query, sortQuery, filterQuery, location.search]);
+
   const sortOptions =
-    filter === "characters"
+    filterQuery === "characters"
       ? characterSortOptions
-      : filter === "comics"
+      : filterQuery === "comics"
       ? comicsSortOptions
       : seriesSortOptions;
+
   function handleSortChange(e) {
-    setSort(e.target.value);
+    history.push({
+      pathname: "/search",
+      search: `?query=${query}&sort=${e.target.value}&filter=${filterQuery}`,
+    });
   }
+
   function handleFilterChange(e) {
-    setSort("modified");
-    setFilter(e.target.value);
+    history.push({
+      pathname: "/search",
+      search: `?query=${query}&sort=${"modified"}&filter=${e.target.value}`,
+    });
   }
+
   function clearSortAndFilter() {
-    setSort("");
-    setFilter("characters");
+    history.push({
+      pathname: "/search",
+      search: `?query=${query}&sort=${"modified"}&filter=${"characters"}`,
+    });
   }
+
   if (query.length === 0) {
     return <p>PLEASE ENTER A NAME</p>;
   }
+
   if (loader) {
     return <Loader />;
   }
+
   if (genericSearchResult.total === 0) {
-    return <p>No Data found</p>;
+    return (
+      <p>
+        NO DATA FOUND
+        <br />
+        PLEASE ENTER A VALID NAME, SORT AND FILTER
+      </p>
+    );
   }
 
   return (
@@ -75,7 +110,7 @@ export default function Characters() {
                   <Selector
                     options={sortOptions}
                     onChange={handleSortChange}
-                    value={sort}
+                    value={sortQuery}
                     label="SORT"
                   />
                 </span>
@@ -85,13 +120,14 @@ export default function Characters() {
                   <Selector
                     options={filterOptions}
                     onChange={handleFilterChange}
-                    value={filter}
+                    value={filterQuery}
                     label="FILTER"
                   />
                 </span>
               </Grid>
               <Grid item>
-                {sort.length === 0 || filter === "characters" ? null : (
+                {sortQuery.length === 0 ||
+                filterQuery === "characters" ? null : (
                   <Button
                     size="small"
                     onClick={clearSortAndFilter}
@@ -126,11 +162,11 @@ export default function Characters() {
                           >
                             <ProductCard
                               type={
-                                filter === "characters"
+                                filterQuery === "characters"
                                   ? "character"
-                                  : filter === "comics"
+                                  : filterQuery === "comics"
                                   ? "book"
-                                  : filter
+                                  : filterQuery
                               }
                               endYear={item.endYear}
                               id={item.id}

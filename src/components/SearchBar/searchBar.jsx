@@ -41,8 +41,7 @@ export default function SearchBar() {
     if (name.length > 0) {
       history.push({
         pathname: "/search",
-        search: `?query=${name}`,
-        state: { query: name },
+        search: `?query=${name}&sort=${"modified"}&filter=${"characters"}`,
       });
     }
   }
