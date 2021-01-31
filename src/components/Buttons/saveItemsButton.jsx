@@ -2,10 +2,12 @@ import React from "react";
 import { Button } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { saveItem, removeItem } from "../../actions/savedItemsActions";
+import { toast } from "react-toastify";
 
 export default function SaveItemsButton(props) {
   const dispatch = useDispatch();
   const savedItems = useSelector((state) => state.savedItems);
+  const loggedIn = useSelector((state) => state.loggedIn);
   const itemsId = [];
   switch (props.type) {
     case "series":
@@ -19,10 +21,14 @@ export default function SaveItemsButton(props) {
   }
   const included = itemsId.includes(props.id);
   function handleClick(e) {
-    if (included) {
-      dispatch(removeItem(props.type, props));
+    if (!loggedIn) {
+      toast.error("Please Signup!!");
     } else {
-      dispatch(saveItem(props.type, props));
+      if (included) {
+        dispatch(removeItem(props.type, props));
+      } else {
+        dispatch(saveItem(props.type, props));
+      }
     }
   }
   return (

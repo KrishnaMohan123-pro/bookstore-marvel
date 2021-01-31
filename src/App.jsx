@@ -52,12 +52,12 @@ function App() {
   const isLoaded = useSelector((state) => state.firebase.auth.isLoaded);
   const uid = useSelector((state) => state.firebase.auth.uid);
   const dispatch = useDispatch();
+  dispatch(fetchNewBooks());
   if (!emptyUser) {
     dispatch({ type: "LOGGED_IN" });
     dispatch(initialiseUser(uid));
     dispatch(initialiseCart(uid));
     dispatch(initialiseSavedItems(uid));
-    dispatch(fetchNewBooks());
   }
   if (!isLoaded) {
     return (

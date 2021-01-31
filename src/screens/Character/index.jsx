@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
 
 import { fetchCharacter } from "../../actions/FetchActions/characterFetchAction";
 import Loader from "../../components/Loader/loader";
-import { Container } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 import "./styles.css";
 import { useDispatch, useSelector } from "react-redux";
+import SaveItemsButton from "../../components/Buttons/saveItemsButton";
 
 export default function Character(props) {
   const dispatch = useDispatch();
@@ -50,6 +50,16 @@ export default function Character(props) {
                     margin: "5px auto",
                   }}
                 />
+              </Grid>
+              <Grid item>
+                <div>
+                  <SaveItemsButton
+                    id={character.id}
+                    img={character.image}
+                    title={character.name}
+                    type="character"
+                  />
+                </div>
               </Grid>
             </Grid>
           </Grid>

@@ -25,7 +25,7 @@ export default function CartButton(props) {
         }}
         style={{ margin: "0px auto" }}
       >
-        Add to cart
+        Add
       </Button>
     );
   }
