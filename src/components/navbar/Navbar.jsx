@@ -88,17 +88,19 @@ export default function Navbar() {
             </Fragment>
           )}
         </div>
-        <div className="side-drawer-button ml-auto">
-          <Button
-            color="inherit"
-            variant="text"
-            onClick={() => {
-              history.push("/account");
-            }}
-          >
-            <Avatar alt={userName} src={userImage} />
-          </Button>
-        </div>
+        {loggedIn ? (
+          <div className="side-drawer-button ml-auto">
+            <Button
+              color="inherit"
+              variant="text"
+              onClick={() => {
+                history.push("/account");
+              }}
+            >
+              <Avatar alt={userName} src={userImage} />
+            </Button>
+          </div>
+        ) : null}
       </Toolbar>
     </AppBar>
   );
