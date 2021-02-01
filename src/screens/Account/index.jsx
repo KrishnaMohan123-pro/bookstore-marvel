@@ -8,6 +8,7 @@ import { Container, Grid } from "@material-ui/core";
 import CameraAltIcon from "@material-ui/icons/CameraAlt";
 import AddNewBookForm from "../../utility/forms/addNewBookForm";
 import ChangeProfileImageForm from "../../utility/forms/changeProfileImageForm";
+import EditNameForm from "../../utility/forms/editNameForm";
 
 export default function Account() {
   const loggedIn = useSelector((state) => state.loggedIn);
@@ -65,9 +66,14 @@ export default function Account() {
               </Grid>
               <Grid item style={{ lineHeight: "0.15rem" }}>
                 <h6>Name:</h6>
-                <p>{user.fname}</p>
+                <p>{`${user.fname} ${user.lname}`}</p>
                 <br />
-                <p>{user.lname}</p>
+                <InputDialog
+                  childComponent={<EditNameForm />}
+                  dialogName={"Edit_Name"}
+                  dialogLabel={"Edit Name"}
+                  dialogVisible={dialog.editNameDialogVisible}
+                />
               </Grid>
             </Grid>
           </Grid>
@@ -84,11 +90,17 @@ export default function Account() {
             }}
           >
             <Grid container direction="column">
-              <Grid item>
+              <Grid
+                item
+                style={{ lineHeight: "0.15rem", marginBottom: "1.5rem" }}
+              >
                 <h6>Email:</h6>
                 <p>{user.email}</p>
               </Grid>
-              <Grid item>
+              <Grid
+                item
+                style={{ lineHeight: "0.15rem", marginBottom: "1.5rem" }}
+              >
                 <h6>Phone Number:</h6>
                 {user.phone.length === 0 ? (
                   <InputDialog

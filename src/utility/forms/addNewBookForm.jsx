@@ -2,9 +2,22 @@ import React, { useState } from "react";
 import { Button, TextField } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { addNewBook } from "../../actions/newBookAdditionActions";
+import Selector from "../../components/Selector/selector";
 
 export default function AddNewBookForm() {
   const dispatch = useDispatch();
+  const [type, setType] = useState("book");
+
+  const [newItem, setNewItem] = useState({
+    description: "",
+    endYear: "",
+    image: "",
+    name: "",
+    publishedOn: "",
+    price: "",
+    startYear: "",
+    title: "",
+  });
   const [newBook, setNewBook] = useState({
     description: "",
     id: "",
@@ -14,80 +27,115 @@ export default function AddNewBookForm() {
     price: 0,
     title: "",
   });
-  console.log(newBook);
+  const [newCharacter, setNewCharacter] = useState({
+    description: "",
+    image: "",
+    name: "",
+  });
+  const [newSeries, setNewSeries] = useState({
+    description: "",
+    endYear: "",
+    image: "",
+    startYear: "",
+    title: "",
+  });
+
+  const typeOptions = [
+    { name: "COMICS", value: "book" },
+    { name: "CHARACTER", value: "character" },
+    { name: "SERIES", value: "series" },
+  ];
+
+  function assignValue() {
+    switch (type) {
+      case "book":
+        setNewBook(newItem);
+        break;
+      case "character":
+        setNewCharacter(newItem);
+        break;
+      case "series":
+        setNewSeries(newItem);
+        break;
+      default:
+        console.log("Default");
+    }
+  }
+
   function handleChange(e) {
     const value = e.target.value;
     const id = e.target.id;
-    setNewBook((prevValue) => {
+    setNewItem((prevValue) => {
       switch (id) {
-        case "title":
-          return {
-            description: prevValue.description,
-            id: prevValue.id,
-            image: prevValue.image,
-            publishedOn: prevValue.publishedOn,
-            price: prevValue.price,
-            title: value,
-          };
         case "description":
           return {
+            ...prevValue,
             description: value,
-            id: prevValue.id,
-            image: prevValue.image,
-            publishedOn: prevValue.publishedOn,
-            price: prevValue.price,
-            title: prevValue.title,
           };
+        case "endYear":
+          return { ...prevValue, endYear: value };
+        case "name":
+          return { ...prevValue, name: value };
         case "image":
           return {
-            description: prevValue.description,
-            id: prevValue.id,
+            ...prevValue,
             image: value,
-            publishedOn: prevValue.publishedOn,
-            price: prevValue.price,
-            title: prevValue.title,
           };
         case "publishedOn":
           return {
-            description: prevValue.description,
-            id: prevValue.id,
-            image: prevValue.image,
+            ...prevValue,
             publishedOn: value,
-            price: prevValue.price,
-            title: prevValue.title,
           };
         case "price":
           return {
-            description: prevValue.description,
-            id: prevValue.id,
-            image: prevValue.image,
-            publishedOn: prevValue.publishedOn,
+            ...prevValue,
             price: value,
-            title: prevValue.title,
+          };
+        case "startYear":
+          return { ...prevValue, startYear: value };
+        case "title":
+          return {
+            ...prevValue,
+            title: value,
           };
         default:
           return prevValue;
       }
     });
+    assignValue();
   }
+  console.log(newCharacter, newBook, newSeries);
   function handleNewBookAddition(e) {
     e.preventDefault();
     dispatch(addNewBook(newBook));
     dispatch({ type: "CLOSE_DIALOG" });
   }
+  function handleTypeChange(e) {
+    setType(e.target.value);
+  }
+  console.log(type);
   return (
     <form onSubmit={(e) => handleNewBookAddition(e)}>
-      <TextField
-        className="mt-2"
-        color="primary"
-        id="title"
-        label="Title"
-        style={{ width: "100%" }}
-        variant="outlined"
-        onChange={handleChange}
-        type="text"
-        required
+      <Selector
+        options={typeOptions}
+        onChange={handleTypeChange}
+        value={type}
+        label="TYPE"
       />
+      {type === "character" ? null : (
+        <TextField
+          className="mt-2"
+          color="primary"
+          id="title"
+          label="Title"
+          style={{ width: "100%" }}
+          variant="outlined"
+          onChange={handleChange}
+          type="text"
+          required
+        />
+      )}
+
       <TextField
         className="mt-2"
         color="primary"

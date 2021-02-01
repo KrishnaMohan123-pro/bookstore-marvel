@@ -71,7 +71,7 @@ export default function Characters() {
   function handleFilterChange(e) {
     history.push({
       pathname: "/search",
-      search: `?query=${query}&sort=${"modified"}&filter=${e.target.value}`,
+      search: `?query=${query}&sort=${characterSortOptions[1].value}&filter=${e.target.value}`,
     });
   }
 
@@ -80,6 +80,9 @@ export default function Characters() {
       pathname: "/search",
       search: `?query=${query}&sort=${characterSortOptions[1].value}&filter=${filterOptions[0].value}`,
     });
+  }
+  if (loader) {
+    return <Loader />;
   }
   if (!location.search.includes("sort") || !location.search.includes("filter"))
     return (
@@ -92,10 +95,6 @@ export default function Characters() {
 
   if (query.length === 0) {
     return <p>PLEASE ENTER A NAME</p>;
-  }
-
-  if (loader) {
-    return <Loader />;
   }
 
   return (

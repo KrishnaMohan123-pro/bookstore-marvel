@@ -3,16 +3,21 @@ import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { addPhone } from "../../actions/authActions";
+import { toast } from "react-toastify";
 export default function AddAddressForm() {
   const userPhone = useSelector((state) => state.auth.user.phone);
   const dispatch = useDispatch();
   const [phone, setPhone] = useState(userPhone);
+  var regExp = /[a-zA-Z]/g;
   function handleChange(e) {
     setPhone(e.target.value);
   }
   function handleSumbit(e) {
     e.preventDefault();
-    dispatch(addPhone(phone));
+    if (!regExp.test(phone) && phone.length === 10) dispatch(addPhone(phone));
+    else {
+      toast.error("Phone number not valid");
+    }
   }
   return (
     <form
