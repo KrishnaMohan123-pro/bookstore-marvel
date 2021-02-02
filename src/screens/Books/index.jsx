@@ -9,7 +9,8 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 
 export default function Books() {
   const newBooks = useSelector((state) => state.newBooks);
-  if (newBooks.length === 0) {
+  const loader = useSelector((state) => state.loader.profile);
+  if (loader) {
     return <p>Loading</p>;
   }
   let slidesToShow =

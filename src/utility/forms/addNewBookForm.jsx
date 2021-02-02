@@ -122,7 +122,19 @@ export default function AddNewBookForm() {
         value={type}
         label="TYPE"
       />
-      {type === "character" ? null : (
+      {type === "character" ? (
+        <TextField
+          className="mt-2"
+          color="primary"
+          id="title"
+          label="Title"
+          style={{ width: "100%" }}
+          variant="outlined"
+          onChange={handleChange}
+          type="text"
+          required
+        />
+      ) : (
         <TextField
           className="mt-2"
           color="primary"

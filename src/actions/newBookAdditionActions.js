@@ -2,6 +2,10 @@ import {
   addNewBookAction,
   fetchNewBooksAction,
 } from "./actionCreators/newBookAdditionActionsCreator";
+import {
+  firebaseLoadingAction,
+  stopLoadingAction,
+} from "./actionCreators/loadActionCreators";
 
 export function addNewBook(book) {
   return async (dispatch, getState, { getFirebase }) => {
@@ -24,6 +28,7 @@ export function addNewBook(book) {
 }
 export function fetchNewBooks() {
   return (dispatch, getState, { getFirebase }) => {
+    dispatch(firebaseLoadingAction());
     const firebase = getFirebase();
     const newBooks = [];
     firebase
@@ -35,6 +40,7 @@ export function fetchNewBooks() {
       })
       .then(() => {
         dispatch(fetchNewBooksAction(newBooks));
+        dispatch(stopLoadingAction());
       });
   };
 }
