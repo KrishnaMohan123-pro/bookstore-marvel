@@ -4,7 +4,6 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
 import CartButton from "../CartButton/CartButton";
 import SaveItemsButton from "../Buttons/saveItemsButton";
 import { useHistory } from "react-router-dom";
@@ -44,6 +43,7 @@ export default function ProductCard(props) {
             search: `?source=${props.source}`,
           });
         }}
+        style={{ cursor: "pointer" }}
       >
         <CardContent>
           <img
