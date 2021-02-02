@@ -1,5 +1,6 @@
 import React from "react";
 import ProductCard from "../ProductCard/ProductCard";
+import { _MARVEL } from "../../utility/sources/sources";
 
 export default function Card(props) {
   return (
@@ -10,6 +11,7 @@ export default function Card(props) {
         title={props.title}
         price={props.price}
         id={props.id}
+        source={_MARVEL}
       />
     </section>
   );

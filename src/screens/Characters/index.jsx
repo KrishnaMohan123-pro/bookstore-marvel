@@ -14,6 +14,7 @@ import {
 } from "../../utility/sortsAndFilters/sort";
 import { querySearched } from "../../actions/queryActions";
 import { useHistory, useLocation } from "react-router-dom";
+import { _OUR_COLLECTION, _MARVEL } from "../../utility/sources/sources";
 
 export default function Characters() {
   const history = useHistory();
@@ -29,8 +30,11 @@ export default function Characters() {
 
   const loader = useSelector((state) => state.loader.data);
   const newBooks = useSelector((state) => state.newBooks);
+  console.log(newBooks);
   const searchedNewBooks = newBooks.filter((book) =>
-    book.book.title.toLowerCase().startsWith(query.toLowerCase())
+    book.title
+      ? book.title.toLowerCase().startsWith(query.toLowerCase())
+      : book.name.toLowerCase().startsWith(query.toLowerCase())
   );
   const genericSearchResult = useSelector((state) => state.genericSearch);
   useEffect(() => {
@@ -153,7 +157,7 @@ export default function Characters() {
                     return (
                       <Grid
                         item
-                        key={item.book.id}
+                        key={item.id}
                         xl={3}
                         lg={4}
                         md={6}
@@ -161,13 +165,14 @@ export default function Characters() {
                         xs={12}
                       >
                         <ProductCard
-                          type="book"
+                          type={item.type}
                           endYear={item.endYear}
-                          id={item.book.id}
-                          img={item.book.image}
-                          price={item.book.price}
-                          title={item.name ? item.name : item.book.title}
-                          startYear={item.book.startYear}
+                          id={item.id}
+                          img={item.image}
+                          price={item.price}
+                          title={item.name ? item.name : item.title}
+                          startYear={item.startYear}
+                          source={_OUR_COLLECTION}
                         />
                       </Grid>
                     );
@@ -215,6 +220,7 @@ export default function Characters() {
                               price={item.prices && item.prices[0].price}
                               title={item.name ? item.name : item.title}
                               startYear={item.startYear}
+                              source={_MARVEL}
                             />
                           </Grid>
                         );

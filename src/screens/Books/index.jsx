@@ -6,12 +6,18 @@ import { Grid, Container } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import Carousel from "nuka-carousel";
 import ProductCard from "../../components/ProductCard/ProductCard";
+import Loader from "../../components/Loader/loader";
+import { _OUR_COLLECTION } from "../../utility/sources/sources";
 
 export default function Books() {
   const newBooks = useSelector((state) => state.newBooks);
   const loader = useSelector((state) => state.loader.profile);
   if (loader) {
-    return <p>Loading</p>;
+    return (
+      <p>
+        <Loader />
+      </p>
+    );
   }
   let slidesToShow =
     newBooks.length < 3
@@ -49,19 +55,20 @@ export default function Books() {
             >
               {newBooks.length === 0
                 ? null
-                : newBooks.map((book) => {
+                : newBooks.map((item) => {
                     return (
-                      <section key={book.book.id}>
+                      <section key={item.id}>
                         <ProductCard
-                          type="book"
+                          type={item.type}
                           img={
-                            book.book.image.length === 0
+                            item.image.length === 0
                               ? "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
-                              : book.book.image
+                              : item.image
                           }
-                          title={book.book.title}
-                          price={book.book.price}
-                          id={book.book.id}
+                          title={item.title ? item.title : item.name}
+                          price={item.price}
+                          id={item.id}
+                          source={_OUR_COLLECTION}
                         />
                       </section>
                     );

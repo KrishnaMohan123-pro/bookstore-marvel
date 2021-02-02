@@ -6,42 +6,47 @@ import { Container, Grid } from "@material-ui/core";
 import { fetchComics } from "../../actions/FetchActions/comicsFetch";
 import { fetchComicsAction } from "../../actions/actionCreators/fetchDataActionCreators";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { _OUR_COLLECTION } from "../../utility/sources/sources";
 export default function Book(props) {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  // source of the collection
+  const source = searchParams.get("source");
+  console.log(source);
   const comics = useSelector((state) => state.comics);
   const newBooks = useSelector((state) => state.newBooks);
   const loader = useSelector((state) => state.loader.data);
   const newBooksLoader = useSelector((state) => state.loader.profile);
   useEffect(() => {
-    if (!newBooksLoader) {
-      let flag = false;
-      let pos = 0;
-      for (let i = 0; i < newBooks.length; i += 1) {
-        if (props.id === newBooks[i].book.id) {
-          pos = i;
-          flag = true;
-          break;
+    if (source === _OUR_COLLECTION) {
+      if (!newBooksLoader) {
+        let pos = 0;
+        for (let i = 0; i < newBooks.length; i += 1) {
+          if (props.id === newBooks[i].id) {
+            pos = i;
+            break;
+          }
         }
-      }
-      if (flag)
         dispatch(
           fetchComicsAction({
             characters: [],
             creators: [],
-            description: newBooks[pos].book.description,
-            id: newBooks[pos].book.id,
+            description: newBooks[pos].description,
+            id: newBooks[pos].id,
             image:
-              newBooks[pos].book.image.length === 0
+              newBooks[pos].image.length === 0
                 ? "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
-                : newBooks[pos].book.image,
-            price: newBooks[pos].book.price,
-            publishDate: newBooks[pos].book.publishedOn,
-            title: newBooks[pos].book.title,
+                : newBooks[pos].image,
+            price: newBooks[pos].price,
+            publishDate: newBooks[pos].publishedOn,
+            title: newBooks[pos].title,
           })
         );
-      else dispatch(fetchComics(props.id));
-    }
-  }, [dispatch, props.id, newBooks, newBooksLoader]);
+      }
+    } else dispatch(fetchComics(props.id));
+  }, [dispatch, props.id, newBooks, newBooksLoader, source]);
   if (loader || newBooksLoader) {
     return <Loader />;
   }

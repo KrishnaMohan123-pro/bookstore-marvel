@@ -7,14 +7,46 @@ import { Container, Grid } from "@material-ui/core";
 import "./styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import SaveItemsButton from "../../components/Buttons/saveItemsButton";
+import { useLocation } from "react-router-dom";
+import { fetchCharacterAction } from "../../actions/actionCreators/fetchDataActionCreators";
+import { _MARVEL } from "../../utility/sources/sources";
 
 export default function Character(props) {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const source = searchParams.get("source");
+  console.log(source);
+
   const character = useSelector((state) => state.character);
   const loader = useSelector((state) => state.loader.data);
+  const newBooksLoader = useSelector((state) => state.loader.profile);
+  const newBooks = useSelector((state) => state.newBooks);
   useEffect(() => {
-    dispatch(fetchCharacter(props.id));
-  }, [dispatch, props.id]);
+    if (source === _MARVEL) {
+      dispatch(fetchCharacter(props.id));
+    } else {
+      if (!newBooksLoader) {
+        let pos = 0;
+        for (let i = 0; i < newBooks.length; i++) {
+          if (newBooks[i].id === props.id) {
+            pos = i;
+            break;
+          }
+        }
+        dispatch(
+          fetchCharacterAction({
+            comics: [],
+            description: newBooks[pos].description,
+            id: newBooks[pos].id,
+            image: newBooks[pos].image,
+            name: newBooks[pos].name,
+            series: [],
+          })
+        );
+      }
+    }
+  }, [dispatch, props.id, newBooks, newBooksLoader, source]);
 
   if (loader) {
     return <Loader />;

@@ -4,7 +4,7 @@ import {
 } from "../actions/actionsList/newBooksActionsList";
 
 import { toast } from "react-toastify";
-const initialState = { loaded: false };
+const initialState = [];
 export default function newBooksReducer(state = initialState, action) {
   switch (action.type) {
     case _NEW_BOOK_ADD:

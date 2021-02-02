@@ -7,7 +7,7 @@ import {
   stopLoadingAction,
 } from "./actionCreators/loadActionCreators";
 
-export function addNewBook(book) {
+export function addNewItem(item) {
   return async (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
     const newBooks = getState().newBooks;
@@ -20,8 +20,8 @@ export function addNewBook(book) {
           .firestore()
           .collection("new-books")
           .doc(docRef.id)
-          .update({ book: { ...book, id: docRef.id } });
-        newBooks.push({ book: { ...book, id: docRef.id } });
+          .update({ ...item, id: docRef.id });
+        newBooks.push({ ...item, id: docRef.id });
         dispatch(addNewBookAction(newBooks));
       });
   };

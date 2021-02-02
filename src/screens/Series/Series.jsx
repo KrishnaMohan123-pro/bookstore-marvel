@@ -6,13 +6,48 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchSeries } from "../../actions/FetchActions/seriesFetchAction";
 import "./styles.css";
 import SaveItemsButton from "../../components/Buttons/saveItemsButton";
+import { useLocation } from "react-router-dom";
+import { _MARVEL } from "../../utility/sources/sources";
+import { fetchSeriesAction } from "../../actions/actionCreators/fetchDataActionCreators";
+
 export default function Series(props) {
   const series = useSelector((state) => state.series);
   const loader = useSelector((state) => state.loader.data);
   const dispatch = useDispatch();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const source = searchParams.get("source");
+  const newBooks = useSelector((state) => state.newBooks);
+  const newBooksLoader = useSelector((state) => state.loader.profile);
+
   useEffect(() => {
-    dispatch(fetchSeries(props.id));
-  }, [dispatch, props.id]);
+    if (source === _MARVEL) {
+      dispatch(fetchSeries(props.id));
+    } else {
+      if (!newBooksLoader) {
+        let pos = 0;
+        for (let i = 0; i < newBooks.length; i++) {
+          if (newBooks[i].id === props.id) {
+            pos = i;
+            break;
+          }
+        }
+        dispatch(
+          fetchSeriesAction({
+            characters: [],
+            comics: [],
+            creators: [],
+            description: newBooks[pos].description,
+            endYear: newBooks[pos].endYear,
+            id: newBooks[pos].id,
+            image: newBooks[pos].image,
+            startYear: newBooks[pos].startYear,
+            title: newBooks[pos].title,
+          })
+        );
+      }
+    }
+  }, [dispatch, props.id, newBooks, newBooksLoader, source]);
   //   When Data not loaded
   if (loader) return <Loader />;
   // if Series not found

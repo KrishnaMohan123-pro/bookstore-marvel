@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import CartButton from "../CartButton/CartButton";
 import SaveItemsButton from "../Buttons/saveItemsButton";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -28,13 +29,22 @@ const useStyles = makeStyles({
   },
 });
 export default function ProductCard(props) {
+  const history = useHistory();
   const classes = useStyles();
   let enablePurcahse = false;
 
   if (props.type === "book") enablePurcahse = true;
   return (
     <Card className={classes.root}>
-      <Link to={"/" + props.type + "/" + props.id}>
+      {/* <Link to={"/" + props.type + "/" + props.id}> */}
+      <div
+        onClick={() => {
+          history.push({
+            pathname: `/${props.type}/${props.id}`,
+            search: `?source=${props.source}`,
+          });
+        }}
+      >
         <CardContent>
           <img
             src={props.img}
@@ -70,7 +80,8 @@ export default function ProductCard(props) {
             </Typography>
           )}
         </CardContent>
-      </Link>
+      </div>
+      {/* </Link> */}
       <CardActions style={{ margin: "0px auto" }}>
         {enablePurcahse ? (
           <CartButton
