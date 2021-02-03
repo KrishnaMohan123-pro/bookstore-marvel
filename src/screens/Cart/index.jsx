@@ -1,15 +1,17 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import "./styles.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import CartCard from "../../components/cartCard/cartCard";
 import PayButton from "../../services/razorPay/frontend/index";
 import { Grid } from "@material-ui/core";
 import SaveItemsButton from "../../components/Buttons/saveItemsButton";
 export default function Cart() {
+  const history = useHistory();
   const cartItems = useSelector((state) => state.cart).cart;
   const loggedIn = useSelector((state) => state.loggedIn);
   const savedItems = useSelector((state) => state.savedItems);
+  console.log(cartItems);
 
   if (!loggedIn) {
     return (
@@ -45,6 +47,7 @@ export default function Cart() {
             img={Item.img}
             price={Item.price}
             title={Item.title}
+            source={Item.source}
           />
         );
       })}
@@ -73,18 +76,30 @@ export default function Cart() {
                   >
                     <Grid container style={{ padding: "1.5rem" }}>
                       <Grid item lg={3} md={3} sm={12} xs={12}>
-                        <Link to={`/${item.type}/${item.id}`}>
-                          <img
-                            src={item.img}
-                            style={{ width: "10rem", height: "10rem" }}
-                            alt={item.title}
-                          />
-                        </Link>
+                        <img
+                          src={item.img}
+                          style={{ width: "10rem", height: "10rem" }}
+                          alt={item.title}
+                          onClick={() => {
+                            history.push({
+                              pathname: `/${item.type}/${item.id}`,
+                              search: `?source=${item.source}`,
+                            });
+                          }}
+                        />
                       </Grid>
                       <Grid item lg={6} md={6} sm={12} xs={12}>
-                        <Link to={`/${item.type}/${item.id}`}>
-                          <p style={{ fontSize: "1.25rem" }}>{item.title}</p>
-                        </Link>
+                        <p
+                          style={{ fontSize: "1.25rem" }}
+                          onClick={() => {
+                            history.push({
+                              pathname: `/${item.type}/${item.id}`,
+                              search: `?source=${item.source}`,
+                            });
+                          }}
+                        >
+                          {item.title}
+                        </p>
                       </Grid>
                       <Grid item lg={3} md={3} sm={12} xs={12}>
                         <SaveItemsButton
@@ -92,6 +107,7 @@ export default function Cart() {
                           img={item.img}
                           title={item.title}
                           type={item.type}
+                          source={item.source}
                         />
                       </Grid>
                     </Grid>
@@ -112,18 +128,30 @@ export default function Cart() {
                   >
                     <Grid container style={{ padding: "1.5rem" }}>
                       <Grid item lg={3} md={3} sm={12} xs={12}>
-                        <Link to={`/${item.type}/${item.id}`}>
-                          <img
-                            src={item.img}
-                            style={{ width: "10rem", height: "10rem" }}
-                            alt={item.title}
-                          />
-                        </Link>
+                        <img
+                          src={item.img}
+                          style={{ width: "10rem", height: "10rem" }}
+                          alt={item.title}
+                          onClick={() => {
+                            history.push({
+                              pathname: `/${item.type}/${item.id}`,
+                              search: `?source=${item.source}`,
+                            });
+                          }}
+                        />
                       </Grid>
                       <Grid item lg={6} md={6} sm={12} xs={12}>
-                        <Link to={`/${item.type}/${item.id}`}>
-                          <p style={{ fontSize: "1.25rem" }}>{item.title}</p>
-                        </Link>
+                        <p
+                          style={{ fontSize: "1.25rem" }}
+                          onClick={() => {
+                            history.push({
+                              pathname: `/${item.type}/${item.id}`,
+                              search: `?source=${item.source}`,
+                            });
+                          }}
+                        >
+                          {item.title}
+                        </p>
                       </Grid>
                       <Grid item lg={3} md={3} sm={12} xs={12}>
                         <SaveItemsButton
@@ -131,6 +159,7 @@ export default function Cart() {
                           img={item.img}
                           title={item.title}
                           type={item.type}
+                          source={item.source}
                         />
                       </Grid>
                     </Grid>

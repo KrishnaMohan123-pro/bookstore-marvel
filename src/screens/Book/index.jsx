@@ -82,6 +82,7 @@ export default function Book(props) {
                   img={comics.image}
                   price={comics.price}
                   title={comics.title}
+                  source={source}
                 />
               </div>
             </Grid>

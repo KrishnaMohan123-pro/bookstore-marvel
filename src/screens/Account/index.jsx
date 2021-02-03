@@ -9,6 +9,7 @@ import CameraAltIcon from "@material-ui/icons/CameraAlt";
 import AddNewBookForm from "../../utility/forms/addNewBookForm";
 import ChangeProfileImageForm from "../../utility/forms/changeProfileImageForm";
 import EditNameForm from "../../utility/forms/editNameForm";
+import { Link } from "react-router-dom";
 
 export default function Account() {
   const loggedIn = useSelector((state) => state.loggedIn);
@@ -16,6 +17,8 @@ export default function Account() {
   const auth = useSelector((state) => state.auth);
   const dialog = useSelector((state) => state.dialog);
   const role = useSelector((state) => state.auth.user.role);
+  const savedItems = useSelector((state) => state.savedItems);
+  console.log(savedItems);
 
   if (!loggedIn) {
     return (
@@ -167,6 +170,41 @@ export default function Account() {
                   />
                 ) : null}
               </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          direction="column"
+          style={{
+            backgroundColor: "white",
+            border: "solid 0.1rem grey",
+            marginTop: "2rem",
+          }}
+        >
+          <Grid item>
+            <p style={{ fontFamily: "Roboto" }}>Saved Items:</p>
+          </Grid>
+          <Grid item>
+            <p>Characters</p>
+            <Grid container>
+              {savedItems.character.length === 0
+                ? "No Saved Character"
+                : savedItems.character.map((item) => {
+                    return (
+                      <Grid item key={item.id}>
+                        <div>
+                          <Link to={`/${item.type}/${item.id}`}>
+                            <img
+                              src={item.img}
+                              style={{ width: "10rem", height: "10rem" }}
+                              alt={item.title}
+                            />
+                          </Link>
+                        </div>
+                      </Grid>
+                    );
+                  })}
             </Grid>
           </Grid>
         </Grid>

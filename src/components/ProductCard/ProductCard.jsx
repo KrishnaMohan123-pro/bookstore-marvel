@@ -36,7 +36,6 @@ export default function ProductCard(props) {
   if (props.type === _BOOK) enablePurcahse = true;
   return (
     <Card className={classes.root}>
-      {/* <Link to={"/" + props.type + "/" + props.id}> */}
       <div
         onClick={() => {
           history.push({
@@ -82,7 +81,6 @@ export default function ProductCard(props) {
           )}
         </CardContent>
       </div>
-      {/* </Link> */}
       <CardActions style={{ margin: "0px auto" }}>
         {enablePurcahse ? (
           <CartButton
@@ -90,6 +88,7 @@ export default function ProductCard(props) {
             price={props.price}
             img={props.img}
             title={props.title}
+            source={props.source}
           />
         ) : (
           <SaveItemsButton
@@ -97,6 +96,7 @@ export default function ProductCard(props) {
             img={props.img}
             title={props.title}
             type={props.type}
+            source={props.source}
           />
         )}
       </CardActions>

@@ -3,17 +3,19 @@ import { Button } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { saveItem, removeItem } from "../../actions/savedItemsActions";
 import { toast } from "react-toastify";
+import { _SERIES, _CHARACTER } from "../../utility/sources/itemTypes";
 
 export default function SaveItemsButton(props) {
+  console.log(props);
   const dispatch = useDispatch();
   const savedItems = useSelector((state) => state.savedItems);
   const loggedIn = useSelector((state) => state.loggedIn);
   const itemsId = [];
   switch (props.type) {
-    case "series":
+    case _SERIES:
       savedItems.series.forEach((item) => itemsId.push(item.id));
       break;
-    case "character":
+    case _CHARACTER:
       savedItems.character.forEach((item) => itemsId.push(item.id));
       break;
     default:

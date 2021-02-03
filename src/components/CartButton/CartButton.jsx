@@ -9,6 +9,7 @@ import {
 } from "../../actions/cartActions";
 
 export default function CartButton(props) {
+  console.log(props);
   const cartItems = useSelector((state) => state.cart).cart;
   const dispatch = useDispatch();
   const loggedIn = useSelector((state) => state.loggedIn);
@@ -47,6 +48,7 @@ export default function CartButton(props) {
         id: props.id,
         img: props.img,
         price: props.price,
+        source: props.source,
         title: props.title,
         quantity: 1,
       })

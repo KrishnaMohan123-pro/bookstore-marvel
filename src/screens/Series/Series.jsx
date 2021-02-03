@@ -84,6 +84,7 @@ export default function Series(props) {
                     img={series.image}
                     title={series.title}
                     type="series"
+                    source={source}
                   />
                 </div>
               </Grid>

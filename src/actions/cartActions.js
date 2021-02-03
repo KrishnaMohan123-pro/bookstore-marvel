@@ -27,6 +27,7 @@ export function addToCart(book) {
         title: book.title,
         img: book.img,
         price: book.price,
+        source: book.source,
         quantity: book.quantity,
       })
       .then(() => {

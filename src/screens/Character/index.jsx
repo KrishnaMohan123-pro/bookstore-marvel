@@ -90,6 +90,7 @@ export default function Character(props) {
                     img={character.image}
                     title={character.name}
                     type="character"
+                    source={source}
                   />
                 </div>
               </Grid>
