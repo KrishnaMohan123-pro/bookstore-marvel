@@ -6,7 +6,7 @@ import {
   firebaseLoadingAction,
   stopLoadingAction,
 } from "./actionCreators/loadActionCreators";
-
+import { closeDialogAction } from "../actions/actionCreators/dialogActionsCreator";
 export function addNewItem(item) {
   return async (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
@@ -23,6 +23,7 @@ export function addNewItem(item) {
           .update({ ...item, id: docRef.id });
         newBooks.push({ ...item, id: docRef.id });
         dispatch(addNewBookAction(newBooks));
+        dispatch(closeDialogAction());
       });
   };
 }

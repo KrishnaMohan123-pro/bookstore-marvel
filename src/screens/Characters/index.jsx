@@ -15,6 +15,7 @@ import {
 import { querySearched } from "../../actions/queryActions";
 import { useHistory, useLocation } from "react-router-dom";
 import { _OUR_COLLECTION, _MARVEL } from "../../utility/sources/sources";
+import { _CHARACTER, _SERIES, _BOOK } from "../../utility/sources/itemTypes";
 
 export default function Characters() {
   const history = useHistory();
@@ -29,9 +30,9 @@ export default function Characters() {
   const filterQuery = searchParams.get("filter");
 
   const filterTypeMap = [
-    { filter: filterOptions[0].value, type: "character" },
-    { filter: filterOptions[1].value, type: "series" },
-    { filter: filterOptions[2].value, type: "book" },
+    { filter: filterOptions[0].value, type: _CHARACTER },
+    { filter: filterOptions[1].value, type: _SERIES },
+    { filter: filterOptions[2].value, type: _BOOK },
   ];
   const loader = useSelector((state) => state.loader.data);
   const newBooks = useSelector((state) => state.newBooks);
@@ -219,11 +220,11 @@ export default function Characters() {
                           >
                             <ProductCard
                               type={
-                                filterQuery === "characters"
-                                  ? "character"
-                                  : filterQuery === "comics"
-                                  ? "book"
-                                  : filterQuery
+                                filterQuery === filterOptions[0].value
+                                  ? _CHARACTER
+                                  : filterQuery === filterOptions[2].value
+                                  ? _BOOK
+                                  : _SERIES
                               }
                               endYear={item.endYear}
                               id={item.id}

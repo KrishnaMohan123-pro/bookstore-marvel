@@ -3,10 +3,12 @@ import { Button, TextField } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { addNewItem } from "../../actions/newBookAdditionActions";
 import Selector from "../../components/Selector/selector";
+import typeOptions from "../sortsAndFilters/newBooksType";
+import { _BOOK, _CHARACTER, _SERIES } from "../sources/itemTypes";
 
 export default function AddNewBookForm() {
   const dispatch = useDispatch();
-  const [type, setType] = useState("book");
+  const [type, setType] = useState(_BOOK);
 
   const [newBook, setNewBook] = useState({
     description: "",
@@ -32,17 +34,11 @@ export default function AddNewBookForm() {
     title: "",
   });
 
-  const typeOptions = [
-    { name: "COMICS", value: "book" },
-    { name: "CHARACTER", value: "character" },
-    { name: "SERIES", value: "series" },
-  ];
-
   function handleChange(e) {
     const value = e.target.value;
     const id = e.target.id;
     switch (type) {
-      case "book":
+      case _BOOK:
         setNewBook((prevValue) => {
           switch (id) {
             case "description":
@@ -75,7 +71,7 @@ export default function AddNewBookForm() {
           }
         });
         break;
-      case "character":
+      case _CHARACTER:
         setNewCharacter((prevValue) => {
           switch (id) {
             case "description":
@@ -95,7 +91,7 @@ export default function AddNewBookForm() {
           }
         });
         break;
-      case "series":
+      case _SERIES:
         setNewSeries((prevValue) => {
           switch (id) {
             case "description":
@@ -129,14 +125,14 @@ export default function AddNewBookForm() {
   function handleNewBookAddition(e) {
     e.preventDefault();
     switch (type) {
-      case "book":
-        dispatch(addNewItem({ ...newBook, type: "book" }));
+      case _BOOK:
+        dispatch(addNewItem({ ...newBook, type: _BOOK }));
         break;
-      case "character":
-        dispatch(addNewItem({ ...newCharacter, type: "character" }));
+      case _CHARACTER:
+        dispatch(addNewItem({ ...newCharacter, type: _CHARACTER }));
         break;
-      case "series":
-        dispatch(addNewItem({ ...newSeries, type: "series" }));
+      case _SERIES:
+        dispatch(addNewItem({ ...newSeries, type: _SERIES }));
         break;
       default:
         console.log("default");
@@ -180,7 +176,7 @@ export default function AddNewBookForm() {
           required
         />
       )}
-      {type === "book" ? (
+      {type === _BOOK ? (
         <TextField
           className="mt-2"
           color="primary"
@@ -205,7 +201,7 @@ export default function AddNewBookForm() {
         onChange={handleChange}
         type="text"
       />
-      {type === "book" ? (
+      {type === _BOOK ? (
         <TextField
           className="mt-2"
           color="primary"
@@ -219,7 +215,7 @@ export default function AddNewBookForm() {
           required
         />
       ) : null}
-      {type === "series" ? (
+      {type === _SERIES ? (
         <Fragment>
           <TextField
             className="mt-2"
