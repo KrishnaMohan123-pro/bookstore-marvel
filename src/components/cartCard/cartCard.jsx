@@ -26,6 +26,7 @@ export default function CartCard(props) {
                 search: `?source=${props.source}`,
               });
             }}
+            style={{ cursor: "pointer" }}
           />
         </div>
         <div className="book cart-title col-md-5 align-self-center">
@@ -36,6 +37,7 @@ export default function CartCard(props) {
                 search: `?source=${props.source}`,
               });
             }}
+            style={{ cursor: "pointer" }}
           >
             {props.title}
           </p>
