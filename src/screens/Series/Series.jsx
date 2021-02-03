@@ -49,7 +49,7 @@ export default function Series(props) {
     }
   }, [dispatch, props.id, newBooks, newBooksLoader, source]);
   //   When Data not loaded
-  if (loader) return <Loader />;
+  if (loader || newBooksLoader) return <Loader />;
   // if Series not found
   if (series.error) {
     return <p>{series.error}</p>;

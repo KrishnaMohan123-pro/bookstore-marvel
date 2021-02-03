@@ -9,16 +9,17 @@ import CameraAltIcon from "@material-ui/icons/CameraAlt";
 import AddNewBookForm from "../../utility/forms/addNewBookForm";
 import ChangeProfileImageForm from "../../utility/forms/changeProfileImageForm";
 import EditNameForm from "../../utility/forms/editNameForm";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import SaveItemsButton from "../../components/Buttons/saveItemsButton";
 
 export default function Account() {
+  const history = useHistory();
   const loggedIn = useSelector((state) => state.loggedIn);
   const user = useSelector((state) => state.auth.user);
   const auth = useSelector((state) => state.auth);
   const dialog = useSelector((state) => state.dialog);
   const role = useSelector((state) => state.auth.user.role);
   const savedItems = useSelector((state) => state.savedItems);
-  console.log(savedItems);
 
   if (!loggedIn) {
     return (
@@ -29,6 +30,12 @@ export default function Account() {
   }
   if (auth.uid.length === 0) {
     return <p>Loading...</p>;
+  }
+  function handleClick(item) {
+    history.push({
+      pathname: `/${item.type}/${item.id}`,
+      search: `?source=${item.source}`,
+    });
   }
   return (
     <div
@@ -173,41 +180,128 @@ export default function Account() {
             </Grid>
           </Grid>
         </Grid>
-        <Grid
-          container
-          direction="column"
-          style={{
-            backgroundColor: "white",
-            border: "solid 0.1rem grey",
-            marginTop: "2rem",
-          }}
-        >
-          <Grid item>
-            <p style={{ fontFamily: "Roboto" }}>Saved Items:</p>
-          </Grid>
-          <Grid item>
-            <p>Characters</p>
-            <Grid container>
-              {savedItems.character.length === 0
-                ? "No Saved Character"
-                : savedItems.character.map((item) => {
-                    return (
-                      <Grid item key={item.id}>
-                        <div>
-                          <Link to={`/${item.type}/${item.id}`}>
-                            <img
-                              src={item.img}
-                              style={{ width: "10rem", height: "10rem" }}
-                              alt={item.title}
-                            />
-                          </Link>
-                        </div>
+        <div className="container" style={{ marginTop: "2rem" }}>
+          <Grid container direction="column">
+            <h1>Saved Characters</h1>
+            {savedItems.character.length === 0
+              ? "No Saved Character"
+              : savedItems.character.map((item) => {
+                  return (
+                    <Grid
+                      item
+                      key={item.id}
+                      style={{
+                        border: "solid 0.15rem grey",
+                        backgroundColor: "white",
+                      }}
+                    >
+                      <Grid container style={{ padding: "1.5rem" }}>
+                        <Grid item lg={3} md={3} sm={12} xs={12}>
+                          <img
+                            src={item.img}
+                            style={{
+                              width: "7rem",
+                              height: "7rem",
+                              cursor: "pointer",
+                            }}
+                            alt={item.title}
+                            onClick={() => {
+                              history.push({
+                                pathname: `/${item.type}/${item.id}`,
+                                search: `?source=${item.source}`,
+                              });
+                            }}
+                          />
+                        </Grid>
+                        <Grid item lg={6} md={6} sm={12} xs={12}>
+                          <p
+                            style={{ fontSize: "1.25rem" }}
+                            onClick={() => {
+                              history.push({
+                                pathname: `/${item.type}/${item.id}`,
+                                search: `?source=${item.source}`,
+                              });
+                            }}
+                            style={{ cursor: "pointer" }}
+                          >
+                            {item.title}
+                          </p>
+                        </Grid>
+                        <Grid item lg={3} md={3} sm={12} xs={12}>
+                          <SaveItemsButton
+                            id={item.id}
+                            img={item.img}
+                            title={item.title}
+                            type={item.type}
+                            source={item.source}
+                          />
+                        </Grid>
                       </Grid>
-                    );
-                  })}
-            </Grid>
+                    </Grid>
+                  );
+                })}
           </Grid>
-        </Grid>
+          <Grid container direction="column">
+            <h1>Saved Series</h1>
+            {savedItems.series.length === 0
+              ? "No Saved Series"
+              : savedItems.series.map((item) => {
+                  return (
+                    <Grid
+                      item
+                      key={item.id}
+                      style={{
+                        border: "solid 0.15rem grey",
+                        backgroundColor: "white",
+                      }}
+                    >
+                      <Grid container style={{ padding: "1.5rem" }}>
+                        <Grid item lg={3} md={3} sm={12} xs={12}>
+                          <img
+                            src={item.img}
+                            style={{
+                              width: "7rem",
+                              height: "7rem",
+                              cursor: "pointer",
+                            }}
+                            alt={item.title}
+                            onClick={() => {
+                              history.push({
+                                pathname: `/${item.type}/${item.id}`,
+                                search: `?source=${item.source}`,
+                              });
+                            }}
+                          />
+                        </Grid>
+                        <Grid item lg={6} md={6} sm={12} xs={12}>
+                          <p
+                            style={{ fontSize: "1.25rem" }}
+                            onClick={() => {
+                              history.push({
+                                pathname: `/${item.type}/${item.id}`,
+                                search: `?source=${item.source}`,
+                              });
+                            }}
+                            style={{ cursor: "pointer" }}
+                          >
+                            {item.title}
+                          </p>
+                        </Grid>
+                        <Grid item lg={3} md={3} sm={12} xs={12}>
+                          <SaveItemsButton
+                            id={item.id}
+                            img={item.img}
+                            title={item.title}
+                            type={item.type}
+                            source={item.source}
+                          />
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  );
+                })}
+          </Grid>
+        </div>
       </Container>
     </div>
   );

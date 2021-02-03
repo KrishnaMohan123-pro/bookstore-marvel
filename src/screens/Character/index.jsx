@@ -48,7 +48,7 @@ export default function Character(props) {
     }
   }, [dispatch, props.id, newBooks, newBooksLoader, source]);
 
-  if (loader) {
+  if (loader || newBooksLoader) {
     return <Loader />;
   }
   if (character.error) {
