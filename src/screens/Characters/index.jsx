@@ -28,14 +28,29 @@ export default function Characters() {
   // Query Filter
   const filterQuery = searchParams.get("filter");
 
+  const filterTypeMap = [
+    { filter: filterOptions[0].value, type: "character" },
+    { filter: filterOptions[1].value, type: "series" },
+    { filter: filterOptions[2].value, type: "book" },
+  ];
   const loader = useSelector((state) => state.loader.data);
   const newBooks = useSelector((state) => state.newBooks);
-  console.log(newBooks);
   const searchedNewBooks = newBooks.filter((book) =>
     book.title
       ? book.title.toLowerCase().startsWith(query.toLowerCase())
       : book.name.toLowerCase().startsWith(query.toLowerCase())
   );
+  const filteredNewBooks = [];
+  for (let i = 0; i < searchedNewBooks.length; i++) {
+    if (
+      JSON.stringify(filterTypeMap).includes(
+        JSON.stringify({ filter: filterQuery, type: searchedNewBooks[i].type })
+      )
+    ) {
+      filteredNewBooks.push(searchedNewBooks[i]);
+    }
+  }
+
   const genericSearchResult = useSelector((state) => state.genericSearch);
   useEffect(() => {
     if (
@@ -147,13 +162,13 @@ export default function Characters() {
                 <p style={{ fontFamily: "Goldman", fontSize: "2rem" }}>
                   Our Collections
                 </p>
-                {searchedNewBooks.length === 0 ? (
+                {filteredNewBooks.length === 0 ? (
                   <p>
                     <br />
                     No Results Found
                   </p>
                 ) : (
-                  searchedNewBooks.map((item) => {
+                  filteredNewBooks.map((item) => {
                     return (
                       <Grid
                         item
