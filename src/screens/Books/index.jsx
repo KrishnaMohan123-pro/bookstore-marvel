@@ -66,6 +66,8 @@ export default function Books() {
                               : item.image
                           }
                           title={item.title ? item.title : item.name}
+                          endYear={item.endYear}
+                          startYear={item.startYear}
                           price={item.price}
                           id={item.id}
                           source={_OUR_COLLECTION}
