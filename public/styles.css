@@ -47,6 +47,3 @@ button:focus {
   animation-name: loading;
   animation-duration: 4s;
 }
-.product-card:hover {
-  margin: 0px auto 10px;
-}

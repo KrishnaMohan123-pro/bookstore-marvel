@@ -8,6 +8,7 @@ import CartButton from "../CartButton/CartButton";
 import SaveItemsButton from "../Buttons/saveItemsButton";
 import { useHistory } from "react-router-dom";
 import { _BOOK, _SERIES } from "../../utility/sources/itemTypes";
+import "./styles.css";
 
 const useStyles = makeStyles({
   root: {
@@ -35,7 +36,7 @@ export default function ProductCard(props) {
 
   if (props.type === _BOOK) enablePurcahse = true;
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root + " product-card"}>
       <div
         onClick={() => {
           history.push({
