@@ -1,4 +1,4 @@
-@keyframes card-animation {
+@keyframes card-animation-in {
   from {
     transform: scale(1, 1);
   }
@@ -7,7 +7,20 @@
   }
 }
 .product-card:hover {
-  animation-name: card-animation;
+  animation-name: card-animation-in;
   animation-duration: 0.5s;
   transform: scale(1.05, 1.05);
+}
+@keyframes card-animation-out {
+  from {
+    transform: scale(1.05, 1.05);
+  }
+  to {
+    transform: scale(1, 1);
+  }
+}
+.product-card {
+  animation-name: card-animation-out;
+  animation-duration: 0.5s;
+  transform: scale(1, 1);
 }
