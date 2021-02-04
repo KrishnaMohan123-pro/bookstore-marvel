@@ -63,7 +63,6 @@ export default function GoogleSignIn() {
             .doc(user.uid)
             .get()
             .then((doc) => {
-              console.log(doc.data());
               dispatch({
                 type: "LOG_IN",
                 payload: { user: doc.data(), uid: user.uid },

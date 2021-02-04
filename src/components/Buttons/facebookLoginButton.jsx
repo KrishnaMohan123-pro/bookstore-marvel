@@ -11,7 +11,6 @@ export default function FacebookLogin() {
       .auth()
       .signInWithPopup(fbProvider)
       .then(function (result) {
-        console.log(result.user.photoURL);
         var user = result.user;
         var newUser = result.additionalUserInfo.isNewUser;
         if (newUser) {

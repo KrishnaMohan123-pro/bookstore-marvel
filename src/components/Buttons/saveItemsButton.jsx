@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 import { _SERIES, _CHARACTER } from "../../utility/sources/itemTypes";
 
 export default function SaveItemsButton(props) {
-  console.log(props);
   const dispatch = useDispatch();
   const savedItems = useSelector((state) => state.savedItems);
   const loggedIn = useSelector((state) => state.loggedIn);

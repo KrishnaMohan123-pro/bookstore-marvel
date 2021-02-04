@@ -16,7 +16,6 @@ export default function Character(props) {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const source = searchParams.get("source");
-  console.log(source);
 
   const character = useSelector((state) => state.character);
   const loader = useSelector((state) => state.loader.data);

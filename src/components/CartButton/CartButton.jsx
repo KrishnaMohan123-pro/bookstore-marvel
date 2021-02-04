@@ -9,7 +9,6 @@ import {
 } from "../../actions/cartActions";
 
 export default function CartButton(props) {
-  console.log(props);
   const cartItems = useSelector((state) => state.cart).cart;
   const dispatch = useDispatch();
   const loggedIn = useSelector((state) => state.loggedIn);

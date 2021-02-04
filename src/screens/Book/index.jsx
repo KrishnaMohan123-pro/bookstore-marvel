@@ -14,7 +14,6 @@ export default function Book(props) {
   const searchParams = new URLSearchParams(location.search);
   // source of the collection
   const source = searchParams.get("source");
-  console.log(source);
   const comics = useSelector((state) => state.comics);
   const newBooks = useSelector((state) => state.newBooks);
   const loader = useSelector((state) => state.loader.data);
