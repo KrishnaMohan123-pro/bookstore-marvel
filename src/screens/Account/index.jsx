@@ -31,12 +31,6 @@ export default function Account() {
   if (auth.uid.length === 0) {
     return <p>Loading...</p>;
   }
-  function handleClick(item) {
-    history.push({
-      pathname: `/${item.type}/${item.id}`,
-      search: `?source=${item.source}`,
-    });
-  }
   return (
     <div
       className="profile-body"
@@ -215,14 +209,13 @@ export default function Account() {
                         </Grid>
                         <Grid item lg={6} md={6} sm={12} xs={12}>
                           <p
-                            style={{ fontSize: "1.25rem" }}
+                            style={{ fontSize: "1.25rem", cursor: "pointer" }}
                             onClick={() => {
                               history.push({
                                 pathname: `/${item.type}/${item.id}`,
                                 search: `?source=${item.source}`,
                               });
                             }}
-                            style={{ cursor: "pointer" }}
                           >
                             {item.title}
                           </p>
@@ -275,14 +268,13 @@ export default function Account() {
                         </Grid>
                         <Grid item lg={6} md={6} sm={12} xs={12}>
                           <p
-                            style={{ fontSize: "1.25rem" }}
+                            style={{ fontSize: "1.25rem", cursor: "pointer" }}
                             onClick={() => {
                               history.push({
                                 pathname: `/${item.type}/${item.id}`,
                                 search: `?source=${item.source}`,
                               });
                             }}
-                            style={{ cursor: "pointer" }}
                           >
                             {item.title}
                           </p>
