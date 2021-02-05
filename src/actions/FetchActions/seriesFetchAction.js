@@ -34,7 +34,7 @@ export function fetchSeries(id) {
       })
       .catch((e) => {
         toast.error("Something went Wrong");
-        dispatch(fetchSeriesErrorAction(e));
+        dispatch(fetchSeriesErrorAction());
         dispatch(stopLoadingAction());
       });
   };

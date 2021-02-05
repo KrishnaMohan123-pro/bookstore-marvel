@@ -4,11 +4,16 @@ import Loader from "../../components/Loader/loader";
 import CartButton from "../../components/CartButton/CartButton";
 import { Container, Grid } from "@material-ui/core";
 import { fetchComics } from "../../actions/FetchActions/comicsFetch";
-import { fetchComicsAction } from "../../actions/actionCreators/fetchDataActionCreators";
+import {
+  fetchComicsAction,
+  fetchComicsErrorAction,
+} from "../../actions/actionCreators/fetchDataActionCreators";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-import { _OUR_COLLECTION } from "../../utility/sources/sources";
+import { useHistory, useLocation } from "react-router-dom";
+import { _MARVEL, _OUR_COLLECTION } from "../../utility/sources/sources";
+import { _BOOK } from "../../utility/sources/itemTypes";
 export default function Book(props) {
+  const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -22,33 +27,73 @@ export default function Book(props) {
     if (source === _OUR_COLLECTION) {
       if (!newBooksLoader) {
         let pos = 0;
+        let flag = false;
         for (let i = 0; i < newBooks.length; i += 1) {
           if (props.id === newBooks[i].id) {
+            flag = true;
             pos = i;
             break;
           }
         }
-        dispatch(
-          fetchComicsAction({
-            characters: [],
-            creators: [],
-            description: newBooks[pos].description,
-            id: newBooks[pos].id,
-            image:
-              newBooks[pos].image.length === 0
-                ? "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
-                : newBooks[pos].image,
-            price: newBooks[pos].price,
-            publishDate: newBooks[pos].publishedOn,
-            title: newBooks[pos].title,
-          })
-        );
+        if (flag) {
+          dispatch(
+            fetchComicsAction({
+              characters: [],
+              creators: [],
+              description: newBooks[pos].description,
+              id: newBooks[pos].id,
+              image:
+                newBooks[pos].image.length === 0
+                  ? "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
+                  : newBooks[pos].image,
+              price: newBooks[pos].price,
+              publishDate: newBooks[pos].publishedOn,
+              title: newBooks[pos].title,
+            })
+          );
+        } else {
+          dispatch(fetchComicsErrorAction());
+        }
       }
     } else dispatch(fetchComics(props.id));
   }, [dispatch, props.id, newBooks, newBooksLoader, source]);
   if (loader || newBooksLoader) {
     return <Loader />;
   }
+
+  if (
+    !location.search.includes("source") ||
+    (source !== _MARVEL && source !== _OUR_COLLECTION)
+  ) {
+    return (
+      <div className="mt-2">
+        <p>Which collection do you wish to see?</p>
+        <p
+          onClick={() => {
+            history.push({
+              pathname: `/${_BOOK}/${props.id}`,
+              search: `?source=${_MARVEL}`,
+            });
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          Marvel
+        </p>
+        <p
+          onClick={() => {
+            history.push({
+              pathname: `/${_BOOK}/${props.id}`,
+              search: `?source=${_OUR_COLLECTION}`,
+            });
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          Our Collection
+        </p>
+      </div>
+    );
+  }
+
   if (comics.error) {
     return <p>{comics.error}</p>;
   }

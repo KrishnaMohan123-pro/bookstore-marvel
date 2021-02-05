@@ -1,17 +1,21 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-
 import { fetchCharacter } from "../../actions/FetchActions/characterFetchAction";
 import Loader from "../../components/Loader/loader";
 import { Container, Grid } from "@material-ui/core";
 import "./styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import SaveItemsButton from "../../components/Buttons/saveItemsButton";
-import { useLocation } from "react-router-dom";
-import { fetchCharacterAction } from "../../actions/actionCreators/fetchDataActionCreators";
-import { _MARVEL } from "../../utility/sources/sources";
+import { useHistory, useLocation } from "react-router-dom";
+import {
+  fetchCharacterAction,
+  fetchCharacterErrorAction,
+} from "../../actions/actionCreators/fetchDataActionCreators";
+import { _MARVEL, _OUR_COLLECTION } from "../../utility/sources/sources";
+import { _CHARACTER } from "../../utility/sources/itemTypes";
 
 export default function Character(props) {
+  const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -27,22 +31,28 @@ export default function Character(props) {
     } else {
       if (!newBooksLoader) {
         let pos = 0;
+        let flag = false;
         for (let i = 0; i < newBooks.length; i++) {
           if (newBooks[i].id === props.id) {
             pos = i;
+            flag = true;
             break;
           }
         }
-        dispatch(
-          fetchCharacterAction({
-            comics: [],
-            description: newBooks[pos].description,
-            id: newBooks[pos].id,
-            image: newBooks[pos].image,
-            name: newBooks[pos].name,
-            series: [],
-          })
-        );
+        if (flag) {
+          dispatch(
+            fetchCharacterAction({
+              comics: [],
+              description: newBooks[pos].description,
+              id: newBooks[pos].id,
+              image: newBooks[pos].image,
+              name: newBooks[pos].name,
+              series: [],
+            })
+          );
+        } else {
+          dispatch(fetchCharacterErrorAction());
+        }
       }
     }
   }, [dispatch, props.id, newBooks, newBooksLoader, source]);
@@ -50,6 +60,41 @@ export default function Character(props) {
   if (loader || newBooksLoader) {
     return <Loader />;
   }
+
+  // When source is not present in URL or source is wrong
+  if (
+    !location.search.includes("source") ||
+    (source !== _MARVEL && source !== _OUR_COLLECTION)
+  ) {
+    return (
+      <div className="mt-2">
+        <p>Which collection do you wish to see?</p>
+        <p
+          onClick={() => {
+            history.push({
+              pathname: `/${_CHARACTER}/${props.id}`,
+              search: `?source=${_MARVEL}`,
+            });
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          Marvel
+        </p>
+        <p
+          onClick={() => {
+            history.push({
+              pathname: `/${_CHARACTER}/${props.id}`,
+              search: `?source=${_OUR_COLLECTION}`,
+            });
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          Our Collection
+        </p>
+      </div>
+    );
+  }
+
   if (character.error) {
     return <p>{character.error}</p>;
   }

@@ -6,11 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchSeries } from "../../actions/FetchActions/seriesFetchAction";
 import "./styles.css";
 import SaveItemsButton from "../../components/Buttons/saveItemsButton";
-import { useLocation } from "react-router-dom";
-import { _MARVEL } from "../../utility/sources/sources";
-import { fetchSeriesAction } from "../../actions/actionCreators/fetchDataActionCreators";
+import { useHistory, useLocation } from "react-router-dom";
+import { _MARVEL, _OUR_COLLECTION } from "../../utility/sources/sources";
+import { _SERIES } from "../../utility/sources/itemTypes";
+import {
+  fetchSeriesAction,
+  fetchSeriesErrorAction,
+} from "../../actions/actionCreators/fetchDataActionCreators";
 
 export default function Series(props) {
+  const history = useHistory();
   const series = useSelector((state) => state.series);
   const loader = useSelector((state) => state.loader.data);
   const dispatch = useDispatch();
@@ -26,30 +31,69 @@ export default function Series(props) {
     } else {
       if (!newBooksLoader) {
         let pos = 0;
+        let flag = false;
         for (let i = 0; i < newBooks.length; i++) {
           if (newBooks[i].id === props.id) {
             pos = i;
+            flag = true;
             break;
           }
         }
-        dispatch(
-          fetchSeriesAction({
-            characters: [],
-            comics: [],
-            creators: [],
-            description: newBooks[pos].description,
-            endYear: newBooks[pos].endYear,
-            id: newBooks[pos].id,
-            image: newBooks[pos].image,
-            startYear: newBooks[pos].startYear,
-            title: newBooks[pos].title,
-          })
-        );
+        if (flag) {
+          dispatch(
+            fetchSeriesAction({
+              characters: [],
+              comics: [],
+              creators: [],
+              description: newBooks[pos].description,
+              endYear: newBooks[pos].endYear,
+              id: newBooks[pos].id,
+              image: newBooks[pos].image,
+              startYear: newBooks[pos].startYear,
+              title: newBooks[pos].title,
+            })
+          );
+        } else {
+          dispatch(fetchSeriesErrorAction());
+        }
       }
     }
   }, [dispatch, props.id, newBooks, newBooksLoader, source]);
   //   When Data not loaded
   if (loader || newBooksLoader) return <Loader />;
+  // When source not defined
+  if (
+    !location.search.includes("source") ||
+    (source !== _MARVEL && source !== _OUR_COLLECTION)
+  ) {
+    return (
+      <div className="mt-2">
+        <p>Which collection do you wish to see?</p>
+        <p
+          onClick={() => {
+            history.push({
+              pathname: `/${_SERIES}/${props.id}`,
+              search: `?source=${_MARVEL}`,
+            });
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          Marvel
+        </p>
+        <p
+          onClick={() => {
+            history.push({
+              pathname: `/${_SERIES}/${props.id}`,
+              search: `?source=${_OUR_COLLECTION}`,
+            });
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          Our Collection
+        </p>
+      </div>
+    );
+  }
   // if Series not found
   if (series.error) {
     return <p>{series.error}</p>;

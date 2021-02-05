@@ -1,5 +1,5 @@
 import { fetchComicsByComicsId } from "../dataFetch";
-import { toast } from "react-toastify";
+
 import {
   fetchComicsAction,
   fetchComicsErrorAction,
@@ -30,7 +30,6 @@ export function fetchComics(id) {
         })
       );
     } else {
-      toast.error("Something went wrong");
       dispatch(stopLoadingAction());
       dispatch(fetchComicsErrorAction());
     }
