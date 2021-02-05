@@ -59,7 +59,8 @@ export default function SearchBar() {
           display: "flex",
           alignItems: "center",
           width: "30rem",
-          marginLeft: "30px",
+          marginLeft: "auto",
+          marginRight: "auto",
           height: "35px",
         }}
         onSubmit={(e) => {

@@ -22,7 +22,7 @@ export default function Navbar() {
     <AppBar className="app-bar" position="sticky" elevation={0}>
       <Toolbar>
         <SideDrawer />
-        <Link to="/" style={{ color: "inherit" }}>
+        <Link to="/" style={{ color: "inherit", marginRight: "1.5rem" }}>
           <Typography variant="h6">Marvel</Typography>
         </Link>
         <div className="app-bar-links">

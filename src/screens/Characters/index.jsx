@@ -16,6 +16,7 @@ import { querySearched } from "../../actions/queryActions";
 import { useHistory, useLocation } from "react-router-dom";
 import { _OUR_COLLECTION, _MARVEL } from "../../utility/sources/sources";
 import { _CHARACTER, _SERIES, _BOOK } from "../../utility/sources/itemTypes";
+import SearchBar from "../../components/SearchBar/searchBar";
 
 export default function Characters() {
   const history = useHistory();
@@ -114,7 +115,14 @@ export default function Characters() {
     );
 
   if (query.length === 0) {
-    return <p>PLEASE ENTER A NAME</p>;
+    return (
+      <div className="mt-5">
+        Please Search for your awesome character
+        <span className="mx-auto">
+          <SearchBar />
+        </span>
+      </div>
+    );
   }
 
   return (
