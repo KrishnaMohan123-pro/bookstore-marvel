@@ -106,7 +106,7 @@ export default function Character(props) {
     >
       <Container>
         <Grid container>
-          <Grid item lg={3}>
+          <Grid item lg={3} md={3} sm={12} xs={12}>
             <Grid container direction="column">
               <Grid
                 item
@@ -143,6 +143,9 @@ export default function Character(props) {
           <Grid
             item
             lg={9}
+            md={9}
+            sm={12}
+            xs={12}
             style={{
               border: "grey 0.1rem solid",
               backgroundColor: "white",
@@ -154,12 +157,12 @@ export default function Character(props) {
               </Grid>
               <Grid item>
                 <Grid container>
-                  <Grid item lg={4}>
+                  <Grid item lg={4} md={4} sm={4} xs={12}>
                     <h6 style={{ fontFamily: "Roboto", margin: "0 auto" }}>
                       Description
                     </h6>
                   </Grid>
-                  <Grid item lg={8}>
+                  <Grid item lg={8} md={8} sm={8} xs={12}>
                     <p>
                       {character.description === null ||
                       character.description.length === 0
@@ -171,12 +174,12 @@ export default function Character(props) {
               </Grid>
               <Grid item>
                 <Grid container>
-                  <Grid item lg={4}>
+                  <Grid item lg={4} md={4} sm={4} xs={12}>
                     <h6 style={{ fontFamily: "Roboto", margin: "0 auto" }}>
                       Series
                     </h6>
                   </Grid>
-                  <Grid item lg={8}>
+                  <Grid item lg={8} md={8} sm={8} xs={12}>
                     <div
                       className="comic-link"
                       style={{ height: "250px", overflowY: "scroll" }}
@@ -184,7 +187,11 @@ export default function Character(props) {
                       {character.series.map((series) => {
                         return (
                           <Link
-                            to={"/series/" + series.resourceURI.slice(43)}
+                            to={{
+                              pathname:
+                                "/series/" + series.resourceURI.slice(43),
+                              search: `?source=${_MARVEL}`,
+                            }}
                             key={series.resourceURI.slice(43)}
                           >
                             <p>
@@ -201,12 +208,12 @@ export default function Character(props) {
               </Grid>
               <Grid item>
                 <Grid container>
-                  <Grid item lg={4}>
+                  <Grid item lg={4} md={4} sm={4} xs={12}>
                     <h6 style={{ fontFamily: "Roboto", margin: "0 auto" }}>
                       Comics
                     </h6>
                   </Grid>
-                  <Grid item lg={8}>
+                  <Grid item lg={8} md={8} sm={8} xs={12}>
                     <div
                       className="comic-link"
                       style={{ height: "250px", overflowY: "scroll" }}
@@ -214,7 +221,10 @@ export default function Character(props) {
                       {character.comics.map((comic) => {
                         return (
                           <Link
-                            to={"/book/" + comic.resourceURI.slice(43)}
+                            to={{
+                              pathname: "/book/" + comic.resourceURI.slice(43),
+                              search: `?source=${_MARVEL}`,
+                            }}
                             key={comic.resourceURI.slice(43)}
                           >
                             <p>

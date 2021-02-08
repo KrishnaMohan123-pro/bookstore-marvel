@@ -103,7 +103,7 @@ export default function Series(props) {
     <section id="series-description">
       <Container fixed style={{ marginTop: "1.5rem", marginBottom: "3rem " }}>
         <Grid container>
-          <Grid item alignItems="center" lg={3}>
+          <Grid item alignItems="center" lg={3} md={3} sm={12} xs={12}>
             <Grid container direction="column">
               <Grid
                 item
@@ -137,6 +137,9 @@ export default function Series(props) {
           <Grid
             item
             lg={9}
+            md={9}
+            sm={12}
+            xs={12}
             alignContent="center"
             style={{
               border: "grey 0.1rem solid",
@@ -152,7 +155,7 @@ export default function Series(props) {
               <Grid item>
                 <div className="book-description">
                   <Grid container>
-                    <Grid item lg={3}>
+                    <Grid item lg={4} md={4} sm={4} xs={12}>
                       <div
                         className="description-title"
                         style={{ color: "#333333", fontFamily: "Roboto" }}
@@ -160,11 +163,8 @@ export default function Series(props) {
                         <h6>Description</h6>
                       </div>
                     </Grid>
-                    <Grid item lg={9}>
-                      <div
-                        className="description"
-                        style={{ textAlign: "left" }}
-                      >
+                    <Grid item lg={8} md={8} sm={8} xs={12}>
+                      <div className="description">
                         <p>
                           {series.description === null ||
                           series.description.length === 0
@@ -179,7 +179,7 @@ export default function Series(props) {
               <Grid item>
                 <div className="book-description">
                   <Grid container>
-                    <Grid item lg={3}>
+                    <Grid item lg={4} md={4} sm={4} xs={12}>
                       <div
                         className="description-title"
                         style={{ color: "#333333", fontFamily: "Roboto" }}
@@ -187,11 +187,8 @@ export default function Series(props) {
                         <h6>Start Year</h6>
                       </div>
                     </Grid>
-                    <Grid item lg={9}>
-                      <div
-                        className="description"
-                        style={{ textAlign: "left" }}
-                      >
+                    <Grid item lg={8} md={8} sm={8} xs={12}>
+                      <div className="description">
                         <h6>{series.startYear}</h6>
                       </div>
                     </Grid>
@@ -201,7 +198,7 @@ export default function Series(props) {
               <Grid item>
                 <div className="book-description">
                   <Grid container>
-                    <Grid item lg={3}>
+                    <Grid item lg={4} md={4} sm={4} xs={12}>
                       <div
                         className="description-title"
                         style={{ color: "#333333", fontFamily: "Roboto" }}
@@ -209,11 +206,8 @@ export default function Series(props) {
                         <h6>End Year</h6>
                       </div>
                     </Grid>
-                    <Grid item lg={9}>
-                      <div
-                        className="description"
-                        style={{ textAlign: "left" }}
-                      >
+                    <Grid item lg={8} md={8} sm={8} xs={12}>
+                      <div className="description">
                         <h6>{series.endYear}</h6>
                       </div>
                     </Grid>
@@ -224,7 +218,7 @@ export default function Series(props) {
               <Grid item>
                 <div className="book-description">
                   <Grid container>
-                    <Grid item lg={3}>
+                    <Grid item lg={4} md={4} sm={4} xs={12}>
                       <div
                         className="description-title"
                         style={{ color: "#333333", fontFamily: "Roboto" }}
@@ -232,11 +226,8 @@ export default function Series(props) {
                         <h6>Creators</h6>
                       </div>
                     </Grid>
-                    <Grid item lg={9}>
-                      <div
-                        className="description"
-                        style={{ textAlign: "left" }}
-                      >
+                    <Grid item lg={8} md={8} sm={8} xs={12}>
+                      <div className="description">
                         {series.creators.map((creator) => {
                           return <h6 key={creator.name}>{creator.name}</h6>;
                         })}
@@ -248,7 +239,7 @@ export default function Series(props) {
               <Grid item>
                 <div className="book-description">
                   <Grid container>
-                    <Grid item lg={3}>
+                    <Grid item lg={4} md={4} sm={4} xs={12}>
                       <div
                         className="description-title"
                         style={{ color: "#333333", fontFamily: "Roboto" }}
@@ -256,11 +247,8 @@ export default function Series(props) {
                         <h6>Characters</h6>
                       </div>
                     </Grid>
-                    <Grid item lg={9}>
-                      <div
-                        className="description"
-                        style={{ textAlign: "left" }}
-                      >
+                    <Grid item lg={8} md={8} sm={8} xs={12}>
+                      <div className="description">
                         {series.characters.map((creator) => {
                           return <h6 key={creator.name}>{creator.name}</h6>;
                         })}
@@ -272,7 +260,7 @@ export default function Series(props) {
               <Grid item>
                 <div className="book-description">
                   <Grid container>
-                    <Grid item lg={3}>
+                    <Grid item lg={4} md={4} sm={4} xs={12}>
                       <div
                         className="description-title"
                         style={{ color: "#333333", fontFamily: "Roboto" }}
@@ -280,15 +268,18 @@ export default function Series(props) {
                         <h6>Comics</h6>
                       </div>
                     </Grid>
-                    <Grid item lg={9}>
-                      <div
-                        className="description"
-                        style={{ textAlign: "left" }}
-                      >
+                    <Grid item lg={8} md={8} sm={8} xs={12}>
+                      <div className="description">
                         {series.comics.map((comic) => {
                           return (
                             <p key={comic.name}>
-                              <Link to={"/book/" + comic.resourceURI.slice(43)}>
+                              <Link
+                                to={{
+                                  pathname:
+                                    "/book/" + comic.resourceURI.slice(43),
+                                  search: `?source=${_MARVEL}`,
+                                }}
+                              >
                                 {comic.name.length > 30
                                   ? comic.name.slice(0, 30) + "..."
                                   : comic.name}

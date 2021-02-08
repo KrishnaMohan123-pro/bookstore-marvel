@@ -101,7 +101,14 @@ export default function Book(props) {
   return (
     <Container fixed style={{ marginTop: "1.5rem", marginBottom: "3rem " }}>
       <Grid container>
-        <Grid item lg={3} style={{ alignItems: "center" }}>
+        <Grid
+          item
+          lg={3}
+          md={3}
+          sm={12}
+          xs={12}
+          style={{ alignItems: "center" }}
+        >
           <Grid container direction="column">
             <Grid
               item
@@ -135,6 +142,9 @@ export default function Book(props) {
         <Grid
           item
           lg={9}
+          md={9}
+          sm={12}
+          xs={12}
           style={{
             border: "grey 0.1rem solid",
             backgroundColor: "white",
@@ -150,7 +160,7 @@ export default function Book(props) {
             <Grid item>
               <div className="book-description">
                 <Grid container>
-                  <Grid item lg={3}>
+                  <Grid item lg={4} md={4} sm={4} xs={12}>
                     <div
                       className="description-title"
                       style={{ color: "#333333", fontFamily: "Roboto" }}
@@ -158,8 +168,8 @@ export default function Book(props) {
                       <h4>Price</h4>
                     </div>
                   </Grid>
-                  <Grid item lg={9}>
-                    <div className="description" style={{ textAlign: "left" }}>
+                  <Grid item lg={8} md={8} sm={8} xs={12}>
+                    <div className="description">
                       <h4>{"$ " + comics.price}</h4>
                     </div>
                   </Grid>
@@ -169,7 +179,7 @@ export default function Book(props) {
             <Grid item>
               <div className="book-description">
                 <Grid container>
-                  <Grid item lg={3}>
+                  <Grid item lg={4} md={4} sm={4} xs={12}>
                     <div
                       className="description-title"
                       style={{ color: "#333333", fontFamily: "Roboto" }}
@@ -177,8 +187,8 @@ export default function Book(props) {
                       <h6>Description</h6>
                     </div>
                   </Grid>
-                  <Grid item lg={9}>
-                    <div className="description" style={{ textAlign: "left" }}>
+                  <Grid item lg={8} md={8} sm={8} xs={12}>
+                    <div className="description">
                       <p>
                         {comics.description === null ||
                         comics.description.length === 0
@@ -193,7 +203,7 @@ export default function Book(props) {
             <Grid item>
               <div className="book-description">
                 <Grid container>
-                  <Grid item lg={3}>
+                  <Grid item lg={4} md={4} sm={4} xs={12}>
                     <div
                       className="description-title"
                       style={{ color: "#333333", fontFamily: "Roboto" }}
@@ -201,8 +211,8 @@ export default function Book(props) {
                       <h6>Published on</h6>
                     </div>
                   </Grid>
-                  <Grid item lg={9}>
-                    <div className="description" style={{ textAlign: "left" }}>
+                  <Grid item lg={8} md={8} sm={8} xs={12}>
+                    <div className="description">
                       <h6>{comics.publishDate}</h6>
                     </div>
                   </Grid>
@@ -213,7 +223,7 @@ export default function Book(props) {
             <Grid item>
               <div className="book-description">
                 <Grid container>
-                  <Grid item lg={3}>
+                  <Grid item lg={4} md={4} sm={4} xs={12}>
                     <div
                       className="description-title"
                       style={{ color: "#333333", fontFamily: "Roboto" }}
@@ -221,8 +231,8 @@ export default function Book(props) {
                       <h6>Creators</h6>
                     </div>
                   </Grid>
-                  <Grid item lg={9}>
-                    <div className="description" style={{ textAlign: "left" }}>
+                  <Grid item lg={8} md={8} sm={8} xs={12}>
+                    <div className="description">
                       {comics.creators.map((creator) => {
                         return <h6 key={creator.name}>{creator.name}</h6>;
                       })}
@@ -234,7 +244,7 @@ export default function Book(props) {
             <Grid item>
               <div className="book-description">
                 <Grid container>
-                  <Grid item lg={3}>
+                  <Grid item lg={4} md={4} sm={4} xs={12}>
                     <div
                       className="description-title"
                       style={{ color: "#333333", fontFamily: "Roboto" }}
@@ -242,8 +252,8 @@ export default function Book(props) {
                       <h6>Characters</h6>
                     </div>
                   </Grid>
-                  <Grid item lg={9}>
-                    <div className="description" style={{ textAlign: "left" }}>
+                  <Grid item lg={8} md={8} sm={8} xs={12}>
+                    <div className="description">
                       {comics.characters.map((creator) => {
                         return <h6 key={creator.name}>{creator.name}</h6>;
                       })}
