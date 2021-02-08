@@ -11,7 +11,6 @@ import {
 } from "../actions/actionCreators/loadActionCreators";
 export function addToCart(book) {
   return async (dispatch, getState, { getFirebase }) => {
-    dispatch(firebaseLoadingAction());
     const uid = getState().auth.uid;
     const firebase = getFirebase();
     const cart = getState().cart.cart;
@@ -38,14 +37,12 @@ export function addToCart(book) {
       });
     if (token) {
       dispatch(addItemAction(cart));
-      dispatch(stopLoadingAction());
     }
   };
 }
 
 export function removeFromCart(book) {
   return async (dispatch, getState, { getFirebase }) => {
-    dispatch(firebaseLoadingAction());
     const firebase = getFirebase();
     const cart = getState().cart.cart;
     const uid = getState().firebase.auth.uid;
@@ -66,14 +63,12 @@ export function removeFromCart(book) {
       });
     if (token) {
       dispatch(removeItemAction(newCartData));
-      dispatch(stopLoadingAction());
     }
   };
 }
 
 export function changeQuantity(type, bookId) {
   return async (dispatch, getState, { getFirebase }) => {
-    dispatch(firebaseLoadingAction());
     const uid = getState().auth.uid;
     const firebase = getFirebase();
     const cart = getState().cart.cart;
@@ -114,7 +109,6 @@ export function changeQuantity(type, bookId) {
         default:
           console.log("default");
       }
-      dispatch(stopLoadingAction());
     }
   };
 }
