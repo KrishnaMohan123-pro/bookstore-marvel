@@ -1,69 +1,16 @@
 import React, { useState } from "react";
 import MenuIcon from "@material-ui/icons/Menu";
-import {
-  IconButton,
-  Button,
-  ButtonGroup,
-  // List,
-  // ListItem,
-  // Divider,
-} from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import SearchBar from "../SearchBar/searchBar";
-import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import CartLink from "../navbar/cartLink";
+import { useSelector } from "react-redux";
 import "./styles.css";
-import { logout } from "../../actions/authActions";
+import LoggedOutLinks from "../navbar/loggedOutLinks";
+import LoggedInLinks from "../navbar/loggedInLinks";
 
 export default function SideDrawer() {
-  // const list = () => {
-  //   <div>
-  //     <List>
-  //       <ListItem>
-  //         <Button
-  //           color="inherit"
-  //           variant="text"
-  //           onClick={() => {
-  //             history.push("/account");
-  //           }}
-  //         >
-  //           Account
-  //         </Button>
-  //       </ListItem>
-  //       <Divider />
-  //       <ListItem>
-  //         <Button
-  //           color="inherit"
-  //           variant="text"
-  //           style={{ position: "relative" }}
-  //           onClick={() => {
-  //             history.push("/cart");
-  //           }}
-  //         >
-  //           <CartLink />
-  //         </Button>
-  //       </ListItem>
-  //       <Divider />
-  //       <ListItem>
-  //         <Button
-  //           color="inherit"
-  //           variant="text"
-  //           onClick={() => {
-  //             dispatch({ type: "LOGGED_OUT" });
-  //             dispatch(logout());
-  //             history.push("/");
-  //           }}
-  //         >
-  //           SIGNOUT
-  //         </Button>
-  //       </ListItem>
-  //       <Divider />
-  //     </List>
-  //   </div>;
-  // };
-  const dispatch = useDispatch();
-  const history = useHistory();
+  const loggedIn = useSelector((state) => state.loggedIn);
   const [showOptions, setShowOptions] = useState(false);
+
   return (
     <div className="side-drawer">
       <div className="side-drawer-button">
@@ -76,40 +23,19 @@ export default function SideDrawer() {
         </IconButton>
       </div>
       {showOptions ? (
-        <div className="side-drawer-options">
-          <SearchBar />
-          <ButtonGroup orientation="vertical">
-            <Button
-              color="inherit"
-              variant="text"
-              onClick={() => {
-                history.push("/account");
-              }}
-            >
-              Account
-            </Button>
-            <Button
-              color="inherit"
-              variant="text"
-              style={{ position: "relative" }}
-              onClick={() => {
-                history.push("/cart");
-              }}
-            >
-              <CartLink />
-            </Button>
-            <Button
-              color="inherit"
-              variant="text"
-              onClick={() => {
-                dispatch({ type: "LOGGED_OUT" });
-                dispatch(logout());
-                history.push("/");
-              }}
-            >
-              SIGNOUT
-            </Button>
-          </ButtonGroup>
+        <div
+          className="side-drawer-options"
+          onBlur={() => {
+            setShowOptions(false);
+          }}
+        >
+          <div className="mx-auto">
+            <SearchBar />
+          </div>
+
+          <div className="mt-3">
+            {loggedIn ? <LoggedInLinks /> : <LoggedOutLinks />}
+          </div>
         </div>
       ) : null}
     </div>

@@ -14,6 +14,7 @@ import modalReducer from "./modalReducer";
 import newBooksReducer from "./newBooksReducer";
 import seriesReducer from "./marvelDataFetchReducers/seriesReducer";
 import queryReducer from "./queryReducer";
+import savedItemsReducer from "./savedItemsReducer";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   newBooks: newBooksReducer,
   series: seriesReducer,
   query: queryReducer,
+  savedItems: savedItemsReducer,
 });
 
 export default rootReducer;

@@ -42,6 +42,7 @@ export default function Cart() {
             img={Item.img}
             price={Item.price}
             title={Item.title}
+            source={Item.source}
           />
         );
       })}

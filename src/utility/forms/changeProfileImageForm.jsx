@@ -12,14 +12,13 @@ export default function ChangeProfileImageForm() {
   }
   function handleImageUpload(e) {
     e.preventDefault();
-    console.log(newProfileImage);
     if (newProfileImage) dispatch(uploadImage(newProfileImage));
     else toast.error("Please upload an image");
   }
   return (
     <form onSubmit={(e) => handleImageUpload(e)} style={{ padding: "3rem" }}>
       <Input
-        inputProps={{ accept: ".jpg, .png" }}
+        inputProps={{ accept: ".jpg" }}
         type="file"
         onChange={(e) => handleImageChange(e)}
       />

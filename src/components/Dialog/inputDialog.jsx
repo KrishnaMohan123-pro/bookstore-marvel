@@ -9,7 +9,6 @@ import { openDialog, closeDialog } from "../../actions/dialogActions";
 
 export default function FormDialog(props) {
   const loader = useSelector((state) => state.loader.profile);
-  console.log(loader);
   const dispatch = useDispatch();
   const handleClickOpen = () => {
     dispatch(openDialog(props.dialogName.toUpperCase()));

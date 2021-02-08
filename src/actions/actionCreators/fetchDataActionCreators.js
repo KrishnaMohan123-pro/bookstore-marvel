@@ -42,7 +42,7 @@ export function fetchComicsErrorAction(err) {
 export function fetchSeriesAction(seriesData) {
   return { type: _SERIES_DATA_LOAD, payload: seriesData };
 }
-export function fetchSeriesErrorAction(err) {
+export function fetchSeriesErrorAction() {
   return {
     type: _SERIES_DATA_LOAD_ERROR,
     payload: { error: "NO SERIES WITH THE ID AVAILABLE" },

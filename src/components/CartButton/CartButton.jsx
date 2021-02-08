@@ -25,7 +25,7 @@ export default function CartButton(props) {
         }}
         style={{ margin: "0px auto" }}
       >
-        Add to cart
+        Add
       </Button>
     );
   }
@@ -47,6 +47,7 @@ export default function CartButton(props) {
         id: props.id,
         img: props.img,
         price: props.price,
+        source: props.source,
         title: props.title,
         quantity: 1,
       })

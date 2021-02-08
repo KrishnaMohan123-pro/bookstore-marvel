@@ -1,12 +1,14 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
 import CartButton from "../CartButton/CartButton";
+import SaveItemsButton from "../Buttons/saveItemsButton";
+import { useHistory } from "react-router-dom";
+import { _BOOK, _SERIES } from "../../utility/sources/itemTypes";
+import "./styles.css";
 
 const useStyles = makeStyles({
   root: {
@@ -28,13 +30,22 @@ const useStyles = makeStyles({
   },
 });
 export default function ProductCard(props) {
+  const history = useHistory();
   const classes = useStyles();
   let enablePurcahse = false;
 
-  if (props.type === "book") enablePurcahse = true;
+  if (props.type === _BOOK) enablePurcahse = true;
   return (
-    <Card className={classes.root}>
-      <Link to={"/" + props.type + "/" + props.id}>
+    <Card className={classes.root + " product-card"}>
+      <div
+        onClick={() => {
+          history.push({
+            pathname: `/${props.type}/${props.id}`,
+            search: `?source=${props.source}`,
+          });
+        }}
+        style={{ cursor: "pointer" }}
+      >
         <CardContent>
           <img
             src={props.img}
@@ -57,12 +68,12 @@ export default function ProductCard(props) {
                 : props.title}
             </b>
           </Typography>
-          {props.type === "book" && (
+          {props.type === _BOOK && (
             <Typography className={classes.title} color="textPrimary">
               <b> Price - ${props.price}</b>
             </Typography>
           )}
-          {props.type === "series" && (
+          {props.type === _SERIES && (
             <Typography className={classes.title} color="textPrimary">
               <b>Start Year - {props.startYear}</b>
               <br />
@@ -70,7 +81,7 @@ export default function ProductCard(props) {
             </Typography>
           )}
         </CardContent>
-      </Link>
+      </div>
       <CardActions style={{ margin: "0px auto" }}>
         {enablePurcahse ? (
           <CartButton
@@ -78,16 +89,16 @@ export default function ProductCard(props) {
             price={props.price}
             img={props.img}
             title={props.title}
+            source={props.source}
           />
         ) : (
-          <Link
-            to={"/" + props.type + "/" + props.id}
-            style={{ margin: "0px auto" }}
-          >
-            <Button variant="contained" color="primary">
-              Know More
-            </Button>
-          </Link>
+          <SaveItemsButton
+            id={props.id}
+            img={props.img}
+            title={props.title}
+            type={props.type}
+            source={props.source}
+          />
         )}
       </CardActions>
     </Card>

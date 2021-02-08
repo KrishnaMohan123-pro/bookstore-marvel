@@ -1,24 +1,100 @@
 import React, { useEffect } from "react";
-import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
-
 import { fetchCharacter } from "../../actions/FetchActions/characterFetchAction";
 import Loader from "../../components/Loader/loader";
-import { Container } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 import "./styles.css";
 import { useDispatch, useSelector } from "react-redux";
+import SaveItemsButton from "../../components/Buttons/saveItemsButton";
+import { useHistory, useLocation } from "react-router-dom";
+import {
+  fetchCharacterAction,
+  fetchCharacterErrorAction,
+} from "../../actions/actionCreators/fetchDataActionCreators";
+import { _MARVEL, _OUR_COLLECTION } from "../../utility/sources/sources";
+import { _CHARACTER } from "../../utility/sources/itemTypes";
 
 export default function Character(props) {
+  const history = useHistory();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const source = searchParams.get("source");
+
   const character = useSelector((state) => state.character);
   const loader = useSelector((state) => state.loader.data);
+  const newBooksLoader = useSelector((state) => state.loader.profile);
+  const newBooks = useSelector((state) => state.newBooks);
   useEffect(() => {
-    dispatch(fetchCharacter(props.id));
-  }, [dispatch, props.id]);
+    if (source === _MARVEL) {
+      dispatch(fetchCharacter(props.id));
+    } else {
+      if (!newBooksLoader) {
+        let pos = 0;
+        let flag = false;
+        for (let i = 0; i < newBooks.length; i++) {
+          if (newBooks[i].id === props.id) {
+            pos = i;
+            flag = true;
+            break;
+          }
+        }
+        if (flag) {
+          dispatch(
+            fetchCharacterAction({
+              comics: [],
+              description: newBooks[pos].description,
+              id: newBooks[pos].id,
+              image: newBooks[pos].image,
+              name: newBooks[pos].name,
+              series: [],
+            })
+          );
+        } else {
+          dispatch(fetchCharacterErrorAction());
+        }
+      }
+    }
+  }, [dispatch, props.id, newBooks, newBooksLoader, source]);
 
-  if (loader) {
+  if (loader || newBooksLoader) {
     return <Loader />;
   }
+
+  // When source is not present in URL or source is wrong
+  if (
+    !location.search.includes("source") ||
+    (source !== _MARVEL && source !== _OUR_COLLECTION)
+  ) {
+    return (
+      <div className="mt-2">
+        <p>Which collection do you wish to see?</p>
+        <p
+          onClick={() => {
+            history.push({
+              pathname: `/${_CHARACTER}/${props.id}`,
+              search: `?source=${_MARVEL}`,
+            });
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          Marvel
+        </p>
+        <p
+          onClick={() => {
+            history.push({
+              pathname: `/${_CHARACTER}/${props.id}`,
+              search: `?source=${_OUR_COLLECTION}`,
+            });
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          Our Collection
+        </p>
+      </div>
+    );
+  }
+
   if (character.error) {
     return <p>{character.error}</p>;
   }
@@ -30,7 +106,7 @@ export default function Character(props) {
     >
       <Container>
         <Grid container>
-          <Grid item lg={3}>
+          <Grid item lg={3} md={3} sm={12} xs={12}>
             <Grid container direction="column">
               <Grid
                 item
@@ -51,11 +127,25 @@ export default function Character(props) {
                   }}
                 />
               </Grid>
+              <Grid item>
+                <div>
+                  <SaveItemsButton
+                    id={character.id}
+                    img={character.image}
+                    title={character.name}
+                    type="character"
+                    source={source}
+                  />
+                </div>
+              </Grid>
             </Grid>
           </Grid>
           <Grid
             item
             lg={9}
+            md={9}
+            sm={12}
+            xs={12}
             style={{
               border: "grey 0.1rem solid",
               backgroundColor: "white",
@@ -67,12 +157,12 @@ export default function Character(props) {
               </Grid>
               <Grid item>
                 <Grid container>
-                  <Grid item lg={4}>
+                  <Grid item lg={4} md={4} sm={4} xs={12}>
                     <h6 style={{ fontFamily: "Roboto", margin: "0 auto" }}>
                       Description
                     </h6>
                   </Grid>
-                  <Grid item lg={8}>
+                  <Grid item lg={8} md={8} sm={8} xs={12}>
                     <p>
                       {character.description === null ||
                       character.description.length === 0
@@ -84,12 +174,12 @@ export default function Character(props) {
               </Grid>
               <Grid item>
                 <Grid container>
-                  <Grid item lg={4}>
+                  <Grid item lg={4} md={4} sm={4} xs={12}>
                     <h6 style={{ fontFamily: "Roboto", margin: "0 auto" }}>
                       Series
                     </h6>
                   </Grid>
-                  <Grid item lg={8}>
+                  <Grid item lg={8} md={8} sm={8} xs={12}>
                     <div
                       className="comic-link"
                       style={{ height: "250px", overflowY: "scroll" }}
@@ -97,7 +187,11 @@ export default function Character(props) {
                       {character.series.map((series) => {
                         return (
                           <Link
-                            to={"/series/" + series.resourceURI.slice(43)}
+                            to={{
+                              pathname:
+                                "/series/" + series.resourceURI.slice(43),
+                              search: `?source=${_MARVEL}`,
+                            }}
                             key={series.resourceURI.slice(43)}
                           >
                             <p>
@@ -114,12 +208,12 @@ export default function Character(props) {
               </Grid>
               <Grid item>
                 <Grid container>
-                  <Grid item lg={4}>
+                  <Grid item lg={4} md={4} sm={4} xs={12}>
                     <h6 style={{ fontFamily: "Roboto", margin: "0 auto" }}>
                       Comics
                     </h6>
                   </Grid>
-                  <Grid item lg={8}>
+                  <Grid item lg={8} md={8} sm={8} xs={12}>
                     <div
                       className="comic-link"
                       style={{ height: "250px", overflowY: "scroll" }}
@@ -127,7 +221,10 @@ export default function Character(props) {
                       {character.comics.map((comic) => {
                         return (
                           <Link
-                            to={"/book/" + comic.resourceURI.slice(43)}
+                            to={{
+                              pathname: "/book/" + comic.resourceURI.slice(43),
+                              search: `?source=${_MARVEL}`,
+                            }}
                             key={comic.resourceURI.slice(43)}
                           >
                             <p>

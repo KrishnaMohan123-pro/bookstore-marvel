@@ -3,69 +3,49 @@ import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { addAddress } from "../../actions/authActions";
+import { toast } from "react-toastify";
 
 export default function AddAddressForm() {
   const userAddress = useSelector((state) => state.auth.user.address);
   const [address, setAddress] = useState(userAddress);
   const dispatch = useDispatch();
+  const [err, setErr] = useState(false);
+  var regExp = /[a-zA-Z]/g;
 
   function handleChange(e) {
-    var id = e.target.id;
-    var value = e.target.value;
+    setErr(false);
+    const id = e.target.id;
+    const value = e.target.value;
     setAddress((prevValue) => {
       switch (id) {
         case "addressLine1":
           return {
+            ...prevValue,
             addressLine1: value,
-            addressLine2: prevValue.addressLine2,
-            pin: prevValue.pin,
-            city: prevValue.city,
-            state: prevValue.state,
-            country: prevValue.country,
           };
         case "addressLine2":
           return {
-            addressLine1: prevValue.addressLine1,
+            ...prevValue,
             addressLine2: value,
-            pin: prevValue.pin,
-            city: prevValue.city,
-            state: prevValue.state,
-            country: prevValue.country,
           };
         case "pin":
           return {
-            addressLine1: prevValue.addressLine1,
-            addressLine2: prevValue.addressLine2,
+            ...prevValue,
             pin: value,
-            city: prevValue.city,
-            state: prevValue.state,
-            country: prevValue.country,
           };
         case "city":
           return {
-            addressLine1: prevValue.addressLine1,
-            addressLine2: prevValue.addressLine2,
-            pin: prevValue.pin,
+            ...prevValue,
             city: value,
-            state: prevValue.state,
-            country: prevValue.country,
           };
         case "state":
           return {
-            addressLine1: prevValue.addressLine1,
-            addressLine2: prevValue.addressLine2,
-            pin: prevValue.pin,
-            city: prevValue.city,
+            ...prevValue,
             state: value,
-            country: prevValue.country,
           };
         case "country":
           return {
-            addressLine1: prevValue.addressLine1,
-            addressLine2: prevValue.addressLine2,
-            pin: prevValue.pin,
-            city: prevValue.city,
-            state: prevValue.state,
+            ...prevValue,
             country: value,
           };
         default:
@@ -75,7 +55,11 @@ export default function AddAddressForm() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(addAddress(address));
+    if (!regExp.test(address.pin) && address.pin.length === 6) {
+      dispatch(addAddress(address));
+    } else {
+      toast.error("Entered Wrong Pin");
+    }
   }
   return (
     <form
@@ -116,6 +100,7 @@ export default function AddAddressForm() {
         type="text"
         value={address.pin}
         required
+        error={err}
       />
       <TextField
         className="mt-2"

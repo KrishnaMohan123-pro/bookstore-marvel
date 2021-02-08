@@ -2,8 +2,12 @@ import {
   addNewBookAction,
   fetchNewBooksAction,
 } from "./actionCreators/newBookAdditionActionsCreator";
-
-export function addNewBook(book) {
+import {
+  firebaseLoadingAction,
+  stopLoadingAction,
+} from "./actionCreators/loadActionCreators";
+import { closeDialogAction } from "../actions/actionCreators/dialogActionsCreator";
+export function addNewItem(item) {
   return async (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
     const newBooks = getState().newBooks;
@@ -16,14 +20,16 @@ export function addNewBook(book) {
           .firestore()
           .collection("new-books")
           .doc(docRef.id)
-          .update({ book: { ...book, id: docRef.id } });
-        newBooks.push({ book: { ...book, id: docRef.id } });
+          .update({ ...item, id: docRef.id });
+        newBooks.push({ ...item, id: docRef.id });
         dispatch(addNewBookAction(newBooks));
+        dispatch(closeDialogAction());
       });
   };
 }
 export function fetchNewBooks() {
   return (dispatch, getState, { getFirebase }) => {
+    dispatch(firebaseLoadingAction());
     const firebase = getFirebase();
     const newBooks = [];
     firebase
@@ -35,6 +41,7 @@ export function fetchNewBooks() {
       })
       .then(() => {
         dispatch(fetchNewBooksAction(newBooks));
+        dispatch(stopLoadingAction());
       });
   };
 }

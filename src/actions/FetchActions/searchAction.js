@@ -34,7 +34,6 @@ export function search(name, sort, filter) {
         break;
       case "comics":
         fetchComicsWithStartName(name, sort).then((res) => {
-          console.log(res);
           dispatch(
             searchAction({ total: res.data.total, results: res.data.results })
           );

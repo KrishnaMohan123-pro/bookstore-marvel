@@ -12,13 +12,7 @@ const razorPayInstance = new razorPay({
   key_secret: "hE3Csmz8s4RJOAfuAVNri1t4",
 });
 
-// app.get("/razorpay"),
-//   async (req, res) => {
-//     const totalAmount = req.body.book - total;
-//   };
 app.post("/razorpay", async (req, res) => {
-  // const total = await firebase.firestore().collection("users");
-  // console.log(total);
   const payment_capture = 1;
   const amount = 500;
   const options = {
@@ -28,7 +22,6 @@ app.post("/razorpay", async (req, res) => {
     payment_capture: payment_capture,
   };
   const response = await razorPayInstance.orders.create(options);
-  console.log(response);
   res.send({
     id: response.id,
     amount: response.amount,

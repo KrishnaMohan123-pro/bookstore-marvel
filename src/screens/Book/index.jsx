@@ -4,46 +4,96 @@ import Loader from "../../components/Loader/loader";
 import CartButton from "../../components/CartButton/CartButton";
 import { Container, Grid } from "@material-ui/core";
 import { fetchComics } from "../../actions/FetchActions/comicsFetch";
-import { fetchComicsAction } from "../../actions/actionCreators/fetchDataActionCreators";
+import {
+  fetchComicsAction,
+  fetchComicsErrorAction,
+} from "../../actions/actionCreators/fetchDataActionCreators";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
+import { _MARVEL, _OUR_COLLECTION } from "../../utility/sources/sources";
+import { _BOOK } from "../../utility/sources/itemTypes";
 export default function Book(props) {
+  const history = useHistory();
   const dispatch = useDispatch();
-  const newBooks = useSelector((state) => state.newBooks);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  // source of the collection
+  const source = searchParams.get("source");
   const comics = useSelector((state) => state.comics);
+  const newBooks = useSelector((state) => state.newBooks);
   const loader = useSelector((state) => state.loader.data);
-  console.log(newBooks);
+  const newBooksLoader = useSelector((state) => state.loader.profile);
   useEffect(() => {
-    let flag = false;
-    let pos = 0;
-    for (let i = 0; i < newBooks.length; i += 1) {
-      if (props.id === newBooks[i].book.id) {
-        pos = i;
-        flag = true;
-        break;
+    if (source === _OUR_COLLECTION) {
+      if (!newBooksLoader) {
+        let pos = 0;
+        let flag = false;
+        for (let i = 0; i < newBooks.length; i += 1) {
+          if (props.id === newBooks[i].id) {
+            flag = true;
+            pos = i;
+            break;
+          }
+        }
+        if (flag) {
+          dispatch(
+            fetchComicsAction({
+              characters: [],
+              creators: [],
+              description: newBooks[pos].description,
+              id: newBooks[pos].id,
+              image:
+                newBooks[pos].image.length === 0
+                  ? "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
+                  : newBooks[pos].image,
+              price: newBooks[pos].price,
+              publishDate: newBooks[pos].publishedOn,
+              title: newBooks[pos].title,
+            })
+          );
+        } else {
+          dispatch(fetchComicsErrorAction());
+        }
       }
-    }
-
-    if (flag)
-      dispatch(
-        fetchComicsAction({
-          characters: [],
-          creators: [],
-          description: newBooks[pos].book.description,
-          id: newBooks[pos].book.id,
-          image:
-            newBooks[pos].book.image.length === 0
-              ? "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
-              : newBooks[pos].book.image,
-          price: newBooks[pos].book.price,
-          publishDate: newBooks[pos].book.publishedOn,
-          title: newBooks[pos].book.title,
-        })
-      );
-    else if (newBooks.length !== 0) dispatch(fetchComics(props.id));
-  }, [dispatch, props.id, newBooks]);
-  if (loader || newBooks.length === 0) {
+    } else dispatch(fetchComics(props.id));
+  }, [dispatch, props.id, newBooks, newBooksLoader, source]);
+  if (loader || newBooksLoader) {
     return <Loader />;
   }
+
+  if (
+    !location.search.includes("source") ||
+    (source !== _MARVEL && source !== _OUR_COLLECTION)
+  ) {
+    return (
+      <div className="mt-2">
+        <p>Which collection do you wish to see?</p>
+        <p
+          onClick={() => {
+            history.push({
+              pathname: `/${_BOOK}/${props.id}`,
+              search: `?source=${_MARVEL}`,
+            });
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          Marvel
+        </p>
+        <p
+          onClick={() => {
+            history.push({
+              pathname: `/${_BOOK}/${props.id}`,
+              search: `?source=${_OUR_COLLECTION}`,
+            });
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          Our Collection
+        </p>
+      </div>
+    );
+  }
+
   if (comics.error) {
     return <p>{comics.error}</p>;
   }
@@ -51,7 +101,14 @@ export default function Book(props) {
   return (
     <Container fixed style={{ marginTop: "1.5rem", marginBottom: "3rem " }}>
       <Grid container>
-        <Grid item alignItems="center" lg={3}>
+        <Grid
+          item
+          lg={3}
+          md={3}
+          sm={12}
+          xs={12}
+          style={{ alignItems: "center" }}
+        >
           <Grid container direction="column">
             <Grid
               item
@@ -76,6 +133,7 @@ export default function Book(props) {
                   img={comics.image}
                   price={comics.price}
                   title={comics.title}
+                  source={source}
                 />
               </div>
             </Grid>
@@ -84,10 +142,13 @@ export default function Book(props) {
         <Grid
           item
           lg={9}
-          alignContent="center"
+          md={9}
+          sm={12}
+          xs={12}
           style={{
             border: "grey 0.1rem solid",
             backgroundColor: "white",
+            alignItems: "center",
           }}
         >
           <Grid container direction="column" spacing={2}>
@@ -99,7 +160,7 @@ export default function Book(props) {
             <Grid item>
               <div className="book-description">
                 <Grid container>
-                  <Grid item lg={3}>
+                  <Grid item lg={4} md={4} sm={4} xs={12}>
                     <div
                       className="description-title"
                       style={{ color: "#333333", fontFamily: "Roboto" }}
@@ -107,8 +168,8 @@ export default function Book(props) {
                       <h4>Price</h4>
                     </div>
                   </Grid>
-                  <Grid item lg={9}>
-                    <div className="description" style={{ textAlign: "left" }}>
+                  <Grid item lg={8} md={8} sm={8} xs={12}>
+                    <div className="description">
                       <h4>{"$ " + comics.price}</h4>
                     </div>
                   </Grid>
@@ -118,7 +179,7 @@ export default function Book(props) {
             <Grid item>
               <div className="book-description">
                 <Grid container>
-                  <Grid item lg={3}>
+                  <Grid item lg={4} md={4} sm={4} xs={12}>
                     <div
                       className="description-title"
                       style={{ color: "#333333", fontFamily: "Roboto" }}
@@ -126,8 +187,8 @@ export default function Book(props) {
                       <h6>Description</h6>
                     </div>
                   </Grid>
-                  <Grid item lg={9}>
-                    <div className="description" style={{ textAlign: "left" }}>
+                  <Grid item lg={8} md={8} sm={8} xs={12}>
+                    <div className="description">
                       <p>
                         {comics.description === null ||
                         comics.description.length === 0
@@ -142,7 +203,7 @@ export default function Book(props) {
             <Grid item>
               <div className="book-description">
                 <Grid container>
-                  <Grid item lg={3}>
+                  <Grid item lg={4} md={4} sm={4} xs={12}>
                     <div
                       className="description-title"
                       style={{ color: "#333333", fontFamily: "Roboto" }}
@@ -150,8 +211,8 @@ export default function Book(props) {
                       <h6>Published on</h6>
                     </div>
                   </Grid>
-                  <Grid item lg={9}>
-                    <div className="description" style={{ textAlign: "left" }}>
+                  <Grid item lg={8} md={8} sm={8} xs={12}>
+                    <div className="description">
                       <h6>{comics.publishDate}</h6>
                     </div>
                   </Grid>
@@ -162,7 +223,7 @@ export default function Book(props) {
             <Grid item>
               <div className="book-description">
                 <Grid container>
-                  <Grid item lg={3}>
+                  <Grid item lg={4} md={4} sm={4} xs={12}>
                     <div
                       className="description-title"
                       style={{ color: "#333333", fontFamily: "Roboto" }}
@@ -170,8 +231,8 @@ export default function Book(props) {
                       <h6>Creators</h6>
                     </div>
                   </Grid>
-                  <Grid item lg={9}>
-                    <div className="description" style={{ textAlign: "left" }}>
+                  <Grid item lg={8} md={8} sm={8} xs={12}>
+                    <div className="description">
                       {comics.creators.map((creator) => {
                         return <h6 key={creator.name}>{creator.name}</h6>;
                       })}
@@ -183,7 +244,7 @@ export default function Book(props) {
             <Grid item>
               <div className="book-description">
                 <Grid container>
-                  <Grid item lg={3}>
+                  <Grid item lg={4} md={4} sm={4} xs={12}>
                     <div
                       className="description-title"
                       style={{ color: "#333333", fontFamily: "Roboto" }}
@@ -191,8 +252,8 @@ export default function Book(props) {
                       <h6>Characters</h6>
                     </div>
                   </Grid>
-                  <Grid item lg={9}>
-                    <div className="description" style={{ textAlign: "left" }}>
+                  <Grid item lg={8} md={8} sm={8} xs={12}>
+                    <div className="description">
                       {comics.characters.map((creator) => {
                         return <h6 key={creator.name}>{creator.name}</h6>;
                       })}

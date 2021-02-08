@@ -10,7 +10,6 @@ export default function SearchedBody() {
   const [data, setData] = useState({});
   const [limit, setlimit] = useState(9);
   const [loader, setLoader] = useState(false);
-  console.log(data);
   useEffect(() => {
     setLoader(true);
     fetchSeriesByStartName(name, limit).then((doc) => {

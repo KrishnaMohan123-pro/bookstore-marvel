@@ -17,6 +17,7 @@ import { initialiseUser } from "./actions/authActions";
 import { initialiseCart } from "./actions/cartActions";
 import { fetchNewBooks } from "./actions/newBookAdditionActions";
 import HourglassFullTwoToneIcon from "@material-ui/icons/HourglassFullTwoTone";
+import { initialiseSavedItems } from "./actions/savedItemsActions";
 
 function bookDetail({ match }) {
   return <Book id={match.params.book_id} />;
@@ -51,11 +52,12 @@ function App() {
   const isLoaded = useSelector((state) => state.firebase.auth.isLoaded);
   const uid = useSelector((state) => state.firebase.auth.uid);
   const dispatch = useDispatch();
+  dispatch(fetchNewBooks());
   if (!emptyUser) {
     dispatch({ type: "LOGGED_IN" });
     dispatch(initialiseUser(uid));
     dispatch(initialiseCart(uid));
-    dispatch(fetchNewBooks());
+    dispatch(initialiseSavedItems(uid));
   }
   if (!isLoaded) {
     return (
@@ -71,7 +73,7 @@ function App() {
           <ProtectedRoute path="/admin" exact component={Admin} />
           <Route exact path="/popular" render={() => <Books />} />
           <Route exact path="/book/:book_id" component={bookDetail} />
-          <Route exact path="/search/q=:query" component={Characters} />
+          <Route exact path="/search" component={Characters} />
           <Route
             exact
             path="/character/:character_id"

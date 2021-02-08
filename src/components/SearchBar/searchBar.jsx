@@ -15,6 +15,8 @@ import {
   clearDropDown,
 } from "../../actions/FetchActions/searchAction";
 import { useDispatch, useSelector } from "react-redux";
+import { characterSortOptions } from "../../utility/sortsAndFilters/sort";
+import filterOptions from "../../utility/sortsAndFilters/filter";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
@@ -28,7 +30,6 @@ export default function SearchBar() {
   useEffect(() => {
     setName(query);
   }, [query]);
-  console.log(`name:${name}`, `query:${query}`);
   function onInputChange(event) {
     setName(event.target.value);
     setShowDropDown(true);
@@ -40,7 +41,10 @@ export default function SearchBar() {
     setShowDropDown(false);
 
     if (name.length > 0) {
-      history.push(`/search/q=${name}`);
+      history.push({
+        pathname: "/search",
+        search: `?query=${name}&sort=${characterSortOptions[1].value}&filter=${filterOptions[0].value}`,
+      });
     }
   }
 
@@ -55,7 +59,8 @@ export default function SearchBar() {
           display: "flex",
           alignItems: "center",
           width: "30rem",
-          marginLeft: "30px",
+          marginLeft: "auto",
+          marginRight: "auto",
           height: "35px",
         }}
         onSubmit={(e) => {
@@ -113,10 +118,6 @@ export default function SearchBar() {
           </Table>
         </span>
       ) : null}
-
-      {/* {formSubmit ? null : showResult && search.length > 2 ? (
-        <Dropdown name={search} />
-      ) : null} */}
     </div>
   );
 }
