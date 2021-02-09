@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Carousel from "nuka-carousel";
 import { Grid, Container } from "@material-ui/core";
 import topCharacters from "../../utility/characters/homeScreenCharacters";
+import { _MARVEL } from "../../utility/sources/sources";
 export default function Home() {
   return (
     <section className="home-body">
@@ -32,7 +33,10 @@ export default function Home() {
                 return (
                   <section key={character.id} style={{ padding: "3rem" }}>
                     <Link
-                      to={`/character/${character.id}`}
+                      to={{
+                        pathname: `/character/${character.id}`,
+                        search: `?source=${_MARVEL}`,
+                      }}
                       style={{ color: "#fff" }}
                     >
                       <Grid container>
