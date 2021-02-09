@@ -1,13 +1,15 @@
-import React from "react";
+import React, { Fragment } from "react";
 import characterNames from "../../utility/characters/data";
 import "./styles.css";
 import CarouselList from "../../components/carousel/Carousel";
-import { Grid, Container } from "@material-ui/core";
+import { Grid, Container, Divider } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import Carousel from "nuka-carousel";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import Loader from "../../components/Loader/loader";
 import { _OUR_COLLECTION } from "../../utility/sources/sources";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
 export default function Books() {
   const newBooks = useSelector((state) => state.newBooks);
@@ -29,8 +31,8 @@ export default function Books() {
       : 1;
 
   return (
-    <div>
-      <section className="New Arrivals" style={{ margin: "3rem 0" }}>
+    <section>
+      <section className="new-arrivals" style={{ margin: "3rem 0" }}>
         <div className="character-section">
           <p className="character-name">New Arrivals</p>
         </div>
@@ -38,7 +40,7 @@ export default function Books() {
           <Grid container>
             <Carousel
               slidesToShow={slidesToShow}
-              speed={500}
+              speed={200}
               dragging={false}
               autoGenerateStyleTag={true}
               pauseOnHover={true}
@@ -46,10 +48,10 @@ export default function Books() {
               width={"100%"}
               scrollMode={"page"}
               defaultControlsConfig={{
-                nextButtonText: <i className="fas fa-caret-right fa-3x"></i>,
-                prevButtonText: <i className="fas fa-caret-left fa-3x"></i>,
+                nextButtonText: <ArrowForwardIosIcon />,
+                prevButtonText: <ArrowBackIosIcon />,
                 pagingDotsStyle: {
-                  fill: "gold",
+                  fill: "black",
                 },
               }}
             >
@@ -79,14 +81,18 @@ export default function Books() {
           </Grid>
         </Container>
       </section>
+      <Divider />
       {characterNames.map((item) => {
         return (
-          <div className="character-section" key={item}>
-            <p className="character-name">{item.toUpperCase()}</p>
-            <CarouselList name={item} />
-          </div>
+          <Fragment key={item}>
+            <div className="character-section" style={{ margin: "3rem 0" }}>
+              <p className="character-name">{item.toUpperCase()}</p>
+              <CarouselList name={item} />
+            </div>
+            <Divider />
+          </Fragment>
         );
       })}
-    </div>
+    </section>
   );
 }

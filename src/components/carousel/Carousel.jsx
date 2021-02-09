@@ -3,6 +3,9 @@ import { fetchComicsByName } from "../../actions/dataFetch";
 import Loader from "../Loader/loader";
 import Carousel from "nuka-carousel";
 import Card from "./Card";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import { Container } from "@material-ui/core";
 
 export default function Carosel(props) {
   const [doc, setDoc] = useState({});
@@ -17,10 +20,10 @@ export default function Carosel(props) {
   let slidesToShow =
     window.innerWidth > 1000 ? 3 : window.innerWidth > 700 ? 2 : 1;
   return (
-    <div className="container d-flex justify-content-center my-5">
+    <Container>
       <Carousel
         slidesToShow={slidesToShow}
-        speed={1000}
+        speed={200}
         dragging={false}
         autoGenerateStyleTag={true}
         pauseOnHover={true}
@@ -28,10 +31,10 @@ export default function Carosel(props) {
         width={"100%"}
         scrollMode={"page"}
         defaultControlsConfig={{
-          nextButtonText: <i className="fas fa-caret-right fa-3x"></i>,
-          prevButtonText: <i className="fas fa-caret-left fa-3x"></i>,
+          nextButtonText: <ArrowForwardIosIcon />,
+          prevButtonText: <ArrowBackIosIcon />,
           pagingDotsStyle: {
-            fill: "gold",
+            fill: "black",
           },
         }}
       >
@@ -45,6 +48,6 @@ export default function Carosel(props) {
           />
         ))}
       </Carousel>
-    </div>
+    </Container>
   );
 }

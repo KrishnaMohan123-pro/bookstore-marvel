@@ -12,7 +12,9 @@ import "./styles.css";
 
 const useStyles = makeStyles({
   root: {
+    height: "325px",
     width: "250px",
+    borderRadius: "5%",
     margin: "5px auto",
     paddingBottom: "5%",
     backgroundImage: "linear-gradient(#9ad3bc,#fbf6f0)",
@@ -23,7 +25,6 @@ const useStyles = makeStyles({
   },
   title: {
     fontSize: 16,
-    fontFamily: "Goldman",
   },
   pos: {
     marginBottom: 12,
@@ -46,43 +47,45 @@ export default function ProductCard(props) {
         }}
         style={{ cursor: "pointer" }}
       >
-        <CardContent>
+        <CardContent style={{ padding: 0 }}>
           <img
             src={props.img}
-            style={{ width: "200px", height: "200px", marginBottom: "5px" }}
+            style={{ width: "250px", height: "200px", marginBottom: "5px" }}
             alt={
-              props.title.length > 20
-                ? props.title.slice(0, 20) + "..."
+              props.title.length > 35
+                ? props.title.slice(0, 35) + "..."
                 : props.title
             }
           />
-
-          <Typography
-            className={classes.title}
-            color="textPrimary"
-            gutterBottom
-          >
-            <b>
-              {props.title.length > 20
-                ? props.title.slice(0, 20) + "..."
-                : props.title}
-            </b>
-          </Typography>
-          {props.type === _BOOK && (
-            <Typography className={classes.title} color="textPrimary">
-              <b> Price - ${props.price}</b>
+          <div style={{ alignSelf: "center" }}>
+            <Typography
+              className={classes.title}
+              color="textPrimary"
+              gutterBottom
+              style={{ verticalAlign: "centre" }}
+            >
+              <b>
+                {props.title.length > 25
+                  ? props.title.slice(0, 25) + "..."
+                  : props.title}
+              </b>
             </Typography>
-          )}
-          {props.type === _SERIES && (
-            <Typography className={classes.title} color="textPrimary">
-              <b>Start Year - {props.startYear}</b>
-              <br />
-              <b>End Year - {props.endYear}</b>
-            </Typography>
-          )}
+            {props.type === _BOOK && (
+              <Typography className={classes.title} color="textPrimary">
+                <b> Price - ${props.price}</b>
+              </Typography>
+            )}
+            {props.type === _SERIES && (
+              <Typography color="textPrimary">
+                Start Year - {props.startYear}
+                <br />
+                End Year - {props.endYear}
+              </Typography>
+            )}
+          </div>
         </CardContent>
       </div>
-      <CardActions style={{ margin: "0px auto" }}>
+      <CardActions className="card-actions">
         {enablePurcahse ? (
           <CartButton
             id={props.id}

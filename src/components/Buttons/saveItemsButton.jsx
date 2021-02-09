@@ -34,6 +34,7 @@ export default function SaveItemsButton(props) {
   }
   return (
     <Button
+      size="small"
       onClick={(e) => {
         handleClick(e);
       }}

@@ -16,15 +16,25 @@
 .slider-control-bottomcenter {
   bottom: -15% !important;
 }
-.slider-control-centerleft {
-  left: -5% !important;
+.slider-control-centerleft button,
+.slider-control-centerright button {
+  border-radius: 100%;
+  background-color: grey;
 }
-.slider-control-centerright {
-  right: -5% !important;
+.slider-control-centerleft button:hover,
+.slider-control-centerright button:hover {
+  background-color: red !important;
+}
+.slider-control-centerleft button:active,
+.slider-control-centerright button:active {
+  transform: scale(1.1, 1.1);
 }
 .slider {
   display: flex;
   justify-content: center;
+}
+.slider-frame {
+  padding: 30px 0 !important;
 }
 
 @media screen and (max-width: 1000px) {

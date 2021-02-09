@@ -1,3 +1,10 @@
+.card-actions {
+  bottom: 0;
+  margin: auto;
+  position: absolute;
+  width: 100%;
+}
+
 @keyframes card-animation-in {
   from {
     transform: scale(1, 1);
@@ -8,7 +15,7 @@
 }
 .product-card:hover {
   animation-name: card-animation-in;
-  animation-duration: 0.5s;
+  animation-duration: 0.3s;
   transform: scale(1.05, 1.05);
 }
 @keyframes card-animation-out {
@@ -21,6 +28,7 @@
 }
 .product-card {
   animation-name: card-animation-out;
-  animation-duration: 0.5s;
+  animation-duration: 0.3s;
   transform: scale(1, 1);
+  margin: "0 auto";
 }

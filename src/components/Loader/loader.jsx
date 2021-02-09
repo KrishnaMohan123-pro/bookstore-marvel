@@ -5,7 +5,7 @@ export default function Loader() {
   return (
     <LinearProgress
       color="secondary"
-      style={{ margin: "15% auto 0", width: "25%" }}
+      style={{ margin: "15% auto 15%", width: "25%" }}
     />
   );
 }
