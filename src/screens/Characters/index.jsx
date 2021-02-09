@@ -126,10 +126,17 @@ export default function Characters() {
   }
 
   return (
-    <section id="searched-body" style={{ marginTop: "1.5rem" }}>
-      <Container maxWidth="xl">
-        <Grid container spacing={2}>
-          <Grid item lg={2} style={{ border: "0.1rem grey solid" }}>
+    <section id="searched-body">
+      <Container maxWidth="xl" className="body-container">
+        <Grid className="results-container" container spacing={2}>
+          <Grid
+            className="sort-filter-container"
+            item
+            lg={2}
+            md={2}
+            sm={12}
+            xs={12}
+          >
             <Grid container direction="column" spacing={4}>
               <Grid item>
                 <span>
@@ -165,7 +172,14 @@ export default function Characters() {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item lg={10} style={{ border: "0.1rem grey solid" }}>
+          <Grid
+            className="products-container"
+            item
+            lg={10}
+            md={10}
+            sm={12}
+            xs={12}
+          >
             <Grid container direction="column">
               <Grid item>
                 <p style={{ fontFamily: "Goldman", fontSize: "2rem" }}>
