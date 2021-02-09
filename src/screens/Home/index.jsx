@@ -2,7 +2,7 @@ import React from "react";
 import "./styles.css";
 import StarIcon from "@material-ui/icons/Star";
 import { Link } from "react-router-dom";
-import Carousel from "nuka-carousel";
+import Carousel from "react-material-ui-carousel";
 import { Grid, Container } from "@material-ui/core";
 import topCharacters from "../../utility/characters/homeScreenCharacters";
 import { _MARVEL } from "../../utility/sources/sources";
@@ -13,25 +13,24 @@ export default function Home() {
         <Container>
           <section id="home-message">
             <Carousel
+              className="home-carousel"
+              animation={"slide"}
               autoplay
-              speed={500}
-              dragging={false}
-              autoGenerateStyleTag={true}
-              pauseOnHover={true}
-              wrapAround={true}
-              width={"100%"}
-              scrollMode={"page"}
-              defaultControlsConfig={{
-                nextButtonText: <i className="fas fa-caret-right fa-3x"></i>,
-                prevButtonText: <i className="fas fa-caret-left fa-3x"></i>,
-                pagingDotsStyle: {
-                  fill: "gold",
-                },
+              interval={5000}
+              indicators={true}
+              indicatorProps={{
+                className: "inactive-indicators",
+                style: { color: "white" },
               }}
+              activeIndicatorProps={{
+                className: "active-indicators",
+                style: { color: "black" },
+              }}
+              navButtonsAlwaysVisible={true}
             >
               {topCharacters.map((character) => {
                 return (
-                  <section key={character.id} style={{ padding: "3rem" }}>
+                  <section className="home-carousel-section" key={character.id}>
                     <Link
                       to={{
                         pathname: `/character/${character.id}`,

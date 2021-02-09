@@ -1,0 +1,13 @@
+.search-bar {
+  position: relative;
+}
+.search-form {
+  align-items: center;
+  border-bottom: solid grey 1px;
+  display: flex;
+  height: 2.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2px 4px;
+  width: 30rem;
+}

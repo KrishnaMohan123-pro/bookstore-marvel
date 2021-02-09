@@ -1,6 +1,17 @@
 .app-bar-links {
   display: block;
 }
+.app-bar {
+  background-color: #ffffff !important;
+  color: #272343 !important;
+}
+.tool-bar {
+  padding: 1rem;
+}
+.app-bar .cart-button:hover {
+  color: white !important;
+  background-color: #272343 !important;
+}
 @media screen and (max-width: 1000px) {
   .app-bar-links {
     display: none;

@@ -17,6 +17,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { characterSortOptions } from "../../utility/sortsAndFilters/sort";
 import filterOptions from "../../utility/sortsAndFilters/filter";
+import "./styles.css";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
@@ -49,25 +50,17 @@ export default function SearchBar() {
   }
 
   return (
-    <div style={{ position: "relative" }}>
+    <div className="search-bar">
       <Paper
         className="search-form"
         component="form"
-        elevation={2}
-        style={{
-          padding: "2px 4px",
-          display: "flex",
-          alignItems: "center",
-          width: "30rem",
-          marginLeft: "auto",
-          marginRight: "auto",
-          height: "35px",
-        }}
+        elevation={0}
         onSubmit={(e) => {
           onFormSubmit(e);
         }}
       >
         <DebounceInput
+          className="search-input"
           debounceTimeout={300}
           onChange={(event) => {
             if (event.target.value.length === 0) {
@@ -83,7 +76,7 @@ export default function SearchBar() {
           }}
           value={name}
         />
-        <IconButton type="submit" aria-label="search">
+        <IconButton type="submit" className="search-button">
           <SearchIcon />
         </IconButton>
       </Paper>
