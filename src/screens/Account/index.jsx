@@ -43,6 +43,7 @@ export default function Account() {
             >
               <Grid className="profile-image-box" item>
                 <img
+                  className="profile-image"
                   alt={user.fname}
                   src={
                     user.photoURL.length === 0
