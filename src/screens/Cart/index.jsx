@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import "./styles.css";
 import { Link } from "react-router-dom";
+import { Container } from "@material-ui/core";
 import CartCard from "../../components/cartCard/cartCard";
 import PayButton from "../../services/razorPay/frontend/index";
 export default function Cart() {
@@ -46,7 +47,7 @@ export default function Cart() {
           />
         );
       })}
-      <div className="container" style={{ fontSize: "1.25rem" }}>
+      <Container className="container" style={{ fontSize: "1.25rem" }}>
         <p className="book book-number float-left">
           <span style={{ textDecoration: "underline" }}>Number of Books</span>:{" "}
           {cartItems.length}
@@ -55,7 +56,7 @@ export default function Cart() {
           <span style={{ textDecoration: "underline" }}>Total</span>: ${" "}
           {total.toFixed(2)}
         </p>
-      </div>
+      </Container>
       <PayButton />
     </div>
   );

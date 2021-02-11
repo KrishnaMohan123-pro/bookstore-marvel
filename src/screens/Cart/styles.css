@@ -10,7 +10,8 @@
   font-size: larger;
 }
 .cart-item {
-  border: 2px grey solid;
+  border: 0.1rem #e3f6f5 solid;
+  background-image: linear-gradient(#eff8ff, #f6ecf0);
 }
 .total {
   position: absolute;

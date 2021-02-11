@@ -32,24 +32,16 @@ export default function Account() {
     return <p>Loading...</p>;
   }
   return (
-    <div
-      className="profile-body"
-      style={{ fontFamily: "Roboto", marginTop: "1.5rem" }}
-    >
+    <div className="profile-body">
       <Container>
         <Grid container spacing={3}>
           <Grid item lg={4} md={4} sm={12} xs={12}>
             <Grid
+              className="profile-image-name-box"
               container
               direction="column"
-              style={{
-                backgroundColor: "white",
-                border: "solid grey 0.1rem",
-                paddingTop: "2rem",
-                paddingBottom: "2rem",
-              }}
             >
-              <Grid item style={{ marginBottom: "2rem" }}>
+              <Grid className="profile-image-box" item>
                 <img
                   alt={user.fname}
                   src={
@@ -57,7 +49,6 @@ export default function Account() {
                       ? "https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
                       : user.photoURL
                   }
-                  style={{ height: "7rem", width: "6rem" }}
                 />
                 <Grid item>
                   <InputDialog
@@ -68,7 +59,7 @@ export default function Account() {
                   />
                 </Grid>
               </Grid>
-              <Grid item style={{ lineHeight: "0.15rem" }}>
+              <Grid className="profile-name-box">
                 <h6>Name:</h6>
                 <p>{`${user.fname} ${user.lname}`}</p>
                 <br />
@@ -82,29 +73,19 @@ export default function Account() {
             </Grid>
           </Grid>
           <Grid
+            className="profile-details-box"
             item
             lg={6}
             md={6}
             sm={12}
             xs={12}
-            style={{
-              backgroundColor: "white",
-              textAlign: "left",
-              border: "solid grey 0.1rem",
-            }}
           >
             <Grid container direction="column">
-              <Grid
-                item
-                style={{ lineHeight: "0.15rem", marginBottom: "1.5rem" }}
-              >
+              <Grid className="profile-email-box" item>
                 <h6>Email:</h6>
                 <p>{user.email}</p>
               </Grid>
-              <Grid
-                item
-                style={{ lineHeight: "0.15rem", marginBottom: "1.5rem" }}
-              >
+              <Grid className="profile-phone-box" item>
                 <h6>Phone Number:</h6>
                 {user.phone.length === 0 ? (
                   <InputDialog
@@ -117,7 +98,7 @@ export default function Account() {
                   <p>{user.phone}</p>
                 )}
               </Grid>
-              <Grid item style={{ lineHeight: "0.15rem" }}>
+              <Grid className="profile-address-box" item>
                 <h6>Address:</h6>
                 {user.address.addressLine1.length === 0 ? (
                   <InputDialog
@@ -174,30 +155,19 @@ export default function Account() {
             </Grid>
           </Grid>
         </Grid>
-        <div className="container" style={{ marginTop: "2rem" }}>
+        <Container className="saved-items-box">
           <Grid container direction="column">
             <h1>Saved Characters</h1>
             {savedItems.character.length === 0
               ? "No Saved Character"
               : savedItems.character.map((item) => {
                   return (
-                    <Grid
-                      item
-                      key={item.id}
-                      style={{
-                        border: "solid 0.15rem grey",
-                        backgroundColor: "white",
-                      }}
-                    >
+                    <Grid className="saved-characters-box" item key={item.id}>
                       <Grid container style={{ padding: "1.5rem" }}>
                         <Grid item lg={3} md={3} sm={12} xs={12}>
                           <img
+                            className="saved-character-image"
                             src={item.img}
-                            style={{
-                              width: "7rem",
-                              height: "7rem",
-                              cursor: "pointer",
-                            }}
                             alt={item.title}
                             onClick={() => {
                               history.push({
@@ -209,7 +179,7 @@ export default function Account() {
                         </Grid>
                         <Grid item lg={6} md={6} sm={12} xs={12}>
                           <p
-                            style={{ fontSize: "1.25rem", cursor: "pointer" }}
+                            className="saved-character-name"
                             onClick={() => {
                               history.push({
                                 pathname: `/${item.type}/${item.id}`,
@@ -240,23 +210,12 @@ export default function Account() {
               ? "No Saved Series"
               : savedItems.series.map((item) => {
                   return (
-                    <Grid
-                      item
-                      key={item.id}
-                      style={{
-                        border: "solid 0.15rem grey",
-                        backgroundColor: "white",
-                      }}
-                    >
+                    <Grid className="saved-series-box" item key={item.id}>
                       <Grid container style={{ padding: "1.5rem" }}>
                         <Grid item lg={3} md={3} sm={12} xs={12}>
                           <img
+                            className="saved-series-image"
                             src={item.img}
-                            style={{
-                              width: "7rem",
-                              height: "7rem",
-                              cursor: "pointer",
-                            }}
                             alt={item.title}
                             onClick={() => {
                               history.push({
@@ -268,7 +227,7 @@ export default function Account() {
                         </Grid>
                         <Grid item lg={6} md={6} sm={12} xs={12}>
                           <p
-                            style={{ fontSize: "1.25rem", cursor: "pointer" }}
+                            className="saved-series-title"
                             onClick={() => {
                               history.push({
                                 pathname: `/${item.type}/${item.id}`,
@@ -293,7 +252,7 @@ export default function Account() {
                   );
                 })}
           </Grid>
-        </div>
+        </Container>
       </Container>
     </div>
   );

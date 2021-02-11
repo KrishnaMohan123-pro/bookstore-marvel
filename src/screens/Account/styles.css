@@ -1,91 +1,58 @@
-.edit-button {
-  color: white !important;
-  position: absolute !important;
-  top: 90% !important;
-  left: 90% !important;
+.profile-body {
+  font-family: Roboto;
+  margin-top: 1.5rem;
 }
-
-.profile-card {
+.profile-image-name-box,
+.profile-details-box {
+  background-image: linear-gradient(#eff8ff, #f6ecf0);
+}
+.profile-image-name-box {
+  border: 0.1rem #e3f6f5 solid;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.profile-image-box {
+  margin-bottom: 2rem;
+}
+.profile-image {
+  height: 7rem;
+  width: 6rem;
+}
+.profile-name {
+  line-height: 0.15rem;
+}
+.profile-details-box {
   text-align: left;
-}
-.profile-card-row {
-  width: 65%;
-  background-image: linear-gradient(red, tomato);
-}
-.profile-img {
-  border-radius: 100%;
-  height: 15rem;
-  width: 15rem;
-  border: white solid 0.75rem;
-  margin: 2% auto;
-  position: relative;
-}
-.profile-pic-section {
-  background-image: linear-gradient(tomato, red);
-  height: 20rem;
-  width: 100%;
-  border-top-right-radius: 25%;
-  border-bottom-left-radius: 25%;
-}
-.section-label {
-  font-size: 1rem;
-}
-.section-details {
-  font-size: 1.65rem;
-  line-height: 30px;
+  border: 0.1rem #e3f6f5 solid;
 }
 
-@media screen and (max-width: 1200px) {
-  .profile-card-row {
-    width: 55%;
-  }
-  .profile-img {
-    height: 13rem;
-    width: 13rem;
-    border: white solid 0.75rem;
-    margin: 4% auto;
-  }
-  .section-details {
-    font-size: 1.4rem;
-    line-height: 30px;
-  }
+.profile-email-box,
+.profile-phone-box,
+.profile-address-box {
+  line-height: 0.15rem !important;
 }
 
-@media screen and (max-width: 1000px) {
-  .profile-img {
-    height: 11rem;
-    width: 11rem;
-    border: white solid 0.6rem;
-    margin: 5% auto;
-  }
-  .profile-pic-section {
-    height: 17rem;
-    border-top-right-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-  .section-label {
-    font-size: 0.65rem;
-  }
-  .section-details {
-    font-size: 1.2rem;
-    line-height: 30px;
-  }
+.profile-email-box,
+.profile-phone-box {
+  margin-bottom: 1.5rem !important;
 }
-@media screen and (max-width: 700px) {
-  .profile-body {
-    margin-top: 13%;
-  }
-  .profile-img {
-    height: 9rem;
-    width: 9rem;
-    border: white solid 0.4rem;
-    margin: 8% auto;
-  }
-  .section-label {
-    font-size: 0.65rem;
-  }
-  .section-details {
-    font-size: 1rem;
-    line-height: 20px;
-  }
+.saved-items-box {
+  margin-top: 2rem;
+}
+
+.saved-characters-box,
+.saved-series-box {
+  border: 0.1rem #e3f6f5 solid;
+  background-image: linear-gradient(#eff8ff, #f6ecf0);
+}
+.saved-character-image,
+.saved-series-image {
+  width: 7rem;
+  height: 7rem;
+  cursor: pointer;
+}
+.saved-character-name,
+.saved-series-title {
+  font-size: 1.25rem;
+  cursor: pointer;
 }
