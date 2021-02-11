@@ -29,11 +29,11 @@ export default function SideDrawer() {
             setShowOptions(false);
           }}
         >
-          <div className="mx-auto">
+          <div className="side-drawer-searchbar">
             <SearchBar />
           </div>
 
-          <div className="mt-3">
+          <div className="side-drawer-links">
             {loggedIn ? <LoggedInLinks /> : <LoggedOutLinks />}
           </div>
         </div>

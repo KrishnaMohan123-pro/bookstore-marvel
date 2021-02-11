@@ -78,17 +78,8 @@ export default function SearchBar() {
         </IconButton>
       </Paper>
       {showDropDown && dropDownOptions.characters.length !== 0 ? (
-        <span
-          style={{
-            height: "10rem",
-            overflowY: "scroll",
-            position: "absolute",
-            width: "30rem",
-            left: "0%",
-            backgroundColor: "white",
-          }}
-        >
-          <Table>
+        <span className="search-drop-down">
+          <Table className="search-drop-down-table">
             <TableBody>
               {dropDownOptions.characters.map((character) => {
                 return (

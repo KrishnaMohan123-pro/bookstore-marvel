@@ -223,9 +223,13 @@ export default function Book(props) {
                     </Grid>
                     <Grid item lg={8} md={8} sm={8} xs={12}>
                       <div className="description">
-                        {comics.creators.map((creator) => {
-                          return <h6 key={creator.name}>{creator.name}</h6>;
-                        })}
+                        {comics.creators.length === 0 ? (
+                          <p>No Creators Found</p>
+                        ) : (
+                          comics.creators.map((creator) => {
+                            return <h6 key={creator.name}>{creator.name}</h6>;
+                          })
+                        )}
                       </div>
                     </Grid>
                   </Grid>
@@ -244,9 +248,13 @@ export default function Book(props) {
                     </Grid>
                     <Grid item lg={8} md={8} sm={8} xs={12}>
                       <div className="description">
-                        {comics.characters.map((creator) => {
-                          return <h6 key={creator.name}>{creator.name}</h6>;
-                        })}
+                        {comics.characters.length === 0 ? (
+                          <p>No Characters Found</p>
+                        ) : (
+                          comics.characters.map((creator) => {
+                            return <h6 key={creator.name}>{creator.name}</h6>;
+                          })
+                        )}
                       </div>
                     </Grid>
                   </Grid>

@@ -1,8 +1,20 @@
 .search-bar {
   position: relative;
 }
+.search-drop-down {
+  height: 10rem;
+  overflow-y: scroll;
+  position: absolute;
+  width: 20rem;
+  left: 0%;
+  background-color: white;
+}
+.search-drop-down-table {
+  width: 90%;
+}
 .search-form {
   align-items: center;
+  background-color: transparent !important;
   display: flex;
   height: 2.5rem;
   margin-left: auto;

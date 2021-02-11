@@ -217,9 +217,13 @@ export default function Series(props) {
                     </Grid>
                     <Grid item lg={8} md={8} sm={8} xs={12}>
                       <div className="description">
-                        {series.creators.map((creator) => {
-                          return <h6 key={creator.name}>{creator.name}</h6>;
-                        })}
+                        {series.creators.length === 0 ? (
+                          <p>No Creators Found</p>
+                        ) : (
+                          series.creators.map((creator) => {
+                            return <h6 key={creator.name}>{creator.name}</h6>;
+                          })
+                        )}
                       </div>
                     </Grid>
                   </Grid>
@@ -238,9 +242,13 @@ export default function Series(props) {
                     </Grid>
                     <Grid item lg={8} md={8} sm={8} xs={12}>
                       <div className="description">
-                        {series.characters.map((creator) => {
-                          return <h6 key={creator.name}>{creator.name}</h6>;
-                        })}
+                        {series.characters.length === 0 ? (
+                          <p>No Characters Found</p>
+                        ) : (
+                          series.characters.map((creator) => {
+                            return <h6 key={creator.name}>{creator.name}</h6>;
+                          })
+                        )}
                       </div>
                     </Grid>
                   </Grid>
@@ -259,23 +267,27 @@ export default function Series(props) {
                     </Grid>
                     <Grid item lg={8} md={8} sm={8} xs={12}>
                       <div className="description">
-                        {series.comics.map((comic) => {
-                          return (
-                            <p key={comic.name}>
-                              <Link
-                                to={{
-                                  pathname:
-                                    "/book/" + comic.resourceURI.slice(43),
-                                  search: `?source=${_MARVEL}`,
-                                }}
-                              >
-                                {comic.name.length > 30
-                                  ? comic.name.slice(0, 30) + "..."
-                                  : comic.name}
-                              </Link>
-                            </p>
-                          );
-                        })}
+                        {series.comics.length === 0 ? (
+                          <p>No Comics found</p>
+                        ) : (
+                          series.comics.map((comic) => {
+                            return (
+                              <p key={comic.name}>
+                                <Link
+                                  to={{
+                                    pathname:
+                                      "/book/" + comic.resourceURI.slice(43),
+                                    search: `?source=${_MARVEL}`,
+                                  }}
+                                >
+                                  {comic.name.length > 30
+                                    ? comic.name.slice(0, 30) + "..."
+                                    : comic.name}
+                                </Link>
+                              </p>
+                            );
+                          })
+                        )}
                       </div>
                     </Grid>
                   </Grid>

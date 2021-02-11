@@ -4,6 +4,12 @@
 .side-drawer {
   height: 100%;
 }
+.side-drawer-searchbar {
+  margin: 0.5rem auto;
+}
+.side-drawer-links {
+  margin-top: 1rem;
+}
 .side-drawer-options {
   background-color: #f9f6f7 !important;
   position: absolute;

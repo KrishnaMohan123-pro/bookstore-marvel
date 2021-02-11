@@ -159,24 +159,28 @@ export default function Character(props) {
                   </Grid>
                   <Grid item lg={8} md={8} sm={8} xs={12}>
                     <div className="series-table-section">
-                      {character.series.map((series) => {
-                        return (
-                          <Link
-                            to={{
-                              pathname:
-                                "/series/" + series.resourceURI.slice(43),
-                              search: `?source=${_MARVEL}`,
-                            }}
-                            key={series.resourceURI.slice(43)}
-                          >
-                            <p>
-                              {series.name.length > 25
-                                ? series.name.slice(0, 25) + "..."
-                                : series.name}
-                            </p>
-                          </Link>
-                        );
-                      })}
+                      {character.series.length === 0 ? (
+                        <p>No Series Released</p>
+                      ) : (
+                        character.series.map((series) => {
+                          return (
+                            <Link
+                              to={{
+                                pathname:
+                                  "/series/" + series.resourceURI.slice(43),
+                                search: `?source=${_MARVEL}`,
+                              }}
+                              key={series.resourceURI.slice(43)}
+                            >
+                              <p>
+                                {series.name.length > 25
+                                  ? series.name.slice(0, 25) + "..."
+                                  : series.name}
+                              </p>
+                            </Link>
+                          );
+                        })
+                      )}
                     </div>
                   </Grid>
                 </Grid>
@@ -188,23 +192,28 @@ export default function Character(props) {
                   </Grid>
                   <Grid item lg={8} md={8} sm={8} xs={12}>
                     <div className="comics-table-section">
-                      {character.comics.map((comic) => {
-                        return (
-                          <Link
-                            to={{
-                              pathname: "/book/" + comic.resourceURI.slice(43),
-                              search: `?source=${_MARVEL}`,
-                            }}
-                            key={comic.resourceURI.slice(43)}
-                          >
-                            <p>
-                              {comic.name.length > 25
-                                ? comic.name.slice(0, 25) + "..."
-                                : comic.name}
-                            </p>
-                          </Link>
-                        );
-                      })}
+                      {character.comics.length === 0 ? (
+                        <p>No Comics Released</p>
+                      ) : (
+                        character.comics.map((comic) => {
+                          return (
+                            <Link
+                              to={{
+                                pathname:
+                                  "/book/" + comic.resourceURI.slice(43),
+                                search: `?source=${_MARVEL}`,
+                              }}
+                              key={comic.resourceURI.slice(43)}
+                            >
+                              <p>
+                                {comic.name.length > 25
+                                  ? comic.name.slice(0, 25) + "..."
+                                  : comic.name}
+                              </p>
+                            </Link>
+                          );
+                        })
+                      )}
                     </div>
                   </Grid>
                 </Grid>
