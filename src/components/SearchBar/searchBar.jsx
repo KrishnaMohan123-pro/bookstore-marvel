@@ -99,6 +99,9 @@ export default function SearchBar() {
                           pathname: "/character/" + character.id,
                           search: `?source=${_MARVEL}`,
                         }}
+                        onClick={() => {
+                          setShowDropDown(false);
+                        }}
                       >
                         {character.name}
                       </Link>
