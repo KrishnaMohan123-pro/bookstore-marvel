@@ -8,6 +8,13 @@
   padding: 3rem 0rem;
   background-color: white;
 }
+.character-image-box {
+  background-image: linear-gradient(to right, #eff8ff, #f6ecf0);
+}
+.character-description-box {
+  align-content: center;
+  background-image: linear-gradient(to right, #f6ecf0, #eff8ff);
+}
 .character-image {
   width: 12rem;
   height: 18rem;

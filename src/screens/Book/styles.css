@@ -6,10 +6,13 @@
 .book-description-box {
   border: #e3f6f5 0.1rem solid;
   padding: 3rem 0rem;
-  background-color: white;
 }
 .book-description-box {
   align-content: center;
+  background-image: linear-gradient(to right, #f6ecf0, #eff8ff);
+}
+.book-image-box {
+  background-image: linear-gradient(to right, #eff8ff, #f6ecf0);
 }
 
 .book-img {

@@ -10,10 +10,13 @@
 .series-description-box {
   border: #e3f6f5 0.1rem solid;
   padding: 3rem 0rem;
-  background-color: white;
+}
+.series-image-box {
+  background-image: linear-gradient(to right, #eff8ff, #f6ecf0);
 }
 .series-description-box {
   align-content: center;
+  background-image: linear-gradient(to right, #f6ecf0, #eff8ff);
 }
 .series-container {
   margin-top: 5% !important;

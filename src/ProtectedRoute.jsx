@@ -5,6 +5,7 @@ import developerRoutes from "./utility/Routes/developerRoutes";
 import adminRoutes from "./utility/Routes/adminRoutes";
 import userRoutes from "./utility/Routes/userRoutes";
 import { toast } from "react-toastify";
+import { openModal } from "./actions/modalActions";
 export default function ProtectedRoute({ component: Component, ...rest }) {
   const loggedIn = useSelector((state) => state.loggedIn);
   const role = useSelector((state) => state.auth.user.role);
@@ -12,7 +13,7 @@ export default function ProtectedRoute({ component: Component, ...rest }) {
 
   if (!loggedIn) {
     toast.error("Please login First");
-    dispatch({ type: "OPEN_SIGNUP_MODAL" });
+    dispatch(openModal("SIGNUP"));
     return <Redirect to="/" />;
   }
   if (role && role === "developer" && !developerRoutes.includes(rest.path)) {
