@@ -73,9 +73,9 @@ export default function CartButton(props) {
           variant="contained"
           color="primary"
           size="small"
-          onClick={handleIncrement}
+          onClick={handleDecrement}
         >
-          +
+          -
         </Button>
       ) : null}
       <Button
@@ -86,14 +86,15 @@ export default function CartButton(props) {
       >
         {included ? "Remove" : "Add"}
       </Button>
+
       {included ? (
         <Button
           variant="contained"
           color="primary"
           size="small"
-          onClick={handleDecrement}
+          onClick={handleIncrement}
         >
-          -
+          +
         </Button>
       ) : null}
     </ButtonGroup>

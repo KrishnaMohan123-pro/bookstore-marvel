@@ -100,22 +100,15 @@ export default function Series(props) {
   }
 
   return (
-    <section id="series-description">
+    <section id="series-body">
       <Container fixed style={{ marginTop: "1.5rem", marginBottom: "3rem " }}>
         <Grid container>
           <Grid item alignItems="center" lg={3} md={3} sm={12} xs={12}>
             <Grid container direction="column">
-              <Grid
-                item
-                style={{
-                  border: "grey 0.1rem solid",
-                  padding: "3rem 0rem",
-                  backgroundColor: "white",
-                }}
-              >
+              <Grid item className="series-image-box">
                 <div>
                   <img
-                    className="book-img"
+                    className="series-image"
                     src={series.image}
                     alt={series.title}
                   />
@@ -135,21 +128,17 @@ export default function Series(props) {
             </Grid>
           </Grid>
           <Grid
+            className="series-description-box"
             item
             lg={9}
             md={9}
             sm={12}
             xs={12}
-            alignContent="center"
-            style={{
-              border: "grey 0.1rem solid",
-              backgroundColor: "white",
-            }}
           >
             <Grid container direction="column" spacing={2}>
               <Grid item>
-                <div className="book-title">
-                  <h2>{series.title}</h2>
+                <div className="series-title">
+                  <h1>{series.title}</h1>
                 </div>
               </Grid>
               <Grid item>

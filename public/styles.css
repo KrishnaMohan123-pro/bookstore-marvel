@@ -3,11 +3,12 @@ a {
 }
 a:hover {
   color: #333333;
+  font-size: 1rem;
   text-decoration: none;
 }
 
 body {
-  background-color: #fcf9f4;
+  background-color: #f5f4f4;
   color: #272343;
   text-align: center;
   font-family: "Roboto", sans-serif;

@@ -100,31 +100,16 @@ export default function Character(props) {
   }
 
   return (
-    <section
-      id="character-body"
-      style={{ marginTop: "1.5rem", marginBottom: "3rem" }}
-    >
-      <Container>
+    <section id="character-body">
+      <Container maxWidth="lg">
         <Grid container>
           <Grid item lg={3} md={3} sm={12} xs={12}>
             <Grid container direction="column">
-              <Grid
-                item
-                style={{
-                  border: "grey 0.1rem solid",
-                  padding: "3rem 0rem",
-                  backgroundColor: "white",
-                }}
-              >
+              <Grid className="character-image-box" item>
                 <img
                   alt={character.name}
                   className="character-image"
                   src={character.image}
-                  style={{
-                    width: "200px",
-                    height: "300px",
-                    margin: "5px auto",
-                  }}
                 />
               </Grid>
               <Grid item>
@@ -141,26 +126,21 @@ export default function Character(props) {
             </Grid>
           </Grid>
           <Grid
+            className="character-description-box"
             item
             lg={9}
             md={9}
             sm={12}
             xs={12}
-            style={{
-              border: "grey 0.1rem solid",
-              backgroundColor: "white",
-            }}
           >
             <Grid container direction="column" spacing={3}>
               <Grid item>
-                <h1 style={{ fontFamily: "Goldman" }}>{character.name}</h1>
+                <h1 className="character-title">{character.name}</h1>
               </Grid>
               <Grid item>
                 <Grid container>
                   <Grid item lg={4} md={4} sm={4} xs={12}>
-                    <h6 style={{ fontFamily: "Roboto", margin: "0 auto" }}>
-                      Description
-                    </h6>
+                    <h6 className="description-section-label">Description</h6>
                   </Grid>
                   <Grid item lg={8} md={8} sm={8} xs={12}>
                     <p>
@@ -175,15 +155,10 @@ export default function Character(props) {
               <Grid item>
                 <Grid container>
                   <Grid item lg={4} md={4} sm={4} xs={12}>
-                    <h6 style={{ fontFamily: "Roboto", margin: "0 auto" }}>
-                      Series
-                    </h6>
+                    <h6 className="description-section-label">Series</h6>
                   </Grid>
                   <Grid item lg={8} md={8} sm={8} xs={12}>
-                    <div
-                      className="comic-link"
-                      style={{ height: "250px", overflowY: "scroll" }}
-                    >
+                    <div className="series-table-section">
                       {character.series.map((series) => {
                         return (
                           <Link
@@ -209,15 +184,10 @@ export default function Character(props) {
               <Grid item>
                 <Grid container>
                   <Grid item lg={4} md={4} sm={4} xs={12}>
-                    <h6 style={{ fontFamily: "Roboto", margin: "0 auto" }}>
-                      Comics
-                    </h6>
+                    <h6 className="description-section-label">Comics</h6>
                   </Grid>
                   <Grid item lg={8} md={8} sm={8} xs={12}>
-                    <div
-                      className="comic-link"
-                      style={{ height: "250px", overflowY: "scroll" }}
-                    >
+                    <div className="comics-table-section">
                       {character.comics.map((comic) => {
                         return (
                           <Link

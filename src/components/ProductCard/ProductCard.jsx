@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     borderRadius: "5%",
     margin: "5px auto",
     paddingBottom: "5%",
-    backgroundImage: "linear-gradient(#9ad3bc,#fbf6f0)",
+    backgroundImage: "linear-gradient(#ffd66b,#fcfefe)",
   },
   bullet: {
     display: "inline-block",
@@ -72,7 +72,7 @@ export default function ProductCard(props) {
             </Typography>
             {props.type === _BOOK && (
               <Typography className={classes.title} color="textPrimary">
-                <b> Price - ${props.price}</b>
+                Price - ${props.price}
               </Typography>
             )}
             {props.type === _SERIES && (

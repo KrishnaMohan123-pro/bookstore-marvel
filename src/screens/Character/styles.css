@@ -1,3 +1,17 @@
+#character-body {
+  margin-top: 1.5rem;
+  margin-bottom: 3rem;
+}
+.character-image-box,
+.character-description-box {
+  border: 0.1rem #e3f6f5 solid;
+  padding: 3rem 0rem;
+  background-color: white;
+}
+.character-image {
+  width: 12rem;
+  height: 18rem;
+}
 .character-name {
   font-family: "Goldman" !important;
   font-size: 3.5rem !important;
@@ -6,7 +20,18 @@
   width: 70%;
   margin: 2px auto !important;
 }
-
+.character-title {
+  font-family: "Goldman";
+}
+.description-section-label {
+  font-family: "Roboto";
+  margin: 0 auto;
+}
+.comics-table-section,
+.series-table-section {
+  height: 250px;
+  overflow-y: scroll;
+}
 @media screen and (max-width: 800px) {
   .character-name {
     font-size: 3rem !important;
