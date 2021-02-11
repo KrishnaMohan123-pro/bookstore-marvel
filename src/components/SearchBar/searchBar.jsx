@@ -10,7 +10,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import {
   dropDown,
   clearDropDown,
@@ -18,6 +18,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { characterSortOptions } from "../../utility/sortsAndFilters/sort";
 import filterOptions from "../../utility/sortsAndFilters/filter";
+import { _MARVEL } from "../../utility/sources/sources";
 import "./styles.css";
 
 export default function SearchBar() {
@@ -83,7 +84,7 @@ export default function SearchBar() {
             overflowY: "scroll",
             position: "absolute",
             width: "30rem",
-            left: "6%",
+            left: "0%",
             backgroundColor: "white",
           }}
         >
@@ -93,12 +94,14 @@ export default function SearchBar() {
                 return (
                   <TableRow key={character.id}>
                     <TableCell component="th">
-                      <a
-                        href={"/character/" + character.id}
-                        style={{ color: "black" }}
+                      <Link
+                        to={{
+                          pathname: "/character/" + character.id,
+                          search: `?source=${_MARVEL}`,
+                        }}
                       >
                         {character.name}
-                      </a>
+                      </Link>
                     </TableCell>
                   </TableRow>
                 );
