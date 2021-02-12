@@ -10,6 +10,8 @@ import {
   _COMICS_DATA_LOAD_ERROR,
 } from "../actionsList/dataFetchActionsList";
 
+import { _LOAD_ALL_PRODUCTS } from "../actionsList/allProductsActionsList";
+
 export function fetchCharacterAction(characterData) {
   return { type: _CHARACTER_DATA_LOAD, payload: characterData };
 }
@@ -47,4 +49,8 @@ export function fetchSeriesErrorAction() {
     type: _SERIES_DATA_LOAD_ERROR,
     payload: { error: "NO SERIES WITH THE ID AVAILABLE" },
   };
+}
+
+export function allProductsFetchAction(products) {
+  return { type: _LOAD_ALL_PRODUCTS, payload: products };
 }

@@ -9,6 +9,7 @@ import Book from "./screens/Book";
 import Character from "./screens/Character/index";
 import Characters from "./screens/Characters/index";
 import Series from "./screens/Series/Series";
+import AllItems from "./screens/AllItems/index";
 // import Footer from "./components/Footer/footer";
 import BackdropLoader from "./components/BackdropLoader/backdropLoader";
 import { useSelector, useDispatch } from "react-redux";
@@ -71,6 +72,7 @@ function App() {
           <Route path="/" exact render={() => <Home />} />
           <ProtectedRoute component={Account} path="/account" exact={true} />
           <ProtectedRoute path="/admin" exact component={Admin} />
+          <Route path="/all" exact component={AllItems} />
           <Route exact path="/popular" render={() => <Books />} />
           <Route exact path="/book/:book_id" component={bookDetail} />
           <Route exact path="/search" component={Characters} />

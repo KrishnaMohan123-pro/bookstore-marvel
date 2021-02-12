@@ -18,24 +18,13 @@
 .home-carousel-section {
   padding: 3rem 0;
 }
-
-#links .container {
-  background-color: #333333;
+#popular-and-trending,
+#latest,
+#categories {
+  margin-top: 2%;
 }
-
-#links .links-col {
-  background-color: white;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  border: solid #333333 5px;
-  border-bottom-left-radius: 25%;
-  border-top-right-radius: 25%;
-}
-.link-text {
-  font-size: 1.1rem;
-}
-#links a {
-  text-decoration: none;
+#categories {
+  margin-bottom: 2%;
 }
 @media screen and (max-width: 1400px) {
   .home-screen-character-name {

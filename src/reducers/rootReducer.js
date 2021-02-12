@@ -1,7 +1,9 @@
 import { combineReducers } from "redux";
 import { firebaseReducer } from "react-redux-firebase";
 import { firestoreReducer } from "redux-firestore";
+import allProductsReducer from "./marvelDataFetchReducers/allProductsReducer";
 import authReducer from "./authReducer";
+
 import cartReducer from "./cartReducer";
 import characterReducer from "./marvelDataFetchReducers/characterReducer";
 import comicsReducer from "./marvelDataFetchReducers/comicsReducer";
@@ -17,6 +19,7 @@ import queryReducer from "./queryReducer";
 import savedItemsReducer from "./savedItemsReducer";
 
 const rootReducer = combineReducers({
+  allProducts: allProductsReducer,
   auth: authReducer,
   cart: cartReducer,
   character: characterReducer,

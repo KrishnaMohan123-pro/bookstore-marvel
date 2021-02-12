@@ -1,15 +1,20 @@
 import React from "react";
 import "./styles.css";
 import StarIcon from "@material-ui/icons/Star";
+import FlashOnIcon from "@material-ui/icons/FlashOn";
+import BookIcon from "@material-ui/icons/Book";
+import ViewColumnIcon from "@material-ui/icons/ViewColumn";
 import { Link } from "react-router-dom";
 import Carousel from "react-material-ui-carousel";
 import { Grid, Container } from "@material-ui/core";
 import topCharacters from "../../utility/characters/homeScreenCharacters";
 import { _MARVEL } from "../../utility/sources/sources";
+import { _CHARACTER, _SERIES, _BOOK } from "../../utility/sources/itemTypes";
+import NavigationCard from "../../components/NavigationCard/navigationCard";
 export default function Home() {
   return (
-    <section className="home-body">
-      <section>
+    <main className="home-body">
+      <section id="latest">
         <Container>
           <section id="home-message">
             <Carousel
@@ -67,25 +72,51 @@ export default function Home() {
           </section>
         </Container>
       </section>
-      <section id="links">
-        <div className="container">
-          <div className="row no-gutters p-2">
-            <div className=" col-sm-4 "></div>
-            <div className="links-col col-sm-4 ">
-              <Link to="/popular">
-                <p>
-                  <StarIcon fontSize="large" />
-                </p>
-                <p className="link-text">Popular and Trending</p>
-              </Link>
-            </div>
-            <div className=" col-sm-4 "></div>
-          </div>
-        </div>
+      <section id="popular-and-trending">
+        <h3>Find Your Popular Comics</h3>
+        <Container maxWidth="md">
+          <Grid container>
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+              <NavigationCard
+                icon={<StarIcon style={{ fontSize: "5rem" }} />}
+                navigateTo="/popular"
+                cardTitle="Popular And Trending"
+              />
+            </Grid>
+          </Grid>
+        </Container>
       </section>
-      <Link to="/admin">Admin</Link>
-      <br />
-      <Link to="/developer">Developer</Link>
-    </section>
+      <section id="categories">
+        <h3>Our Categories</h3>
+        <Container>
+          <Grid container>
+            <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
+              <NavigationCard
+                icon={<FlashOnIcon style={{ fontSize: "5rem" }} />}
+                navigateTo="/all"
+                search={`?itemCategory=${_CHARACTER}`}
+                cardTitle="Characters"
+              />
+            </Grid>
+            <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
+              <NavigationCard
+                icon={<ViewColumnIcon style={{ fontSize: "5rem" }} />}
+                navigateTo="/all"
+                search={`?itemCategory=${_SERIES}`}
+                cardTitle="Series"
+              />
+            </Grid>
+            <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
+              <NavigationCard
+                icon={<BookIcon style={{ fontSize: "5rem" }} />}
+                navigateTo="/all"
+                search={`?itemCategory=${_BOOK}`}
+                cardTitle="Comics"
+              />
+            </Grid>
+          </Grid>
+        </Container>
+      </section>
+    </main>
   );
 }
