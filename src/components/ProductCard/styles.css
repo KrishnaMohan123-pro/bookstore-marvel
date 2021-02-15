@@ -17,6 +17,29 @@
   animation-name: card-animation-in;
   animation-duration: 0.3s;
   transform: scale(1.05, 1.05);
+  border-bottom: solid 0.1rem #d14031;
+}
+.hover-image-cover {
+  height: 300px;
+  width: 200px;
+  background-color: #d14031;
+  position: absolute;
+  opacity: 0.9;
+  display: none;
+}
+
+.hover-image-cover-text:hover {
+  border-bottom: white solid 0.15rem;
+}
+.hover-image-cover-text {
+  color: white;
+  margin-top: 50%;
+  font-size: small;
+  font-family: monospace;
+  display: inline-block;
+}
+.product-card:hover .hover-image-cover {
+  display: block;
 }
 @keyframes card-animation-out {
   from {
@@ -25,6 +48,11 @@
   to {
     transform: scale(1, 1);
   }
+}
+.product-image {
+  width: 200px;
+  height: 300px;
+  margin-bottom: 5px;
 }
 .product-card {
   animation-name: card-animation-out;

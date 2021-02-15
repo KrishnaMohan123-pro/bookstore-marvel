@@ -12,12 +12,13 @@ import "./styles.css";
 
 const useStyles = makeStyles({
   root: {
-    height: "325px",
-    width: "250px",
-    borderRadius: "5%",
+    width: "200px",
+    borderRadius: "0%",
     margin: "5px auto",
     paddingBottom: "5%",
-    backgroundImage: "linear-gradient(#ffd66b,#fcfefe)",
+    border: "none",
+    boxShadow: "none",
+    position: "relative",
   },
   bullet: {
     display: "inline-block",
@@ -47,26 +48,28 @@ export default function ProductCard(props) {
         }}
         style={{ cursor: "pointer" }}
       >
-        <CardContent style={{ padding: 0 }}>
+        <CardContent style={{ padding: "0 0 2rem 0" }}>
+          <div className="hover-image-cover">
+            <p className="hover-image-cover-text"> CLICK TO KNOW MORE</p>
+          </div>
           <img
+            className="product-image"
             src={props.img}
-            style={{ width: "250px", height: "200px", marginBottom: "5px" }}
             alt={
               props.title.length > 35
                 ? props.title.slice(0, 35) + "..."
                 : props.title
             }
           />
-          <div style={{ alignSelf: "center" }}>
+          <div style={{ textAlign: "left" }}>
             <Typography
               className={classes.title}
               color="textPrimary"
               gutterBottom
-              style={{ verticalAlign: "centre" }}
             >
               <b>
-                {props.title.length > 25
-                  ? props.title.slice(0, 25) + "..."
+                {props.title.length > 23
+                  ? props.title.slice(0, 23) + "..."
                   : props.title}
               </b>
             </Typography>

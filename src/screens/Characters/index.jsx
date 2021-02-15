@@ -234,10 +234,10 @@ export default function Characters() {
                           <Grid
                             item
                             key={item.id}
-                            xl={3}
-                            lg={4}
-                            md={6}
-                            sm={12}
+                            xl={2}
+                            lg={3}
+                            md={4}
+                            sm={6}
                             xs={12}
                           >
                             <ProductCard
