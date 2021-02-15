@@ -2,6 +2,7 @@ import React from "react";
 import { Button, ButtonGroup } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import {
   addToCart,
   removeFromCart,
@@ -37,9 +38,6 @@ export default function CartButton(props) {
   for (let i = 0; i < cartItems.length; i = i + 1) {
     if (cartItems[i].id === props.id) var quantity = cartItems[i].quantity;
   }
-  if (quantity === 0) {
-    dispatch(removeFromCart({ id: props.id }));
-  }
 
   function handleAdd() {
     dispatch(
@@ -64,25 +62,36 @@ export default function CartButton(props) {
     dispatch(changeQuantity("INCREASE", props.id));
   }
   function handleDecrement() {
+    if (quantity === 1) {
+      dispatch(removeFromCart({ id: props.id }));
+    }
     dispatch(changeQuantity("DECREASE", props.id));
   }
   return (
-    <ButtonGroup style={{ margin: "0px auto" }}>
+    <ButtonGroup style={{ margin: "0px auto", borderRadius: "0" }}>
       {included ? (
         <Button
           variant="contained"
-          color="primary"
           size="small"
           onClick={handleDecrement}
+          style={{ borderRadius: "0", backgroundColor: "#f6f5f5" }}
         >
-          -
+          {quantity === 1 ? (
+            <DeleteOutlineIcon style={{ fontSize: "large" }} />
+          ) : (
+            "-"
+          )}
         </Button>
       ) : null}
       <Button
         onClick={onButtonClick}
-        color={included ? "secondary" : "primary"}
         variant="contained"
         size="small"
+        style={{
+          borderRadius: "0",
+          backgroundColor: included ? "#d14031" : "#70af85",
+          color: "white",
+        }}
       >
         {included ? "Remove" : "Add"}
       </Button>
@@ -90,9 +99,9 @@ export default function CartButton(props) {
       {included ? (
         <Button
           variant="contained"
-          color="primary"
           size="small"
           onClick={handleIncrement}
+          style={{ borderRadius: "0", backgroundColor: "#f6f5f5" }}
         >
           +
         </Button>

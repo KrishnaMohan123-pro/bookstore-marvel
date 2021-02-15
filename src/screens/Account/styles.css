@@ -2,6 +2,7 @@
   font-family: Roboto;
   margin-top: 1.5rem;
 }
+
 .profile-image-name-box,
 .profile-details-box {
   background-image: linear-gradient(#eff8ff, #f6ecf0);
@@ -16,7 +17,8 @@
 }
 .profile-image {
   height: 7rem;
-  width: 6rem;
+  width: 7rem;
+  border-radius: 100%;
 }
 .profile-name {
   line-height: 0.15rem;

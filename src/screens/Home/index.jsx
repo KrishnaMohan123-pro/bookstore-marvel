@@ -15,62 +15,60 @@ export default function Home() {
   return (
     <main className="home-body">
       <section id="latest">
-        <Container>
-          <section id="home-message">
-            <Carousel
-              className="home-carousel"
-              animation={"slide"}
-              autoplay
-              interval={5000}
-              indicators={true}
-              indicatorProps={{
-                className: "inactive-indicators",
-                style: { color: "white" },
-              }}
-              activeIndicatorProps={{
-                className: "active-indicators",
-                style: { color: "black" },
-              }}
-              navButtonsAlwaysVisible={true}
-            >
-              {topCharacters.map((character) => {
-                return (
-                  <section className="home-carousel-section" key={character.id}>
-                    <Link
-                      to={{
-                        pathname: `/character/${character.id}`,
-                        search: `?source=${_MARVEL}`,
-                      }}
-                      style={{ color: "#fff" }}
-                    >
-                      <Grid container>
-                        <Grid item lg={5} md={5} sm={12} xs={12}>
-                          <img
-                            className="home-screen-character-image"
-                            alt={character.name}
-                            src={character.image}
-                          />
-                        </Grid>
-                        <Grid
-                          item
-                          lg={7}
-                          md={7}
-                          sm={12}
-                          xs={12}
-                          style={{ padding: "2rem" }}
-                        >
-                          <p className="home-screen-character-name">
-                            {character.name.toUpperCase()}
-                          </p>
-                        </Grid>
+        <section id="latest-carousel">
+          <Carousel
+            className="home-carousel"
+            animation={"fade"}
+            autoplay
+            interval={5000}
+            indicators={true}
+            indicatorProps={{
+              className: "inactive-indicators",
+              style: { color: "white" },
+            }}
+            activeIndicatorProps={{
+              className: "active-indicators",
+              style: { color: "black" },
+            }}
+            navButtonsAlwaysVisible={true}
+          >
+            {topCharacters.map((character) => {
+              return (
+                <section className="home-carousel-section" key={character.id}>
+                  <Link
+                    to={{
+                      pathname: `/character/${character.id}`,
+                      search: `?source=${_MARVEL}`,
+                    }}
+                    style={{ color: "#fff" }}
+                  >
+                    <Grid container>
+                      <Grid item lg={5} md={5} sm={12} xs={12}>
+                        <img
+                          className="home-screen-character-image"
+                          alt={character.name}
+                          src={character.image}
+                        />
                       </Grid>
-                    </Link>
-                  </section>
-                );
-              })}
-            </Carousel>
-          </section>
-        </Container>
+                      <Grid
+                        item
+                        lg={7}
+                        md={7}
+                        sm={12}
+                        xs={12}
+                        style={{ padding: "2rem" }}
+                      >
+                        <p className="home-screen-character-name">
+                          {character.name.toUpperCase()}
+                        </p>
+                      </Grid>
+                    </Grid>
+                  </Link>
+                </section>
+              );
+            })}
+          </Carousel>
+        </section>
       </section>
       <section id="popular-and-trending">
         <h3>Find Your Popular Comics</h3>
@@ -90,7 +88,7 @@ export default function Home() {
         <h3>Our Categories</h3>
         <Container>
           <Grid container>
-            <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
+            <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
               <NavigationCard
                 icon={<FlashOnIcon style={{ fontSize: "5rem" }} />}
                 navigateTo="/all"
@@ -98,7 +96,7 @@ export default function Home() {
                 cardTitle="Characters"
               />
             </Grid>
-            <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
+            <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
               <NavigationCard
                 icon={<ViewColumnIcon style={{ fontSize: "5rem" }} />}
                 navigateTo="/all"
@@ -106,7 +104,7 @@ export default function Home() {
                 cardTitle="Series"
               />
             </Grid>
-            <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
+            <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
               <NavigationCard
                 icon={<BookIcon style={{ fontSize: "5rem" }} />}
                 navigateTo="/all"

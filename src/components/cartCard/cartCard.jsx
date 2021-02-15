@@ -2,6 +2,7 @@ import React from "react";
 import CartButton from "../CartButton/CartButton";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { Container, Grid, Divider } from "@material-ui/core";
 
 export default function CartCard(props) {
   const history = useHistory();
@@ -13,11 +14,19 @@ export default function CartCard(props) {
     }
   }
   return (
-    <div className="container">
-      <div className="cart-item row">
-        <div className="book col-md-4">
+    <Container className="cart-item">
+      <Grid container className="cart-item-container">
+        <Grid
+          item
+          xl={2}
+          lg={2}
+          md={2}
+          sm={2}
+          xs={0}
+          className="cart-item-image-box"
+        >
           <img
-            className="book-image"
+            className="cart-item-image"
             src={props.img}
             alt={props.title}
             onClick={() => {
@@ -28,8 +37,16 @@ export default function CartCard(props) {
             }}
             style={{ cursor: "pointer" }}
           />
-        </div>
-        <div className="book cart-title col-md-5 align-self-center">
+        </Grid>
+        <Grid
+          item
+          xl={3}
+          lg={3}
+          md={3}
+          sm={5}
+          xs={5}
+          className="cart-item-title-box item-title "
+        >
           <p
             onClick={() => {
               history.push({
@@ -41,10 +58,38 @@ export default function CartCard(props) {
           >
             {props.title}
           </p>
-        </div>
-        <div className="book cart-price col-md-3">
+        </Grid>
+        <Grid
+          item
+          xl={2}
+          lg={2}
+          md={2}
+          sm={2}
+          xs={4}
+          className="cart-item-price-box"
+        >
           <p>{"$ " + props.price}</p>
-          <p>{`Quantity : ${quantity}`}</p>
+        </Grid>
+        <Grid
+          item
+          xl={2}
+          lg={2}
+          md={2}
+          sm={2}
+          xs={3}
+          className="cart-item-quantity-box"
+        >
+          <p>{`${quantity}`}</p>
+        </Grid>
+        <Grid
+          item
+          xl={3}
+          lg={3}
+          md={3}
+          sm={12}
+          xs={12}
+          className="cart-item-action-box item-price"
+        >
           <div>
             <CartButton
               id={props.id}
@@ -54,8 +99,9 @@ export default function CartCard(props) {
               source={props.source}
             />
           </div>
-        </div>
-      </div>
-    </div>
+        </Grid>
+      </Grid>
+      <Divider style={{ marginTop: "1rem" }} />
+    </Container>
   );
 }

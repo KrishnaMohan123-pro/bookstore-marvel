@@ -8,8 +8,10 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    maxWidth: 300,
     margin: "0 auto",
+    borderRadius: "5%",
+    backgroundImage: "linear-gradient(#eaffd0,#fce38a)",
   },
 });
 

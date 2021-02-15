@@ -39,8 +39,14 @@ export default function SaveItemsButton(props) {
         handleClick(e);
       }}
       variant="contained"
-      color={included ? "secondary" : "primary"}
       className="mx-auto"
+      style={{
+        borderRadius: "0",
+        backgroundColor: included ? "#d14031" : "#70af85",
+        color: "white",
+        marginRight: "auto",
+        marginLeft: "auto",
+      }}
     >
       {included ? "Remove" : "Save"}
     </Button>
