@@ -4,24 +4,19 @@
 }
 .book-image-box,
 .book-description-box {
-  border: #e3f6f5 0.1rem solid;
   padding: 3rem 0rem;
 }
 .book-description-box {
-  align-content: center;
-  background-image: linear-gradient(to right, #f6ecf0, #eff8ff);
-}
-.book-image-box {
-  background-image: linear-gradient(to right, #eff8ff, #f6ecf0);
+  text-align: left;
 }
 
 .book-img {
-  height: 18rem;
-  width: 12rem;
+  height: 30rem;
+  width: 20rem;
 }
 
 .book-title {
-  font-family: "Goldman";
+  font-family: "Bebas Neue";
 }
 .description {
   width: 85%;
@@ -29,7 +24,7 @@
 }
 .description-title {
   font-size: 2rem;
-  font-family: "Sacramento";
+  font-family: "Bebas Neue";
 }
 
 @media screen and (max-width: 1000px) {

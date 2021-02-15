@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Container, Grid } from "@material-ui/core";
+import { Container, Grid, Divider } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader/loader";
 import { useDispatch, useSelector } from "react-redux";
@@ -103,7 +103,7 @@ export default function Series(props) {
     <section id="series-body">
       <Container fixed style={{ marginTop: "1.5rem", marginBottom: "3rem " }}>
         <Grid container>
-          <Grid item alignItems="center" lg={3} md={3} sm={12} xs={12}>
+          <Grid item alignItems="center" xl={5} lg={5} md={5} sm={12} xs={12}>
             <Grid container direction="column">
               <Grid item className="series-image-box">
                 <div>
@@ -114,24 +114,14 @@ export default function Series(props) {
                   />
                 </div>
               </Grid>
-              <Grid item>
-                <div>
-                  <SaveItemsButton
-                    id={series.id}
-                    img={series.image}
-                    title={series.title}
-                    type="series"
-                    source={source}
-                  />
-                </div>
-              </Grid>
             </Grid>
           </Grid>
           <Grid
             className="series-description-box"
             item
-            lg={9}
-            md={9}
+            xl={7}
+            lg={7}
+            md={7}
             sm={12}
             xs={12}
           >
@@ -145,11 +135,8 @@ export default function Series(props) {
                 <div className="book-description">
                   <Grid container>
                     <Grid item lg={4} md={4} sm={4} xs={12}>
-                      <div
-                        className="description-title"
-                        style={{ color: "#333333", fontFamily: "Roboto" }}
-                      >
-                        <h6>Description</h6>
+                      <div className="description-title">
+                        <h5>Description</h5>
                       </div>
                     </Grid>
                     <Grid item lg={8} md={8} sm={8} xs={12}>
@@ -169,11 +156,8 @@ export default function Series(props) {
                 <div className="book-description">
                   <Grid container>
                     <Grid item lg={4} md={4} sm={4} xs={12}>
-                      <div
-                        className="description-title"
-                        style={{ color: "#333333", fontFamily: "Roboto" }}
-                      >
-                        <h6>Start Year</h6>
+                      <div className="description-title">
+                        <h5>Start Year</h5>
                       </div>
                     </Grid>
                     <Grid item lg={8} md={8} sm={8} xs={12}>
@@ -188,11 +172,8 @@ export default function Series(props) {
                 <div className="book-description">
                   <Grid container>
                     <Grid item lg={4} md={4} sm={4} xs={12}>
-                      <div
-                        className="description-title"
-                        style={{ color: "#333333", fontFamily: "Roboto" }}
-                      >
-                        <h6>End Year</h6>
+                      <div className="description-title">
+                        <h5>End Year</h5>
                       </div>
                     </Grid>
                     <Grid item lg={8} md={8} sm={8} xs={12}>
@@ -203,16 +184,25 @@ export default function Series(props) {
                   </Grid>
                 </div>
               </Grid>
-
+              <Divider style={{ width: "40%", margin: "0 auto" }} />
+              <Grid item>
+                <div style={{ display: "flex", margin: "1rem 0" }}>
+                  <SaveItemsButton
+                    id={series.id}
+                    img={series.image}
+                    title={series.title}
+                    type="series"
+                    source={source}
+                  />
+                </div>
+              </Grid>
+              <Divider style={{ width: "40%", margin: "0 auto" }} />
               <Grid item>
                 <div className="book-description">
                   <Grid container>
                     <Grid item lg={4} md={4} sm={4} xs={12}>
-                      <div
-                        className="description-title"
-                        style={{ color: "#333333", fontFamily: "Roboto" }}
-                      >
-                        <h6>Creators</h6>
+                      <div className="description-title">
+                        <h5>Creators</h5>
                       </div>
                     </Grid>
                     <Grid item lg={8} md={8} sm={8} xs={12}>
@@ -233,11 +223,8 @@ export default function Series(props) {
                 <div className="book-description">
                   <Grid container>
                     <Grid item lg={4} md={4} sm={4} xs={12}>
-                      <div
-                        className="description-title"
-                        style={{ color: "#333333", fontFamily: "Roboto" }}
-                      >
-                        <h6>Characters</h6>
+                      <div className="description-title">
+                        <h5>Characters</h5>
                       </div>
                     </Grid>
                     <Grid item lg={8} md={8} sm={8} xs={12}>
@@ -258,11 +245,8 @@ export default function Series(props) {
                 <div className="book-description">
                   <Grid container>
                     <Grid item lg={4} md={4} sm={4} xs={12}>
-                      <div
-                        className="description-title"
-                        style={{ color: "#333333", fontFamily: "Roboto" }}
-                      >
-                        <h6>Comics</h6>
+                      <div className="description-title">
+                        <h5>Comics</h5>
                       </div>
                     </Grid>
                     <Grid item lg={8} md={8} sm={8} xs={12}>

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { fetchCharacter } from "../../actions/FetchActions/characterFetchAction";
 import Loader from "../../components/Loader/loader";
-import { Container, Grid } from "@material-ui/core";
+import { Container, Grid, Divider } from "@material-ui/core";
 import "./styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import SaveItemsButton from "../../components/Buttons/saveItemsButton";
@@ -103,7 +103,7 @@ export default function Character(props) {
     <section id="character-body">
       <Container maxWidth="lg">
         <Grid container>
-          <Grid item lg={3} md={3} sm={12} xs={12}>
+          <Grid item xl={5} lg={5} md={5} sm={12} xs={12}>
             <Grid container direction="column">
               <Grid className="character-image-box" item>
                 <img
@@ -112,24 +112,14 @@ export default function Character(props) {
                   src={character.image}
                 />
               </Grid>
-              <Grid item>
-                <div>
-                  <SaveItemsButton
-                    id={character.id}
-                    img={character.image}
-                    title={character.name}
-                    type="character"
-                    source={source}
-                  />
-                </div>
-              </Grid>
             </Grid>
           </Grid>
           <Grid
             className="character-description-box"
             item
-            lg={9}
-            md={9}
+            xl={7}
+            lg={7}
+            md={7}
             sm={12}
             xs={12}
           >
@@ -140,7 +130,7 @@ export default function Character(props) {
               <Grid item>
                 <Grid container>
                   <Grid item lg={4} md={4} sm={4} xs={12}>
-                    <h6 className="description-section-label">Description</h6>
+                    <h5 className="description-section-label">Description</h5>
                   </Grid>
                   <Grid item lg={8} md={8} sm={8} xs={12}>
                     <p>
@@ -152,17 +142,31 @@ export default function Character(props) {
                   </Grid>
                 </Grid>
               </Grid>
+              <Divider style={{ width: "40%", margin: "0 auto" }} />
+              <Grid item>
+                <div style={{ display: "flex", margin: "1rem 0" }}>
+                  <SaveItemsButton
+                    id={character.id}
+                    img={character.image}
+                    title={character.name}
+                    type="character"
+                    source={source}
+                  />
+                </div>
+              </Grid>
+              <Divider style={{ width: "40%", margin: "0 auto" }} />
               <Grid item>
                 <Grid container>
                   <Grid item lg={4} md={4} sm={4} xs={12}>
-                    <h6 className="description-section-label">Series</h6>
+                    <h5 className="description-section-label">Series</h5>
                   </Grid>
+
                   <Grid item lg={8} md={8} sm={8} xs={12}>
-                    <div className="series-table-section">
-                      {character.series.length === 0 ? (
-                        <p>No Series Released</p>
-                      ) : (
-                        character.series.map((series) => {
+                    {character.series.length === 0 ? (
+                      <p>No Series Available</p>
+                    ) : (
+                      <div className="series-table-section">
+                        {character.series.map((series) => {
                           return (
                             <Link
                               to={{
@@ -179,23 +183,23 @@ export default function Character(props) {
                               </p>
                             </Link>
                           );
-                        })
-                      )}
-                    </div>
+                        })}
+                      </div>
+                    )}
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item>
                 <Grid container>
                   <Grid item lg={4} md={4} sm={4} xs={12}>
-                    <h6 className="description-section-label">Comics</h6>
+                    <h5 className="description-section-label">Comics</h5>
                   </Grid>
                   <Grid item lg={8} md={8} sm={8} xs={12}>
-                    <div className="comics-table-section">
-                      {character.comics.length === 0 ? (
-                        <p>No Comics Released</p>
-                      ) : (
-                        character.comics.map((comic) => {
+                    {character.comics.length === 0 ? (
+                      <p>No Comics Released</p>
+                    ) : (
+                      <div className="comics-table-section">
+                        {character.comics.map((comic) => {
                           return (
                             <Link
                               to={{
@@ -212,9 +216,9 @@ export default function Character(props) {
                               </p>
                             </Link>
                           );
-                        })
-                      )}
-                    </div>
+                        })}
+                      </div>
+                    )}
                   </Grid>
                 </Grid>
               </Grid>

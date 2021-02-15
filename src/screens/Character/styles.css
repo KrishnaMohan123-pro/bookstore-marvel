@@ -4,51 +4,30 @@
 }
 .character-image-box,
 .character-description-box {
-  border: 0.1rem #e3f6f5 solid;
   padding: 3rem 0rem;
-  background-color: white;
 }
-.character-image-box {
-  background-image: linear-gradient(to right, #eff8ff, #f6ecf0);
-}
+
 .character-description-box {
-  align-content: center;
-  background-image: linear-gradient(to right, #f6ecf0, #eff8ff);
+  text-align: left;
 }
 .character-image {
-  width: 12rem;
-  height: 18rem;
+  height: 30rem;
+  width: 20rem;
 }
-.character-name {
-  font-family: "Goldman" !important;
-  font-size: 3.5rem !important;
-}
+
 .character-description {
   width: 70%;
   margin: 2px auto !important;
 }
 .character-title {
-  font-family: "Goldman";
+  font-family: "Bebas Neue";
 }
 .description-section-label {
-  font-family: "Roboto";
+  font-family: "Bebas Neue";
   margin: 0 auto;
 }
 .comics-table-section,
 .series-table-section {
   height: 250px;
   overflow-y: scroll;
-}
-@media screen and (max-width: 800px) {
-  .character-name {
-    font-size: 3rem !important;
-  }
-}
-@media screen and (max-width: 500px) {
-  .character-name {
-    font-size: 2rem !important;
-  }
-  #character-body {
-    margin-top: 15%;
-  }
 }

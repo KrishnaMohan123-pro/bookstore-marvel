@@ -8,46 +8,23 @@
 }
 .series-image-box,
 .series-description-box {
-  border: #e3f6f5 0.1rem solid;
   padding: 3rem 0rem;
 }
-.series-image-box {
-  background-image: linear-gradient(to right, #eff8ff, #f6ecf0);
-}
+
 .series-description-box {
-  align-content: center;
-  background-image: linear-gradient(to right, #f6ecf0, #eff8ff);
+  text-align: left;
 }
 .series-container {
   margin-top: 5% !important;
 }
 
 .series-image {
-  width: 12rem;
-  height: 18rem;
+  height: 30rem;
+  width: 20rem;
 }
 .series-title {
-  font-family: "Goldman", sans-serif;
+  font-family: "Bebas Neue";
 }
-
-@media screen and (max-width: 1000px) {
-  .series-content {
-    font-size: 0.8rem !important;
-  }
-  .section-title {
-    font-family: "Sacramento", sans-serif;
-    font-size: 2.5rem;
-  }
-  .series-image {
-    width: 9rem;
-    height: 12rem;
-  }
-  .series-title {
-    font-size: 2.5rem;
-  }
-}
-@media screen and (max-width: 500px) {
-  .series-title {
-    font-size: 2rem;
-  }
+.description-title {
+  font-family: "Bebas Neue";
 }
