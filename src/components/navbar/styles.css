@@ -8,10 +8,17 @@
 .tool-bar {
   padding: 1rem;
 }
-.app-bar .cart-button:hover {
+
+.cart-button:hover {
   color: white !important;
   background-color: #272343 !important;
 }
+
+.cart-button-box {
+  display: inline-block;
+  position: relative;
+}
+
 @media screen and (max-width: 1000px) {
   .app-bar-links {
     display: none;

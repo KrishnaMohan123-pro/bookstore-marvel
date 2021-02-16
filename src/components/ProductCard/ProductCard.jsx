@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   root: {
     width: "200px",
     borderRadius: "0%",
-    margin: "5px auto",
+    margin: "2rem auto",
     paddingBottom: "5%",
     border: "none",
     boxShadow: "none",

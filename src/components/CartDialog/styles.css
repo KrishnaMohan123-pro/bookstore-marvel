@@ -1,0 +1,19 @@
+.cart-button-box:hover .cart-dialog {
+  max-height: 30rem;
+  transition: 0.5s ease 0.2s;
+  overflow-y: scroll;
+  border: solid gray 0.1rem;
+}
+.cart-dialog {
+  left: -14.5rem;
+  top: 2.25rem;
+  width: 20rem;
+  overflow: hidden;
+  max-height: 0;
+  position: absolute;
+  background-color: #f4f9f9;
+  z-index: 9999;
+  color: black;
+  will-change: transform;
+  transition: 0.2s;
+}

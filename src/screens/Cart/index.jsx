@@ -37,7 +37,6 @@ export default function Cart() {
       </div>
     );
   }
-  console.log(cartItems);
   let total = 0;
   for (let i = 0; i < cartItems.length; i = i + 1) {
     total = total + cartItems[i].quantity * parseFloat(cartItems[i].price);

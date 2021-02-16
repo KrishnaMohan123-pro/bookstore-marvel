@@ -81,7 +81,7 @@ export default function Books() {
           </Grid>
         </Container>
       </section>
-      <Divider />
+      <Divider style={{ margin: "5rem 0 0 0" }} />
       {characterNames.map((item) => {
         return (
           <Fragment key={item}>
@@ -89,7 +89,7 @@ export default function Books() {
               <p className="character-name">{item.toUpperCase()}</p>
               <CarouselList name={item} />
             </div>
-            <Divider />
+            <Divider style={{ margin: "5rem 0 0 0" }} />
           </Fragment>
         );
       })}
