@@ -7,7 +7,6 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  TextField,
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { useHistory, Link } from "react-router-dom";
@@ -64,7 +63,6 @@ export default function SearchBar() {
         <DebounceInput
           className="search-input"
           debounceTimeout={300}
-          element={TextField}
           onChange={(event) => {
             if (event.target.value.length === 0) {
               dispatch(clearDropDown());
@@ -78,7 +76,7 @@ export default function SearchBar() {
         </IconButton>
       </Paper>
       {showDropDown && dropDownOptions.characters.length !== 0 ? (
-        <span className="search-drop-down">
+        <div className="search-drop-down">
           <Table className="search-drop-down-table">
             <TableBody>
               {dropDownOptions.characters.map((character) => {
@@ -102,7 +100,7 @@ export default function SearchBar() {
               })}
             </TableBody>
           </Table>
-        </span>
+        </div>
       ) : null}
     </div>
   );

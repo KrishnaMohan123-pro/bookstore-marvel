@@ -52,15 +52,17 @@ export default function ProductCard(props) {
           <div className="hover-image-cover">
             <p className="hover-image-cover-text"> CLICK TO KNOW MORE</p>
           </div>
-          <img
-            className="product-image"
-            src={props.img}
-            alt={
-              props.title.length > 35
-                ? props.title.slice(0, 35) + "..."
-                : props.title
-            }
-          />
+          <div className="product-image-box">
+            <img
+              className="product-image"
+              src={props.img}
+              alt={
+                props.title.length > 35
+                  ? props.title.slice(0, 35) + "..."
+                  : props.title
+              }
+            />
+          </div>
           <div style={{ textAlign: "left" }}>
             <Typography
               className={classes.title}

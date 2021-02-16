@@ -2,7 +2,7 @@
   max-height: 30rem;
   transition: 0.5s ease 0.2s;
   overflow-y: scroll;
-  border: solid gray 0.1rem;
+  box-shadow: 0 0 0.5rem grey;
 }
 .cart-dialog {
   left: -14.5rem;
