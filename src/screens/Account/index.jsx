@@ -12,6 +12,61 @@ import EditNameForm from "../../utility/forms/editNameForm";
 import { useHistory } from "react-router-dom";
 import SaveItemsButton from "../../components/Buttons/saveItemsButton";
 
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `vertical-tab-${index}`,
+    "aria-controls": `vertical-tabpanel-${index}`,
+  };
+}
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+    display: "flex",
+    maxHeight: 224,
+    overflowY: "scroll",
+    position: "relative",
+  },
+  tabs: {
+    borderRight: `1px solid ${theme.palette.divider}`,
+    display: "flex",
+  },
+}));
+
 export default function Account() {
   const history = useHistory();
   const loggedIn = useSelector((state) => state.loggedIn);
@@ -20,6 +75,11 @@ export default function Account() {
   const dialog = useSelector((state) => state.dialog);
   const role = useSelector((state) => state.auth.user.role);
   const savedItems = useSelector((state) => state.savedItems);
+  const classes = useStyles();
+  const [value, setValue] = React.useState(0);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   if (!loggedIn) {
     return (
@@ -156,103 +216,123 @@ export default function Account() {
             </Grid>
           </Grid>
         </Grid>
+
         <Container className="saved-items-box">
-          <Grid container direction="column">
-            <h1>Saved Characters</h1>
-            {savedItems.character.length === 0
-              ? "No Saved Character"
-              : savedItems.character.map((item) => {
-                  return (
-                    <Grid className="saved-characters-box" item key={item.id}>
-                      <Grid container style={{ padding: "1.5rem" }}>
-                        <Grid item lg={3} md={3} sm={12} xs={12}>
-                          <img
-                            className="saved-character-image"
-                            src={item.img}
-                            alt={item.title}
-                            onClick={() => {
-                              history.push({
-                                pathname: `/${item.type}/${item.id}`,
-                                search: `?source=${item.source}`,
-                              });
-                            }}
-                          />
+          <div className={classes.root}>
+            <Tabs
+              orientation="vertical"
+              value={value}
+              onChange={handleChange}
+              aria-label="Vertical tabs example"
+              className={classes.tabs}
+              variant="scrollable"
+            >
+              <Tab label="Saved Characters" {...a11yProps(0)} />
+              <Tab label="Saved Series" {...a11yProps(1)} />
+            </Tabs>
+            <TabPanel value={value} index={0}>
+              <Grid container direction="column">
+                {savedItems.character.length === 0
+                  ? "No Saved Character"
+                  : savedItems.character.map((item) => {
+                      return (
+                        <Grid
+                          className="saved-characters-box"
+                          item
+                          key={item.id}
+                        >
+                          <Grid container style={{ padding: "1.5rem" }}>
+                            <Grid item lg={3} md={3} sm={12} xs={12}>
+                              <img
+                                className="saved-character-image"
+                                src={item.img}
+                                alt={item.title}
+                                onClick={() => {
+                                  history.push({
+                                    pathname: `/${item.type}/${item.id}`,
+                                    search: `?source=${item.source}`,
+                                  });
+                                }}
+                              />
+                            </Grid>
+                            <Grid item lg={6} md={6} sm={12} xs={12}>
+                              <p
+                                className="saved-character-name"
+                                onClick={() => {
+                                  history.push({
+                                    pathname: `/${item.type}/${item.id}`,
+                                    search: `?source=${item.source}`,
+                                  });
+                                }}
+                              >
+                                {item.title}
+                              </p>
+                            </Grid>
+                            <Grid item lg={3} md={3} sm={12} xs={12}>
+                              <SaveItemsButton
+                                id={item.id}
+                                img={item.img}
+                                title={item.title}
+                                type={item.type}
+                                source={item.source}
+                              />
+                            </Grid>
+                          </Grid>
                         </Grid>
-                        <Grid item lg={6} md={6} sm={12} xs={12}>
-                          <p
-                            className="saved-character-name"
-                            onClick={() => {
-                              history.push({
-                                pathname: `/${item.type}/${item.id}`,
-                                search: `?source=${item.source}`,
-                              });
-                            }}
-                          >
-                            {item.title}
-                          </p>
+                      );
+                    })}
+              </Grid>
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              <Grid container direction="column">
+                {savedItems.series.length === 0
+                  ? "No Saved Series"
+                  : savedItems.series.map((item) => {
+                      return (
+                        <Grid className="saved-series-box" item key={item.id}>
+                          <Grid container style={{ padding: "1.5rem" }}>
+                            <Grid item lg={3} md={3} sm={12} xs={12}>
+                              <img
+                                className="saved-series-image"
+                                src={item.img}
+                                alt={item.title}
+                                onClick={() => {
+                                  history.push({
+                                    pathname: `/${item.type}/${item.id}`,
+                                    search: `?source=${item.source}`,
+                                  });
+                                }}
+                              />
+                            </Grid>
+                            <Grid item lg={6} md={6} sm={12} xs={12}>
+                              <p
+                                className="saved-series-title"
+                                onClick={() => {
+                                  history.push({
+                                    pathname: `/${item.type}/${item.id}`,
+                                    search: `?source=${item.source}`,
+                                  });
+                                }}
+                              >
+                                {item.title}
+                              </p>
+                            </Grid>
+                            <Grid item lg={3} md={3} sm={12} xs={12}>
+                              <SaveItemsButton
+                                id={item.id}
+                                img={item.img}
+                                title={item.title}
+                                type={item.type}
+                                source={item.source}
+                              />
+                            </Grid>
+                          </Grid>
                         </Grid>
-                        <Grid item lg={3} md={3} sm={12} xs={12}>
-                          <SaveItemsButton
-                            id={item.id}
-                            img={item.img}
-                            title={item.title}
-                            type={item.type}
-                            source={item.source}
-                          />
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  );
-                })}
-          </Grid>
-          <Grid container direction="column">
-            <h1>Saved Series</h1>
-            {savedItems.series.length === 0
-              ? "No Saved Series"
-              : savedItems.series.map((item) => {
-                  return (
-                    <Grid className="saved-series-box" item key={item.id}>
-                      <Grid container style={{ padding: "1.5rem" }}>
-                        <Grid item lg={3} md={3} sm={12} xs={12}>
-                          <img
-                            className="saved-series-image"
-                            src={item.img}
-                            alt={item.title}
-                            onClick={() => {
-                              history.push({
-                                pathname: `/${item.type}/${item.id}`,
-                                search: `?source=${item.source}`,
-                              });
-                            }}
-                          />
-                        </Grid>
-                        <Grid item lg={6} md={6} sm={12} xs={12}>
-                          <p
-                            className="saved-series-title"
-                            onClick={() => {
-                              history.push({
-                                pathname: `/${item.type}/${item.id}`,
-                                search: `?source=${item.source}`,
-                              });
-                            }}
-                          >
-                            {item.title}
-                          </p>
-                        </Grid>
-                        <Grid item lg={3} md={3} sm={12} xs={12}>
-                          <SaveItemsButton
-                            id={item.id}
-                            img={item.img}
-                            title={item.title}
-                            type={item.type}
-                            source={item.source}
-                          />
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  );
-                })}
-          </Grid>
+                      );
+                    })}
+              </Grid>
+            </TabPanel>
+          </div>
         </Container>
       </Container>
     </div>

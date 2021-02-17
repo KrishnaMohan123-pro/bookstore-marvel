@@ -2,7 +2,7 @@
   position: relative;
 }
 .search-drop-down {
-  height: 10rem;
+  max-height: 10rem;
   overflow-y: scroll;
   width: 20rem;
   left: 0%;

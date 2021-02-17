@@ -1,44 +1,26 @@
-.card {
-  width: 18rem;
-  text-align: center;
-  height: 28rem;
-  background-image: linear-gradient(blue, red);
-  margin-left: 10% !important;
+#popular-page {
+  background: linear-gradient(135deg, #f4f9f9, #ccf2f4, #a4ebf3);
 }
-.card-img-top {
-  height: 15rem;
-}
+
 .character-name {
   font-family: "Goldman", sans-serif;
   font-size: 2.5rem;
   text-decoration: underline;
 }
-.slider-control-bottomcenter {
-  bottom: -15% !important;
+.carousel-button {
+  outline: none !important;
+  background-color: rgb(207, 205, 205) !important;
+  color: black !important;
+  transform: scale(1, 1);
+  transition-duration: 200ms;
+  transition-property: transform;
 }
-.slider-control-centerleft button,
-.slider-control-centerright button {
-  border-radius: 100%;
-  background-color: grey;
-}
-.slider-control-centerleft button:hover,
-.slider-control-centerright button:hover {
+.carousel-button:active {
   background-color: red !important;
-}
-.slider-control-centerleft button:active,
-.slider-control-centerright button:active {
+  color: white !important;
   transform: scale(1.1, 1.1);
 }
-.slider {
-  display: flex;
-  justify-content: center;
-}
-.slider-frame {
-  padding: 30px 0 !important;
-}
 
-@media screen and (max-width: 1000px) {
-}
 @media screen and (max-width: 424px) {
   .character-name {
     font-size: 2rem;
