@@ -34,7 +34,7 @@ export default function Books() {
   return (
     <main id="popular-page">
       <section className="new-arrivals">
-        <div className="character-section">
+        <div className="character-section" style={{ margin: "1rem 0" }}>
           <p className="character-name">New Arrivals</p>
 
           <Container fixed>
@@ -86,7 +86,8 @@ export default function Books() {
                           <div
                             key={item.id}
                             style={{
-                              height: "450px",
+                              height:
+                                window.innerWidth > 1000 ? "425px" : "475px",
                             }}
                           >
                             <ProductCard

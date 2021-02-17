@@ -12,12 +12,15 @@
   background-color: rgb(207, 205, 205) !important;
   color: black !important;
   transform: scale(1, 1);
-  transition-duration: 200ms;
-  transition-property: transform;
+  transition-timing-function: ease-in;
+  transition-duration: 500ms;
+  transition-property: background-color;
 }
-.carousel-button:active {
+.carousel-button:hover {
   background-color: red !important;
   color: white !important;
+}
+.carousel-button:active {
   transform: scale(1.1, 1.1);
 }
 
