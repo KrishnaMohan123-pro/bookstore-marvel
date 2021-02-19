@@ -1,0 +1,53 @@
+.profile-name,
+.profile-email,
+.profile-phone {
+  margin: 0 auto;
+  font-family: "Noto Sans JP";
+  padding: 0;
+  width: 80%;
+  box-shadow: none;
+  color: black;
+  outline: none;
+  display: block;
+  font-size: large;
+  padding: 0.5rem 0;
+  position: absolute;
+  float: left;
+  border: 0.05rem rgb(194, 194, 194) solid;
+  background: transparent;
+  border-radius: 4px;
+}
+.profile-address {
+  font-family: "Noto Sans JP";
+  display: block;
+  width: 90%;
+  margin: 0.1rem 0;
+  border: 0.05rem rgb(194, 194, 194) solid;
+  background: transparent;
+  outline: none;
+  padding: 1rem 0;
+  border-radius: 4px;
+}
+
+.profile-name:disabled,
+.profile-email:disabled,
+.profile-address:disabled,
+.profile-phone:disabled {
+  background: transparent;
+  color: black;
+  border: 0.05rem transparent solid;
+  padding: 0;
+}
+.profile-name:focus,
+.profile-address:focus,
+.profile-phone:focus {
+  box-shadow: 0 0 0.15rem rgb(0, 0, 0) !important;
+}
+
+.edit-button {
+  border-radius: 0 !important;
+  padding: 0 !important;
+  width: 10% !important;
+
+  float: right;
+}

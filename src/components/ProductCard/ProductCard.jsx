@@ -66,48 +66,51 @@ export default function ProductCard(props) {
           <div className="card-ribbon book-type">
             {props.type.toUpperCase()}
           </div>
-          <div className="hover-image-cover">
-            <p
-              className="hover-image-cover-text"
-              onClick={(e) => {
-                e.stopPropagation();
-                if (!loggedIn) {
-                  toast.warning("Log in to add item in the cart");
-                  setTimeout(() => {
-                    dispatch({ type: "OPEN_SIGNUP_MODAL" });
-                  }, 400);
-                } else {
-                  if (enablePurchase) {
-                    if (included) {
-                      history.push(`/cart`);
-                    } else {
-                      dispatch(
-                        addToCart({
-                          id: props.id,
-                          img: props.img,
-                          price: props.price,
-                          source: props.source,
-                          title: props.title,
-                          quantity: 1,
-                        })
-                      );
-                    }
+          {window.innerWidth > 1000 ? (
+            <div className="hover-image-cover">
+              <p
+                className="hover-image-cover-text"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (!loggedIn) {
+                    toast.warning("Log in to add item in the cart");
+                    setTimeout(() => {
+                      dispatch({ type: "OPEN_SIGNUP_MODAL" });
+                    }, 400);
                   } else {
-                    history.push({
-                      pathname: `/${props.type}/${props.id}`,
-                      search: `?source=${props.source}`,
-                    });
+                    if (enablePurchase) {
+                      if (included) {
+                        history.push(`/cart`);
+                      } else {
+                        dispatch(
+                          addToCart({
+                            id: props.id,
+                            img: props.img,
+                            price: props.price,
+                            source: props.source,
+                            title: props.title,
+                            quantity: 1,
+                          })
+                        );
+                      }
+                    } else {
+                      history.push({
+                        pathname: `/${props.type}/${props.id}`,
+                        search: `?source=${props.source}`,
+                      });
+                    }
                   }
-                }
-              }}
-            >
-              {enablePurchase
-                ? included
-                  ? "VIEW IN CART"
-                  : "ADD TO CART"
-                : "CLICK TO VIEW"}
-            </p>
-          </div>
+                }}
+              >
+                {enablePurchase
+                  ? included
+                    ? "VIEW IN CART"
+                    : "ADD TO CART"
+                  : "CLICK TO VIEW"}
+              </p>
+            </div>
+          ) : null}
+
           <div className="product-image-box">
             <img
               className="product-image"

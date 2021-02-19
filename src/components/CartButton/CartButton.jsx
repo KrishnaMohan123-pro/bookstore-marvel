@@ -18,7 +18,8 @@ export default function CartButton(props) {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           toast.warning("Log in to add item in the cart");
           setTimeout(() => {
             dispatch({ type: "OPEN_SIGNUP_MODAL" });
@@ -73,7 +74,10 @@ export default function CartButton(props) {
         <Button
           variant="contained"
           size="small"
-          onClick={handleDecrement}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDecrement();
+          }}
           style={{ borderRadius: "0", backgroundColor: "#f6f5f5" }}
         >
           {quantity === 1 ? (
@@ -84,7 +88,10 @@ export default function CartButton(props) {
         </Button>
       ) : null}
       <Button
-        onClick={onButtonClick}
+        onClick={(e) => {
+          e.stopPropagation();
+          onButtonClick();
+        }}
         variant="contained"
         size="small"
         style={{
@@ -100,7 +107,10 @@ export default function CartButton(props) {
         <Button
           variant="contained"
           size="small"
-          onClick={handleIncrement}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleIncrement();
+          }}
           style={{ borderRadius: "0", backgroundColor: "#f6f5f5" }}
         >
           +

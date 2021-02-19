@@ -21,10 +21,11 @@ export default function FormDialog(props) {
   return (
     <div>
       <Button
-        variant="contained"
+        variant="text"
         size="small"
         color="primary"
         onClick={handleClickOpen}
+        style={{ padding: "0" }}
       >
         {props.dialogLabel}
       </Button>
