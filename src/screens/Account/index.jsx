@@ -12,6 +12,7 @@ import ProfileName from "../../components/AccoutComponents/ProfileName";
 import ProfileEmail from "../../components/AccoutComponents/ProfileEmail";
 import ProfilePhone from "../../components/AccoutComponents/ProfilePhone";
 import ProfileAddress from "../../components/AccoutComponents/ProfileAddress";
+import SavedItemsDrawer from "../../components/SavedItemsDrawer/SavedItemsDrawer";
 
 export default function Account() {
   const history = useHistory();
@@ -21,6 +22,7 @@ export default function Account() {
   const dialog = useSelector((state) => state.dialog);
   const role = useSelector((state) => state.auth.user.role);
   const savedItems = useSelector((state) => state.savedItems);
+  console.log(savedItems);
 
   if (!loggedIn) {
     return (
@@ -110,12 +112,18 @@ export default function Account() {
             <Grid container>
               <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                 <div className="saved-items">
-                  <p>Saved Series</p>
+                  <SavedItemsDrawer
+                    items={savedItems.series}
+                    buttonName="Saved Series"
+                  />
                 </div>
               </Grid>
               <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                 <div className="saved-items">
-                  <p>Saved Characters</p>
+                  <SavedItemsDrawer
+                    items={savedItems.character}
+                    buttonName="Saved Characters"
+                  />
                 </div>
               </Grid>
             </Grid>

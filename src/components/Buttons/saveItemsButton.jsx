@@ -22,6 +22,7 @@ export default function SaveItemsButton(props) {
   }
   const included = itemsId.includes(props.id);
   function handleClick(e) {
+    e.stopPropagation();
     if (!loggedIn) {
       toast.error("Please Signup!!");
     } else {

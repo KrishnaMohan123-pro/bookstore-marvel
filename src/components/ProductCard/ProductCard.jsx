@@ -161,7 +161,7 @@ export default function ProductCard(props) {
             ) : (
               <SaveItemsButton
                 id={props.id}
-                img={props.image}
+                img={props.img}
                 title={props.title}
                 type={props.type}
                 source={props.source}

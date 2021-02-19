@@ -59,10 +59,10 @@ export default function ProfileName(props) {
     e.preventDefault();
     if (!regExp.test(address.pin) && address.pin.length === 6) {
       dispatch(addAddress(address));
+      setEdit(false);
     } else {
       toast.error("Entered Wrong Pin");
     }
-    setEdit(false);
   }
 
   return (
