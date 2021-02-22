@@ -1,65 +1,107 @@
 #latest-carousel {
-  background-color: lavender;
+  background-color: #333333;
 }
-#home-message .row {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+
+.home-carousel-section {
+  background-color: #333333;
+  padding: auto 0;
+  display: grid;
+  align-items: center;
+  height: 500px;
 }
 .home-screen-character-image {
-  width: 50%;
+  width: 15rem;
+  height: 20rem;
 }
 .home-screen-character-name {
   font-family: Goldman;
-  font-size: 3.5rem;
-  padding: 0.5rem 0;
+  font-size: 3rem;
+  padding: 5rem 0;
   text-decoration: underline;
+  color: #e1f4f3;
+  width: 70%;
+  margin: 0 auto;
 }
-.home-carousel-section {
-  background-image: linear-gradient(to right, blue, red);
-  padding: 3rem 0;
-}
+
 #popular-and-trending,
 #categories {
-  padding: 2% 0;
-  background-color: lavender;
-  margin-top: 0.5%;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
+  position: relative;
+  background-color: transparent;
+  margin: 1rem 0;
 }
-#categories {
-  margin-bottom: 2%;
+
+.bg-section-1 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to right, #f4f9f9, #a4ebf3);
+  top: 0;
+  left: 0;
+  z-index: -100;
+  clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0 100%);
 }
-@media screen and (max-width: 1400px) {
+.bg-section-2 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to right, #ffb4b4, #ffe8e8);
+  top: 0;
+  left: 0;
+  z-index: -100;
+  clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 25% 100%, 0% 50%);
+}
+
+.section-content {
+  position: relative;
+  padding: 10% 0;
+}
+.section-heading-box {
+  width: 70%;
+  margin: 0 auto;
+  text-align: left;
+}
+.section-heading {
+  font-size: 3rem;
+}
+.section-subheading {
+  line-height: 1.5rem;
+}
+@media screen and (max-width: 1440px) {
   .home-screen-character-name {
     font-size: 3rem;
   }
 }
-@media screen and (max-width: 1000px) {
-  .home-screen-character-image {
-    width: 25%;
-  }
+@media screen and (max-width: 1024px) {
   .home-screen-character-name {
     font-size: 2rem;
   }
+  .section-heading {
+    font-size: 2rem;
+  }
+  .section-heading-box {
+    width: 80%;
+  }
 }
 
-@media screen and (max-width: 767px) {
-  .home-screen-character-name {
-    font-size: 1.5rem;
+@media screen and (max-width: 768px) {
+  .bg-section-1,
+  .bg-section-2 {
+    clip-path: none;
   }
-  .primary-col {
-    font-size: 5rem;
-  }
-  .secondary-col {
-    font-size: 3rem;
+  .section-heading-box {
+    text-align: center;
   }
 }
-@media screen and (max-width: 374px) {
-  .primary-col {
-    font-size: 4rem;
+
+@media screen and (max-width: 600px) {
+  .home-carousel-section {
+    padding-top: 2rem;
   }
-  .secondary-col {
-    font-size: 2.5rem;
+  .home-screen-character-image {
+    width: 12rem;
+    height: 16rem;
+  }
+  .home-screen-character-name {
+    padding: 2rem 0;
   }
 }

@@ -45,6 +45,7 @@ export default function Account() {
               direction="column"
               style={{ position: "relative" }}
             >
+              <div className="bg-profile-details"></div>
               <Grid className="profile-image-box" item>
                 <img
                   className="profile-image"
@@ -81,7 +82,7 @@ export default function Account() {
               <Grid
                 item
                 className="profile-name-box"
-                style={{ margin: "1rem 0" }}
+                style={{ margin: "2rem 0" }}
               >
                 <ProfilePhone phone={user.phone} />
               </Grid>
@@ -111,20 +112,18 @@ export default function Account() {
           <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
             <Grid container>
               <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-                <div className="saved-items">
-                  <SavedItemsDrawer
-                    items={savedItems.series}
-                    buttonName="Saved Series"
-                  />
-                </div>
+                <SavedItemsDrawer
+                  items={savedItems.series}
+                  buttonName="Saved Series"
+                  type="Series"
+                />
               </Grid>
               <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-                <div className="saved-items">
-                  <SavedItemsDrawer
-                    items={savedItems.character}
-                    buttonName="Saved Characters"
-                  />
-                </div>
+                <SavedItemsDrawer
+                  items={savedItems.character}
+                  buttonName="Saved Characters"
+                  type="Characters"
+                />
               </Grid>
             </Grid>
           </Grid>

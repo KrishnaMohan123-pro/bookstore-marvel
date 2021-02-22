@@ -8,9 +8,9 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 300,
+    maxWidth: 350,
     margin: "0 auto",
-    borderRadius: "5%",
+    borderRadius: "20px",
     backgroundImage: "linear-gradient(#eaffd0,#fce38a)",
   },
 });
@@ -24,7 +24,7 @@ export default function NavigationCard(props) {
         <CardActionArea>
           <div>{props.icon}</div>
           <CardContent>
-            <Typography gutterBottom variant="h7" component="h7">
+            <Typography gutterBottom variant="h6" component="h6">
               {props.cardTitle}
             </Typography>
           </CardContent>

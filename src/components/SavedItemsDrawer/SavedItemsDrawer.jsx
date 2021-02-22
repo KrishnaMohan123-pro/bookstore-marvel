@@ -49,46 +49,54 @@ export default function SavedItemsDrawer(props) {
       className={clsx(classes.list)}
     >
       <List>
-        {props.items.map((item) => (
-          <ListItem button key={item.id}>
-            <Grid container>
-              <Grid item xl={4} lg={4} md={4} sm={4} xs={4}>
-                <Link
-                  to={{
-                    pathname: `/${item.type}`,
-                    search: `?source=${item.source}`,
-                  }}
-                >
-                  <img
-                    src={item.img}
-                    alt={item.title}
-                    style={{ height: "4rem", width: "3rem" }}
-                  />
-                </Link>
-              </Grid>
-              <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
-                <Link
-                  to={{
-                    pathname: `/${item.type}/${item.id}`,
-                    search: `?source=${item.source}`,
-                  }}
-                >
-                  <p style={{ fontSize: "0.7rem" }}>{item.title}</p>
-                </Link>
-              </Grid>
-              <Grid item xl={3} lg={3} md={3} sm={3} xs={3}>
-                <IconButton
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    dispatch(removeItem(item.type, item));
-                  }}
-                >
-                  <CancelIcon fontSize="small" />
-                </IconButton>
-              </Grid>
-            </Grid>
+        {props.items.length === 0 ? (
+          <ListItem>
+            <p style={{ width: 250, textAlign: "center" }}>
+              No Saved {props.type}
+            </p>
           </ListItem>
-        ))}
+        ) : (
+          props.items.map((item) => (
+            <ListItem button key={item.id}>
+              <Grid container style={{ width: 250 }}>
+                <Grid item xl={4} lg={4} md={4} sm={4} xs={4}>
+                  <Link
+                    to={{
+                      pathname: `/${item.type}`,
+                      search: `?source=${item.source}`,
+                    }}
+                  >
+                    <img
+                      src={item.img}
+                      alt={item.title}
+                      style={{ height: "4rem", width: "3rem" }}
+                    />
+                  </Link>
+                </Grid>
+                <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
+                  <Link
+                    to={{
+                      pathname: `/${item.type}/${item.id}`,
+                      search: `?source=${item.source}`,
+                    }}
+                  >
+                    <p style={{ fontSize: "0.7rem" }}>{item.title}</p>
+                  </Link>
+                </Grid>
+                <Grid item xl={3} lg={3} md={3} sm={3} xs={3}>
+                  <IconButton
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      dispatch(removeItem(item.type, item));
+                    }}
+                  >
+                    <CancelIcon fontSize="small" />
+                  </IconButton>
+                </Grid>
+              </Grid>
+            </ListItem>
+          ))
+        )}
       </List>
     </div>
   );
@@ -96,9 +104,9 @@ export default function SavedItemsDrawer(props) {
   return (
     <div>
       <React.Fragment key={"right"}>
-        <Button onClick={toggleDrawer(true)} disableRipple>
+        <div className="saved-items" onClick={toggleDrawer(true)}>
           {props.buttonName.toUpperCase()}
-        </Button>
+        </div>
         <Drawer
           anchor={"right"}
           open={state}

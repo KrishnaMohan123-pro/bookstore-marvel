@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { fetchCharacter } from "../../actions/FetchActions/characterFetchAction";
 import Loader from "../../components/Loader/loader";
-import { Container, Grid, Divider } from "@material-ui/core";
+import { Grid, Divider } from "@material-ui/core";
 import "./styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import SaveItemsButton from "../../components/Buttons/saveItemsButton";
@@ -101,131 +101,132 @@ export default function Character(props) {
 
   return (
     <section id="character-body">
-      <Container maxWidth="lg">
-        <Grid container>
-          <Grid item xl={5} lg={5} md={5} sm={12} xs={12}>
-            <Grid container direction="column">
-              <Grid className="character-image-box" item>
-                <img
-                  alt={character.name}
-                  className="character-image"
-                  src={character.image}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid
-            className="character-description-box"
-            item
-            xl={7}
-            lg={7}
-            md={7}
-            sm={12}
-            xs={12}
-          >
-            <Grid container direction="column" spacing={3}>
-              <Grid item>
-                <h1 className="character-title">{character.name}</h1>
-              </Grid>
-              <Grid item>
-                <Grid container>
-                  <Grid item lg={4} md={4} sm={4} xs={12}>
-                    <h5 className="description-section-label">Description</h5>
-                  </Grid>
-                  <Grid item lg={8} md={8} sm={8} xs={12}>
-                    <p>
-                      {character.description === null ||
-                      character.description.length === 0
-                        ? "No Description Available"
-                        : character.description}
-                    </p>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Divider style={{ width: "40%", margin: "0 auto" }} />
-              <Grid item>
-                <div style={{ display: "flex", margin: "1rem 0" }}>
-                  <SaveItemsButton
-                    id={character.id}
-                    img={character.image}
-                    title={character.name}
-                    type="character"
-                    source={source}
-                  />
-                </div>
-              </Grid>
-              <Divider style={{ width: "40%", margin: "0 auto" }} />
-              <Grid item>
-                <Grid container>
-                  <Grid item lg={4} md={4} sm={4} xs={12}>
-                    <h5 className="description-section-label">Series</h5>
-                  </Grid>
-
-                  <Grid item lg={8} md={8} sm={8} xs={12}>
-                    {character.series.length === 0 ? (
-                      <p>No Series Available</p>
-                    ) : (
-                      <div className="series-table-section">
-                        {character.series.map((series) => {
-                          return (
-                            <Link
-                              to={{
-                                pathname:
-                                  "/series/" + series.resourceURI.slice(43),
-                                search: `?source=${_MARVEL}`,
-                              }}
-                              key={series.resourceURI.slice(43)}
-                            >
-                              <p>
-                                {series.name.length > 25
-                                  ? series.name.slice(0, 25) + "..."
-                                  : series.name}
-                              </p>
-                            </Link>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item>
-                <Grid container>
-                  <Grid item lg={4} md={4} sm={4} xs={12}>
-                    <h5 className="description-section-label">Comics</h5>
-                  </Grid>
-                  <Grid item lg={8} md={8} sm={8} xs={12}>
-                    {character.comics.length === 0 ? (
-                      <p>No Comics Released</p>
-                    ) : (
-                      <div className="comics-table-section">
-                        {character.comics.map((comic) => {
-                          return (
-                            <Link
-                              to={{
-                                pathname:
-                                  "/book/" + comic.resourceURI.slice(43),
-                                search: `?source=${_MARVEL}`,
-                              }}
-                              key={comic.resourceURI.slice(43)}
-                            >
-                              <p>
-                                {comic.name.length > 25
-                                  ? comic.name.slice(0, 25) + "..."
-                                  : comic.name}
-                              </p>
-                            </Link>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </Grid>
-                </Grid>
-              </Grid>
+      <Grid container spacing={0}>
+        <Grid item xl={5} lg={5} md={5} sm={12} xs={12}>
+          <Grid container direction="column" style={{ position: "relative" }}>
+            <div className="product-img-bg-1"></div>
+            <Grid className="character-image-box" item>
+              <img
+                alt={character.name}
+                className="character-image"
+                src={character.image}
+              />
             </Grid>
           </Grid>
         </Grid>
-      </Container>
+        <Grid xl={1} lg={1} md={1} sm={12} xs={12}></Grid>
+        <Grid
+          className="character-description-box"
+          item
+          xl={6}
+          lg={6}
+          md={6}
+          sm={12}
+          xs={12}
+        >
+          <Grid container direction="column">
+            <Grid item className="description-container">
+              <h1 className="character-title">{character.name}</h1>
+            </Grid>
+            <Grid item>
+              <Grid container>
+                <Grid item lg={4} md={4} sm={4} xs={12}>
+                  <h5 className="description-section-label">Description</h5>
+                </Grid>
+                <Grid item lg={8} md={8} sm={8} xs={12}>
+                  <p>
+                    {character.description === null ||
+                    character.description.length === 0
+                      ? "No Description Available"
+                      : character.description}
+                  </p>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Divider style={{ width: "40%", margin: "0 auto" }} />
+            <Grid item className="description-container">
+              <Grid container>
+                <Grid item lg={4} md={4} sm={4} xs={12}>
+                  <h5 className="description-section-label">Series</h5>
+                </Grid>
+
+                <Grid item lg={8} md={8} sm={8} xs={12}>
+                  {character.series.length === 0 ? (
+                    <p>No Series Available</p>
+                  ) : (
+                    <div className="series-table-section">
+                      {character.series.map((series) => {
+                        return (
+                          <Link
+                            to={{
+                              pathname:
+                                "/series/" + series.resourceURI.slice(43),
+                              search: `?source=${_MARVEL}`,
+                            }}
+                            key={series.resourceURI.slice(43)}
+                          >
+                            <p>
+                              {series.name.length > 25
+                                ? series.name.slice(0, 25) + "..."
+                                : series.name}
+                            </p>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
+                </Grid>
+              </Grid>
+            </Grid>
+            <Divider style={{ width: "40%", margin: "0 auto" }} />
+            <Grid item className="description-container">
+              <Grid container>
+                <Grid item lg={4} md={4} sm={4} xs={12}>
+                  <h5 className="description-section-label">Comics</h5>
+                </Grid>
+                <Grid item lg={8} md={8} sm={8} xs={12}>
+                  {character.comics.length === 0 ? (
+                    <p>No Comics Released</p>
+                  ) : (
+                    <div className="comics-table-section">
+                      {character.comics.map((comic) => {
+                        return (
+                          <Link
+                            to={{
+                              pathname: "/book/" + comic.resourceURI.slice(43),
+                              search: `?source=${_MARVEL}`,
+                            }}
+                            key={comic.resourceURI.slice(43)}
+                          >
+                            <p>
+                              {comic.name.length > 25
+                                ? comic.name.slice(0, 25) + "..."
+                                : comic.name}
+                            </p>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
+                </Grid>
+              </Grid>
+            </Grid>
+            <Divider style={{ width: "40%", margin: "0 auto" }} />
+            <Grid item className="description-container">
+              <div style={{ display: "flex", margin: "1rem 0" }}>
+                <SaveItemsButton
+                  id={character.id}
+                  img={character.image}
+                  title={character.name}
+                  type="character"
+                  source={source}
+                />
+              </div>
+            </Grid>
+            <Divider style={{ width: "40%", margin: "0 auto" }} />
+          </Grid>
+        </Grid>
+      </Grid>
     </section>
   );
 }
