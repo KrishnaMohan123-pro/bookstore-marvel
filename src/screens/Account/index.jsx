@@ -1,13 +1,16 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import InputDialog from "../../components/Dialog/inputDialog";
-import AddAddressForm from "../../utility/forms/addAddressForm";
-import AddPhoneForm from "../../utility/forms/addPhoneForm";
 import "./styles.css";
 import { Container, Grid } from "@material-ui/core";
 import CameraAltIcon from "@material-ui/icons/CameraAlt";
 import AddNewBookForm from "../../utility/forms/addNewBookForm";
 import ChangeProfileImageForm from "../../utility/forms/changeProfileImageForm";
+import ProfileName from "../../components/AccoutComponents/ProfileName";
+import ProfileEmail from "../../components/AccoutComponents/ProfileEmail";
+import ProfilePhone from "../../components/AccoutComponents/ProfilePhone";
+import ProfileAddress from "../../components/AccoutComponents/ProfileAddress";
+import SavedItemsDrawer from "../../components/SavedItemsDrawer/SavedItemsDrawer";
 
 export default function Account() {
   const loggedIn = useSelector((state) => state.loggedIn);
@@ -15,7 +18,8 @@ export default function Account() {
   const auth = useSelector((state) => state.auth);
   const dialog = useSelector((state) => state.dialog);
   const role = useSelector((state) => state.auth.user.role);
-  console.log(user);
+  const savedItems = useSelector((state) => state.savedItems);
+  console.log(savedItems);
 
   if (!loggedIn) {
     return (
@@ -28,133 +32,95 @@ export default function Account() {
     return <p>Loading...</p>;
   }
   return (
-    <div
-      className="profile-body"
-      style={{ fontFamily: "Roboto", marginTop: "1.5rem" }}
-    >
+    <div className="profile-body">
       <Container>
         <Grid container spacing={3}>
-          <Grid item lg={4} md={4} sm={12} xs={12}>
+          <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
             <Grid
+              className="profile-image-name-box"
               container
               direction="column"
-              style={{
-                backgroundColor: "white",
-                border: "solid grey 0.1rem",
-                paddingTop: "2rem",
-                paddingBottom: "2rem",
-              }}
+              style={{ position: "relative" }}
             >
-              <Grid item style={{ marginBottom: "2rem" }}>
+              <div className="bg-profile-details"></div>
+              <Grid className="profile-image-box" item>
                 <img
+                  className="profile-image"
                   alt={user.fname}
                   src={
                     user.photoURL.length === 0
                       ? "https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
                       : user.photoURL
                   }
-                  style={{ height: "7rem", width: "6rem" }}
                 />
-                <Grid item>
+                <div>
                   <InputDialog
                     childComponent={<ChangeProfileImageForm />}
                     dialogName={"New_profile_image"}
-                    dialogLabel={<CameraAltIcon />}
+                    dialogLabel={<CameraAltIcon fontSize="small" />}
                     dialogVisible={dialog.changeProfileImageDialogVisible}
                   />
-                </Grid>
+                </div>
               </Grid>
-              <Grid item style={{ lineHeight: "0.15rem" }}>
-                <h6>Name:</h6>
-                <p>{user.fname}</p>
-                <br />
-                <p>{user.lname}</p>
+              <Grid
+                item
+                className="profile-name-box"
+                style={{ margin: "1rem 0" }}
+              >
+                <ProfileName name={user.fname + " " + user.lname} />
               </Grid>
-            </Grid>
-          </Grid>
-          <Grid
-            item
-            lg={6}
-            md={6}
-            sm={12}
-            xs={12}
-            style={{
-              backgroundColor: "white",
-              textAlign: "left",
-              border: "solid grey 0.1rem",
-            }}
-          >
-            <Grid container direction="column">
-              <Grid item>
-                <h6>Email:</h6>
-                <p>{user.email}</p>
+              <Grid
+                item
+                className="profile-name-box"
+                style={{ margin: "1rem 0" }}
+              >
+                <ProfileEmail email={user.email} />
               </Grid>
-              <Grid item>
-                <h6>Phone Number:</h6>
-                {user.phone.length === 0 ? (
-                  <InputDialog
-                    childComponent={<AddPhoneForm />}
-                    dialogName={"Phone"}
-                    dialogLabel={"Add Phone Number"}
-                    dialogVisible={dialog.addPhoneDialogVisible}
-                  />
-                ) : (
-                  <p>{user.phone}</p>
-                )}
+              <Grid
+                item
+                className="profile-name-box"
+                style={{ margin: "2rem 0" }}
+              >
+                <ProfilePhone phone={user.phone} />
               </Grid>
-              <Grid item style={{ lineHeight: "0.15rem" }}>
-                <h6>Address:</h6>
-                {user.address.addressLine1.length === 0 ? (
-                  <InputDialog
-                    childComponent={<AddAddressForm />}
-                    dialogName={"Address"}
-                    dialogLabel={"Add Address"}
-                    dialogVisible={dialog.addAddressDialogVisibile}
-                  />
-                ) : (
-                  <Fragment>
-                    <p>{user.address.addressLine1}</p>
-                    <p>{user.address.addressLine2}</p>
-                    <p>{user.address.pin}</p>
-                    <p>{user.address.city}</p>
-                    <p>{user.address.state}</p>
-                    <p>{user.address.country}</p>
-                  </Fragment>
-                )}
+              <Grid
+                item
+                className="profile-name-box"
+                style={{ margin: "1rem 0" }}
+              >
+                <ProfileAddress address={user.address} />
               </Grid>
-            </Grid>
-          </Grid>
-          <Grid item lg={2} md={2} sm={12} xs={12}>
-            <Grid container spacing={4} direction="column">
-              <Grid item>
-                {user.phone.length === 0 ? null : (
-                  <InputDialog
-                    childComponent={<AddPhoneForm />}
-                    dialogName={"Phone"}
-                    dialogLabel={"Edit Phone"}
-                    dialogVisible={dialog.addPhoneDialogVisible}
-                  />
-                )}
-              </Grid>
-              <Grid item>
-                {user.address.addressLine1.length === 0 ? null : (
-                  <InputDialog
-                    childComponent={<AddAddressForm />}
-                    dialogName={"Address"}
-                    dialogLabel={"Edit Address"}
-                    dialogVisible={dialog.addAddressDialogVisibile}
-                  />
-                )}
-              </Grid>
-              <Grid item>
-                {role === "admin" ? (
+              {role === "admin" ? (
+                <Grid
+                  item
+                  className="profile-name-box"
+                  style={{ margin: "1rem 0" }}
+                >
                   <InputDialog
                     childComponent={<AddNewBookForm />}
                     dialogName="New_Book"
-                    dialogLabel="Add New Book"
+                    dialogLabel="Add New Item"
                     dialogVisible={dialog.addBookDialogVisible}
                   />
-                ) : null}
+                </Grid>
+              ) : null}
+            </Grid>
+          </Grid>
+          <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
+            <Grid container>
+              <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                <SavedItemsDrawer
+                  items={savedItems.series}
+                  buttonName="Saved Series"
+                  type="Series"
+                />
+              </Grid>
+              <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                <SavedItemsDrawer
+                  items={savedItems.character}
+                  buttonName="Saved Characters"
+                  type="Characters"
+                />
               </Grid>
             </Grid>
           </Grid>

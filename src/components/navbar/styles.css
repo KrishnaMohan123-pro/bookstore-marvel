@@ -1,8 +1,52 @@
 .app-bar-links {
   display: block;
 }
+.app-bar {
+  background-color: #ffffff !important;
+  color: #272343 !important;
+}
+.tool-bar {
+  padding: 1rem;
+}
+.app-bar input {
+  border: none;
+}
+.cart-button:hover {
+  color: white !important;
+  background-color: #272343 !important;
+}
+
+.cart-button-box {
+  display: inline-block;
+  position: relative;
+}
+
 @media screen and (max-width: 1000px) {
   .app-bar-links {
     display: none;
   }
+  .search-bar-box-outer {
+    display: none !important;
+  }
+}
+.search-bar-box-outer {
+  display: flex;
+}
+.search-bar-box {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  position: absolute;
+  max-width: 0;
+  left: 0.75rem;
+  display: inline-block;
+  background-color: #fff;
+  transition: ease-in 0.5s;
+  overflow: hidden;
+  z-index: 9999;
+}
+.search-bar-box-outer:hover .search-bar-box {
+  max-width: 20rem;
+  transition: ease-out 0.5s;
+}
+.search-bar-box-outer:hover .search-button-hoverable {
+  visibility: hidden;
 }

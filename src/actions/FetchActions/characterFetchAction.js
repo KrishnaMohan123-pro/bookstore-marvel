@@ -31,7 +31,7 @@ export function fetchCharacter(id) {
         dispatch(stopLoadingAction());
       })
       .catch((e) => {
-        toast.error("Something when wrong");
+        toast.error("Something went wrong");
         dispatch({ type: "STOP_LOADING" });
         dispatch(fetchCharacterErrorAction());
       });

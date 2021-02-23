@@ -1,0 +1,91 @@
+.card-actions {
+  bottom: 0;
+  margin: auto;
+  position: absolute;
+  width: 100%;
+}
+
+.hover-image-cover {
+  height: 300px;
+  width: 200px;
+  background-color: white;
+  position: absolute;
+  opacity: 0;
+  z-index: 999;
+  transition-duration: 500ms;
+  transition-property: opacity;
+  transition-timing-function: ease-in;
+}
+
+.product-card:hover .hover-image-cover {
+  opacity: 0.9;
+}
+
+.hover-image-cover-text {
+  color: black;
+  font-size: 1.1rem;
+  margin-top: 50%;
+  font-family: monospace;
+  display: inline-block;
+  border-bottom: none;
+  z-index: 9;
+}
+.hover-image-cover-text::after {
+  display: block;
+  content: "";
+  border-bottom: solid 0.1rem #000;
+  transform: scaleX(0);
+  transition: transform 250ms ease-in;
+  transform-origin: 0% 50%;
+}
+.hover-image-cover-text:hover:after {
+  transform: scaleX(1);
+  transform-origin: 0% 50%;
+}
+
+.product-image-box {
+  width: 200px;
+  height: 300px;
+  z-index: 1;
+  contain: content;
+  border-radius: 5%;
+}
+.product-image {
+  width: 200px;
+  z-index: 0;
+  height: 300px;
+  margin-bottom: 5px;
+  transition-duration: 500ms;
+  transition-property: transform;
+  transform: scale(1, 1);
+}
+.product-card:hover .product-image {
+  transform: scale(1.1, 1.1);
+}
+.product-card {
+  margin: 0 auto;
+}
+
+.card-ribbon {
+  background-image: linear-gradient(45deg, cyan, greenyellow);
+  position: absolute;
+  z-index: 10;
+  width: 35%;
+  top: 3%;
+  font-size: 0.8rem;
+  font-family: monospace;
+  padding: 0.2rem 0;
+  transition: width ease-in 200ms;
+  border-bottom-right-radius: 50%;
+  border-top-right-radius: 50%;
+}
+.product-card:hover .card-ribbon {
+  width: 0%;
+  color: transparent;
+}
+.card-ribbon.book-type {
+  background-image: linear-gradient(45deg, purple, red);
+  color: white;
+  top: 10%;
+  width: 35%;
+}

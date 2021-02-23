@@ -1,34 +1,29 @@
-.card {
-  width: 18rem;
-  text-align: center;
-  height: 28rem;
-  background-image: linear-gradient(blue, red);
-  margin-left: 10% !important;
+#popular-page {
+  background: linear-gradient(135deg, #f4f9f9, #ccf2f4, #a4ebf3);
 }
-.card-img-top {
-  height: 15rem;
-}
+
 .character-name {
   font-family: "Goldman", sans-serif;
   font-size: 2.5rem;
   text-decoration: underline;
 }
-.slider-control-bottomcenter {
-  bottom: -15% !important;
+.carousel-button {
+  outline: none !important;
+  background-color: rgb(207, 205, 205) !important;
+  color: black !important;
+  transform: scale(1, 1);
+  transition-timing-function: ease-in;
+  transition-duration: 500ms;
+  transition-property: background-color;
 }
-.slider-control-centerleft {
-  left: -5% !important;
+.carousel-button:hover {
+  background-color: red !important;
+  color: white !important;
 }
-.slider-control-centerright {
-  right: -5% !important;
-}
-.slider {
-  display: flex;
-  justify-content: center;
+.carousel-button:active {
+  transform: scale(1.1, 1.1);
 }
 
-@media screen and (max-width: 1000px) {
-}
 @media screen and (max-width: 424px) {
   .character-name {
     font-size: 2rem;

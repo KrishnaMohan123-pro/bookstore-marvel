@@ -3,6 +3,7 @@ import { Button } from "@material-ui/core";
 import config from "../config/config";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import "./styles.css";
 export default function RazorPay() {
   const name = useSelector((state) => state.auth.user.fname);
   const email = useSelector((state) => state.auth.user.email);
@@ -67,8 +68,8 @@ export default function RazorPay() {
   }
 
   return (
-    <Button variant="contained" color="primary" onClick={displayRazorPay}>
-      Pay
+    <Button className="pay-button" onClick={displayRazorPay}>
+      CHECK OUT
     </Button>
   );
 }

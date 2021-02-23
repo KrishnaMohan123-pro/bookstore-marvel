@@ -1,0 +1,31 @@
+.search-bar {
+  position: relative;
+}
+.search-drop-down {
+  max-height: 10rem;
+  overflow-y: scroll;
+  width: 20rem;
+  left: 0%;
+  background-color: white;
+  font-size: 0.5rem;
+  box-shadow: 0 0 0.25rem grey;
+}
+.search-form {
+  align-items: center;
+  background-color: transparent !important;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2px 4px;
+  width: 20rem;
+}
+.search-button {
+  color: black !important;
+}
+.search-input {
+  width: 90%;
+  outline: none;
+  border-bottom: solid 0.1rem black !important;
+  background-color: transparent;
+  color: black;
+}

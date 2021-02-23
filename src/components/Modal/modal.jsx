@@ -15,13 +15,15 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
+    backgroundImage: "linear-gradient( #f6f6f6,#f6f5f5, #f8f1f1)",
+    border: "2px solid #845ec2",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
   title: {
-    color: "#121212",
+    color: "#000",
+    width: "100%",
+    fontFamily: "Goldman",
   },
 }));
 
@@ -57,9 +59,9 @@ export default function TransitionsModal(props) {
       >
         <Fade in={props.modalVisible}>
           <div className={classes.paper}>
-            <h2 className={classes.title} id="transition-modal-title">
-              {props.modalTitle}
-            </h2>
+            <div className={classes.title}>
+              <h2 id="transition-modal-title">{props.modalTitle}</h2>
+            </div>
             <div id="transition-modal-description">{props.childComponent}</div>
             {loader ? <Loader /> : null}
           </div>

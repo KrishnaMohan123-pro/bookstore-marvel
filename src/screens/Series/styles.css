@@ -1,37 +1,30 @@
+#series-body {
+  margin-top: 1.5rem;
+  margin-bottom: 3rem;
+}
 .section-title {
   font-family: "Sacramento", sans-serif;
   font-size: 3rem;
 }
+.series-image-box,
+.series-description-box {
+  padding: 3rem 0rem;
+}
+
+.series-description-box {
+  text-align: left;
+}
 .series-container {
   margin-top: 5% !important;
 }
+
 .series-image {
-  width: 15rem;
-  height: 20rem;
+  height: 30rem;
+  width: 20rem;
 }
 .series-title {
-  font-size: 4rem;
-  font-family: "Goldman", sans-serif;
+  font-family: "Bebas Neue";
 }
-
-@media screen and (max-width: 1000px) {
-  .series-content {
-    font-size: 0.8rem !important;
-  }
-  .section-title {
-    font-family: "Sacramento", sans-serif;
-    font-size: 2.5rem;
-  }
-  .series-image {
-    width: 9rem;
-    height: 12rem;
-  }
-  .series-title {
-    font-size: 2.5rem;
-  }
-}
-@media screen and (max-width: 500px) {
-  .series-title {
-    font-size: 2rem;
-  }
+.description-title {
+  font-family: "Bebas Neue";
 }

@@ -9,12 +9,16 @@ import {
   TableCell,
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import {
   dropDown,
   clearDropDown,
 } from "../../actions/FetchActions/searchAction";
 import { useDispatch, useSelector } from "react-redux";
+import { characterSortOptions } from "../../utility/sortsAndFilters/sort";
+import filterOptions from "../../utility/sortsAndFilters/filter";
+import { _MARVEL } from "../../utility/sources/sources";
+import "./styles.css";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
@@ -28,7 +32,6 @@ export default function SearchBar() {
   useEffect(() => {
     setName(query);
   }, [query]);
-  console.log(`name:${name}`, `query:${query}`);
   function onInputChange(event) {
     setName(event.target.value);
     setShowDropDown(true);
@@ -40,29 +43,25 @@ export default function SearchBar() {
     setShowDropDown(false);
 
     if (name.length > 0) {
-      history.push(`/search/q=${name}`);
+      history.push({
+        pathname: "/search",
+        search: `?query=${name}&sort=${characterSortOptions[1].value}&filter=${filterOptions[0].value}`,
+      });
     }
   }
 
   return (
-    <div style={{ position: "relative" }}>
+    <div className="search-bar">
       <Paper
         className="search-form"
         component="form"
-        elevation={2}
-        style={{
-          padding: "2px 4px",
-          display: "flex",
-          alignItems: "center",
-          width: "30rem",
-          marginLeft: "30px",
-          height: "35px",
-        }}
+        elevation={0}
         onSubmit={(e) => {
           onFormSubmit(e);
         }}
       >
         <DebounceInput
+          className="search-input"
           debounceTimeout={300}
           onChange={(event) => {
             if (event.target.value.length === 0) {
@@ -70,53 +69,39 @@ export default function SearchBar() {
             } else onInputChange(event);
           }}
           placeholder="Search"
-          style={{
-            width: "90%",
-            marginLeft: "5px",
-            border: "none",
-            outline: "none",
-          }}
           value={name}
         />
-        <IconButton type="submit" aria-label="search">
+        <IconButton type="submit" className="search-button">
           <SearchIcon />
         </IconButton>
       </Paper>
       {showDropDown && dropDownOptions.characters.length !== 0 ? (
-        <span
-          style={{
-            height: "10rem",
-            overflowY: "scroll",
-            position: "absolute",
-            width: "30rem",
-            left: "6%",
-            backgroundColor: "white",
-          }}
-        >
-          <Table>
+        <div className="search-drop-down">
+          <Table className="search-drop-down-table">
             <TableBody>
               {dropDownOptions.characters.map((character) => {
                 return (
                   <TableRow key={character.id}>
                     <TableCell component="th">
-                      <a
-                        href={"/character/" + character.id}
-                        style={{ color: "black" }}
+                      <Link
+                        to={{
+                          pathname: "/character/" + character.id,
+                          search: `?source=${_MARVEL}`,
+                        }}
+                        onClick={() => {
+                          setShowDropDown(false);
+                        }}
                       >
                         {character.name}
-                      </a>
+                      </Link>
                     </TableCell>
                   </TableRow>
                 );
               })}
             </TableBody>
           </Table>
-        </span>
+        </div>
       ) : null}
-
-      {/* {formSubmit ? null : showResult && search.length > 2 ? (
-        <Dropdown name={search} />
-      ) : null} */}
     </div>
   );
 }

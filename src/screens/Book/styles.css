@@ -1,9 +1,22 @@
-.book-img {
-  height: 15rem;
-  width: 12rem;
+#book-body {
+  margin-top: 1.5rem;
+  margin-bottom: 3rem;
 }
+.book-image-box,
+.book-description-box {
+  padding: 3rem 0rem;
+}
+.book-description-box {
+  text-align: left;
+}
+
+.book-img {
+  height: 30rem;
+  width: 20rem;
+}
+
 .book-title {
-  font-family: "Goldman";
+  font-family: "Bebas Neue";
 }
 .description {
   width: 85%;
@@ -11,7 +24,7 @@
 }
 .description-title {
   font-size: 2rem;
-  font-family: "Sacramento";
+  font-family: "Bebas Neue";
 }
 
 @media screen and (max-width: 1000px) {

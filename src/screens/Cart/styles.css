@@ -1,28 +1,52 @@
-.book {
-  padding: 1rem;
+.cart-body {
+  margin-bottom: 2rem;
 }
-.book-image {
+#cart-body-heading {
+  background-image: linear-gradient(#c7ffd8, #f9f871, #c7ffd8);
+  padding: 2rem 0;
+}
+#cart-item-table-headers {
+  font-size: x-large;
+  padding: 1rem 0;
+  font-family: "Goldman";
+}
+.cart-item-container {
+  align-items: center;
+}
+.cart-item-image {
   height: 10rem;
-  width: 10rem;
+  width: 8rem;
 }
-
-.cart-title {
-  font-size: larger;
+.total-grid-divider {
+  width: 70%;
+}
+.item-title {
+  font-size: medium;
 }
 .cart-item {
-  border: 2px grey solid;
+  padding: 1rem 0;
 }
-.total {
-  position: absolute;
-  top: 90%;
-  left: 80%;
-  font-family: "Goldman", sans-serif;
-  font-size: 2rem;
+.pay-button {
+  margin-top: 5%;
+  margin: 0 auto;
 }
-@media screen and (max-width: 920px) {
+#cart-items-total {
+  margin-top: 1rem;
 }
-@media screen and (max-width: 424px) {
+@media screen and (max-width: 800px) {
+  .cart-item-image {
+    height: 8rem;
+    width: 6rem;
+  }
+}
+@media screen and (max-width: 425px) {
   .book-total {
     float: left !important;
+  }
+  .cart-item-image-box {
+    display: none;
+  }
+  .total-grid-divider {
+    width: 100%;
   }
 }

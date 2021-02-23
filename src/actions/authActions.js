@@ -160,6 +160,7 @@ export function addAddress(address) {
             lname: user.lname,
             phone: user.phone,
             photoURL: user.photoURL,
+            role: user.role,
           },
           uid
         )
@@ -190,6 +191,38 @@ export function addPhone(phone) {
             phone: phone,
             photoURL: user.photoURL,
             address: user.address,
+            role: user.role,
+          },
+          uid
+        )
+      );
+      dispatch(stopLoadingAction());
+    }
+  };
+}
+
+export function editName(name) {
+  return async (dispatch, getState, { getFirebase }) => {
+    dispatch(firebaseLoadingAction());
+    const firebase = getFirebase();
+    const uid = getState().auth.uid;
+    const user = getState().auth.user;
+    const token = firebase
+      .firestore()
+      .collection("users")
+      .doc(uid)
+      .update({ fname: name.fname, lname: name.lname });
+    if (token) {
+      dispatch(
+        initialiseUserAction(
+          {
+            email: user.email,
+            fname: name.fname,
+            lname: name.lname,
+            phone: user.phone,
+            photoURL: user.photoURL,
+            address: user.address,
+            role: user.role,
           },
           uid
         )

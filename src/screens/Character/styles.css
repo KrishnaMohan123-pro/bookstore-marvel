@@ -1,22 +1,47 @@
-.character-name {
-  font-family: "Goldman" !important;
-  font-size: 3.5rem !important;
+#character-body {
+  margin-top: 1.5rem;
+  margin-bottom: 3rem;
 }
+
+.character-image-box,
+.character-description-box {
+  padding: 3rem 0rem;
+}
+
+.character-description-box {
+  text-align: left;
+}
+.character-image {
+  height: 30rem;
+  width: 20rem;
+}
+
 .character-description {
   width: 70%;
   margin: 2px auto !important;
 }
-
-@media screen and (max-width: 800px) {
-  .character-name {
-    font-size: 3rem !important;
-  }
+.character-title {
+  font-family: "Bebas Neue";
 }
-@media screen and (max-width: 500px) {
-  .character-name {
-    font-size: 2rem !important;
-  }
-  #character-body {
-    margin-top: 15%;
-  }
+.description-section-label {
+  font-family: "Bebas Neue";
+  margin: 0 auto;
+}
+.comics-table-section,
+.series-table-section {
+  height: 250px;
+  overflow-y: scroll;
+}
+
+.product-img-bg-1 {
+  position: absolute;
+  width: 80%;
+  height: 100%;
+  background-image: linear-gradient(135deg, #cceabb, #f7f7f7, #cceabb);
+  top: 0;
+  left: 10%;
+  z-index: -99;
+}
+.description-container {
+  margin: 1rem 0 !important;
 }

@@ -2,6 +2,8 @@ import React from "react";
 import { Button, ButtonGroup } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import "./styles.css";
 import {
   addToCart,
   removeFromCart,
@@ -17,7 +19,8 @@ export default function CartButton(props) {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           toast.warning("Log in to add item in the cart");
           setTimeout(() => {
             dispatch({ type: "OPEN_SIGNUP_MODAL" });
@@ -25,7 +28,7 @@ export default function CartButton(props) {
         }}
         style={{ margin: "0px auto" }}
       >
-        Add to cart
+        Add
       </Button>
     );
   }
@@ -37,9 +40,6 @@ export default function CartButton(props) {
   for (let i = 0; i < cartItems.length; i = i + 1) {
     if (cartItems[i].id === props.id) var quantity = cartItems[i].quantity;
   }
-  if (quantity === 0) {
-    dispatch(removeFromCart({ id: props.id }));
-  }
 
   function handleAdd() {
     dispatch(
@@ -47,6 +47,7 @@ export default function CartButton(props) {
         id: props.id,
         img: props.img,
         price: props.price,
+        source: props.source,
         title: props.title,
         quantity: 1,
       })
@@ -63,36 +64,59 @@ export default function CartButton(props) {
     dispatch(changeQuantity("INCREASE", props.id));
   }
   function handleDecrement() {
+    if (quantity === 1) {
+      dispatch(removeFromCart({ id: props.id }));
+    }
     dispatch(changeQuantity("DECREASE", props.id));
   }
   return (
-    <ButtonGroup style={{ margin: "0px auto" }}>
+    <ButtonGroup style={{ margin: "0px auto", borderRadius: "0" }}>
       {included ? (
         <Button
           variant="contained"
-          color="primary"
           size="small"
-          onClick={handleIncrement}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDecrement();
+          }}
+          style={{ borderRadius: "0", backgroundColor: "#f6f5f5" }}
         >
-          +
+          {quantity === 1 ? (
+            <DeleteOutlineIcon style={{ fontSize: "large" }} />
+          ) : (
+            "-"
+          )}
         </Button>
       ) : null}
       <Button
-        onClick={onButtonClick}
-        color={included ? "secondary" : "primary"}
+        onClick={(e) => {
+          e.stopPropagation();
+          onButtonClick();
+        }}
         variant="contained"
         size="small"
+        style={{
+          borderRadius: "0",
+          backgroundColor: included ? "grey" : "#70af85",
+          color: "white",
+          padding: "0.5rem 2.5rem",
+        }}
+        disabled={included}
       >
-        {included ? "Remove" : "Add"}
+        {included ? (quantity ? quantity : "0") : "Add"}
       </Button>
+
       {included ? (
         <Button
           variant="contained"
-          color="primary"
           size="small"
-          onClick={handleDecrement}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleIncrement();
+          }}
+          style={{ borderRadius: "0", backgroundColor: "#f6f5f5" }}
         >
-          -
+          +
         </Button>
       ) : null}
     </ButtonGroup>

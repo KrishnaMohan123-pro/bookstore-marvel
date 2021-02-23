@@ -1,5 +1,5 @@
 import fetchApi from "../services/marvel";
-
+import { _CHARACTER, _SERIES, _BOOK } from "..//utility/sources/itemTypes";
 // fetch by name
 export const fetchIdByName = async (name) => {
   const endPoint = `characters?name=${name}`;
@@ -95,6 +95,26 @@ export const fetchComicsWithStartName = async (name, sort) => {
     orderBy = `&orderBy=${sort}`;
   }
   const endPoint = `comics?titleStartsWith=${name}${orderBy}`;
+  const response = await fetchApi(endPoint);
+  const json = await response.json();
+  return json;
+};
+
+export const fetchAllProducts = async (type, offSet) => {
+  let endPoint = "";
+  switch (type) {
+    case _CHARACTER:
+      endPoint = "characters?limit=20&offset=" + offSet;
+      break;
+    case _BOOK:
+      endPoint = "comics?limit=20&offset=" + offSet;
+      break;
+    case _SERIES:
+      endPoint = `series?limit=20&offset=${offSet}`;
+      break;
+    default:
+      console.log("Default");
+  }
   const response = await fetchApi(endPoint);
   const json = await response.json();
   return json;

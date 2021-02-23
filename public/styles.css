@@ -5,14 +5,12 @@ a:hover {
   color: #333333;
   text-decoration: none;
 }
-.app-bar {
-  background-color: #333333 !important;
-  color: #ffffff !important;
-}
+
 body {
-  background-color: #e1f4f3;
-  color: black;
+  background-color: #f7f7f7;
+  color: #272343;
   text-align: center;
+  font-family: "Roboto", sans-serif;
 }
 
 button:focus {
@@ -45,7 +43,4 @@ button:focus {
   margin-top: 15%;
   animation-name: loading;
   animation-duration: 4s;
-}
-.product-card:hover {
-  margin: 0px auto 10px;
 }

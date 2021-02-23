@@ -1,19 +1,25 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
 import CartButton from "../CartButton/CartButton";
+import SaveItemsButton from "../Buttons/saveItemsButton";
+import { useHistory } from "react-router-dom";
+import { _BOOK, _SERIES } from "../../utility/sources/itemTypes";
+import { addToCart } from "../../actions/cartActions";
+import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import "./styles.css";
 
 const useStyles = makeStyles({
   root: {
-    width: "250px",
-    margin: "5px auto",
-    paddingBottom: "5%",
-    backgroundImage: "linear-gradient(#9ad3bc,#fbf6f0)",
+    width: "200px",
+    borderRadius: "0%",
+    boxShadow: "none",
+    position: "relative",
+    backgroundColor: "transparent",
   },
   bullet: {
     display: "inline-block",
@@ -21,75 +27,149 @@ const useStyles = makeStyles({
   },
   title: {
     fontSize: 16,
-    fontFamily: "Goldman",
   },
   pos: {
     marginBottom: 12,
   },
 });
 export default function ProductCard(props) {
+  const history = useHistory();
   const classes = useStyles();
-  let enablePurcahse = false;
+  const cartItems = useSelector((state) => state.cart).cart;
+  const dispatch = useDispatch();
+  const loggedIn = useSelector((state) => state.loggedIn);
+  let enablePurchase = false;
+  const cartItemsIds = [];
+  cartItems.forEach((item) => cartItemsIds.push(item.id));
+  let included = false;
+  if (cartItemsIds.includes(props.id)) included = true;
 
-  if (props.type === "book") enablePurcahse = true;
+  if (props.type === _BOOK) enablePurchase = true;
   return (
-    <Card className={classes.root}>
-      <Link to={"/" + props.type + "/" + props.id}>
-        <CardContent>
-          <img
-            src={props.img}
-            style={{ width: "200px", height: "200px", marginBottom: "5px" }}
-            alt={
-              props.title.length > 20
-                ? props.title.slice(0, 20) + "..."
-                : props.title
-            }
-          />
+    <Card className={classes.root + " product-card"}>
+      <div
+        onClick={() => {
+          history.push({
+            pathname: `/${props.type}/${props.id}`,
+            search: `?source=${props.source}`,
+          });
+        }}
+        style={{ cursor: "pointer" }}
+      >
+        <CardContent style={{ padding: "0 0 2rem 0" }}>
+          <div
+            className="card-ribbon cart-added"
+            style={{ display: included ? "block" : "none" }}
+          >
+            ADDED
+          </div>
+          <div className="card-ribbon book-type">
+            {props.type.toUpperCase()}
+          </div>
+          {window.innerWidth > 1000 ? (
+            <div className="hover-image-cover">
+              <p
+                className="hover-image-cover-text"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (!loggedIn) {
+                    toast.warning("Log in to add item in the cart");
+                    setTimeout(() => {
+                      dispatch({ type: "OPEN_SIGNUP_MODAL" });
+                    }, 400);
+                  } else {
+                    if (enablePurchase) {
+                      if (included) {
+                        history.push(`/cart`);
+                      } else {
+                        dispatch(
+                          addToCart({
+                            id: props.id,
+                            img: props.img,
+                            price: props.price,
+                            source: props.source,
+                            title: props.title,
+                            quantity: 1,
+                          })
+                        );
+                      }
+                    } else {
+                      history.push({
+                        pathname: `/${props.type}/${props.id}`,
+                        search: `?source=${props.source}`,
+                      });
+                    }
+                  }
+                }}
+              >
+                {enablePurchase
+                  ? included
+                    ? "VIEW IN CART"
+                    : "ADD TO CART"
+                  : "CLICK TO VIEW"}
+              </p>
+            </div>
+          ) : null}
 
-          <Typography
-            className={classes.title}
-            color="textPrimary"
-            gutterBottom
-          >
-            <b>
-              {props.title.length > 20
-                ? props.title.slice(0, 20) + "..."
-                : props.title}
-            </b>
-          </Typography>
-          {props.type === "book" && (
-            <Typography className={classes.title} color="textPrimary">
-              <b> Price - ${props.price}</b>
+          <div className="product-image-box">
+            <img
+              className="product-image"
+              src={props.img}
+              alt={
+                props.title.length > 35
+                  ? props.title.slice(0, 35) + "..."
+                  : props.title
+              }
+            />
+          </div>
+          <div style={{ textAlign: "left" }}>
+            <Typography
+              className={classes.title}
+              color="textPrimary"
+              gutterBottom
+            >
+              <b>
+                {props.title.length > 23
+                  ? props.title.slice(0, 23) + "..."
+                  : props.title}
+              </b>
             </Typography>
-          )}
-          {props.type === "series" && (
-            <Typography className={classes.title} color="textPrimary">
-              <b>Start Year - {props.startYear}</b>
-              <br />
-              <b>End Year - {props.endYear}</b>
-            </Typography>
-          )}
+            {props.type === _BOOK && (
+              <Typography className={classes.title} color="textPrimary">
+                Price - ${props.price}
+              </Typography>
+            )}
+            {props.type === _SERIES && (
+              <Typography color="textPrimary">
+                Start Year - {props.startYear}
+                <br />
+                End Year - {props.endYear}
+              </Typography>
+            )}
+          </div>
         </CardContent>
-      </Link>
-      <CardActions style={{ margin: "0px auto" }}>
-        {enablePurcahse ? (
-          <CartButton
-            id={props.id}
-            price={props.price}
-            img={props.img}
-            title={props.title}
-          />
-        ) : (
-          <Link
-            to={"/" + props.type + "/" + props.id}
-            style={{ margin: "0px auto" }}
-          >
-            <Button variant="contained" color="primary">
-              Know More
-            </Button>
-          </Link>
+        {window.innerWidth > 1000 ? null : (
+          <CardActions style={{ marginTop: "-1.7rem" }}>
+            {enablePurchase ? (
+              <CartButton
+                id={props.id}
+                img={props.img}
+                price={props.price}
+                title={props.title}
+                source={props.source}
+              />
+            ) : (
+              <SaveItemsButton
+                id={props.id}
+                img={props.img}
+                title={props.title}
+                type={props.type}
+                source={props.source}
+              />
+            )}
+          </CardActions>
         )}
-      </CardActions>
+      </div>
     </Card>
   );
 }

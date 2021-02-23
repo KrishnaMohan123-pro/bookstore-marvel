@@ -1,92 +1,62 @@
-import React, { Fragment } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import TransitionModal from "../Modal/modal";
-import LoginForm from "../../utility/forms/loginForm";
-import SignupForm from "../../utility/forms/signupForm";
-import { logout } from "../../actions/authActions";
-import CartLink from "./cartLink";
+import SearchIcon from "@material-ui/icons/Search";
 import SearchBar from "../SearchBar/searchBar";
-import { Avatar } from "@material-ui/core";
+
 import SideDrawer from "../SideDrawer/sideDrawer";
+import LoggedInLinks from "./loggedInLinks";
 import "./styles.css";
+import LoggedOutLinks from "./loggedOutLinks";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+} from "@material-ui/core";
 
 export default function Navbar() {
   const history = useHistory();
-  const dispatch = useDispatch();
-  const modalVisible = useSelector((state) => state.modal);
   const loggedIn = useSelector((state) => state.loggedIn);
-  const userName = useSelector((state) => state.auth.user.fname);
-  const userImage = useSelector((state) => state.auth.user.photoURL);
-
+  // const userName = useSelector((state) => state.auth.user.fname);
+  // const userImage = useSelector((state) => state.auth.user.photoURL);
   return (
     <AppBar className="app-bar" position="sticky" elevation={0}>
-      <Toolbar>
+      <Toolbar className="tool-bar">
         <SideDrawer />
-        <Link to="/" style={{ color: "inherit" }}>
+        <Link to="/" style={{ color: "inherit", marginRight: "1.5rem" }}>
           <Typography variant="h6">Marvel</Typography>
         </Link>
-        <div className="app-bar-links">
-          <SearchBar />
+        <div
+          className="app-bar-links search-bar-box-outer"
+          style={{ position: "relative" }}
+        >
+          <IconButton className="search-button-hoverable">
+            <SearchIcon />
+          </IconButton>
+          <div className="search-bar-box">
+            <SearchBar />
+          </div>
         </div>
-        <div className="app-bar-links" style={{ marginLeft: "auto" }}>
-          {loggedIn ? (
-            <Fragment>
-              <Button
-                color="inherit"
-                variant="text"
-                onClick={() => {
-                  dispatch({ type: "LOGGED_OUT" });
-                  dispatch(logout());
-                  history.push("/");
-                }}
-              >
-                SIGNOUT
-              </Button>
-              <Button
-                color="inherit"
-                variant="text"
-                style={{ position: "relative" }}
-                onClick={() => {
-                  history.push("/cart");
-                }}
-              >
-                <CartLink />
-              </Button>
-              <Button
-                color="inherit"
-                variant="text"
-                onClick={() => {
-                  history.push("/account");
-                }}
-              >
-                <Avatar alt={userName} src={userImage} />
-              </Button>
-            </Fragment>
-          ) : (
-            <Fragment>
-              <TransitionModal
-                linkName="Login"
-                modalTitle="Welcome Back"
-                childComponent={<LoginForm />}
-                color="primary"
-                modalName="LOGIN"
-                modalVisible={modalVisible.loginModalVisible}
-              />
-              <TransitionModal
-                linkName="Sign up"
-                modalTitle="Hello New Friend"
-                childComponent={<SignupForm />}
-                color="primary"
-                modalName="SIGNUP"
-                modalVisible={modalVisible.signupModalVisible}
-              />
-            </Fragment>
-          )}
+        {loggedIn ? (
+          <div className="ml-auto">
+            <Button
+              color="inherit"
+              variant="text"
+              onClick={() => {
+                history.push("/account");
+              }}
+            >
+              Account
+            </Button>
+          </div>
+        ) : null}
+        <div
+          className="app-bar-links"
+          style={loggedIn ? {} : { marginLeft: "auto" }}
+        >
+          {loggedIn ? <LoggedInLinks /> : <LoggedOutLinks />}
         </div>
       </Toolbar>
     </AppBar>

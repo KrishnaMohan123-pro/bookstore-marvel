@@ -4,6 +4,7 @@ import {
   _OPEN_NEW_BOOK_DIALOG,
   _OPEN_NEW_PROFILE_IMAGE_DIALOG,
   _OPEN_PHONE_DIALOG,
+  _OPEN_EDIT_NAME_DIALOG,
 } from "../actions/actionsList/dialogActionsList";
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
   addPhoneDialogVisible: false,
   addBookDialogVisible: false,
   changeProfileImageDialogVisible: false,
+  editNameDialogVisible: false,
 };
 export default function dialogReducer(state = initialState, action) {
   switch (action.type) {
@@ -22,6 +24,7 @@ export default function dialogReducer(state = initialState, action) {
         addPhoneDialogVisible: false,
         addBookDialogVisible: false,
         changeProfileImageDialogVisible: false,
+        editNameDialogVisible: false,
       };
     case _OPEN_PHONE_DIALOG:
       return {
@@ -29,6 +32,7 @@ export default function dialogReducer(state = initialState, action) {
         addPhoneDialogVisible: true,
         addBookDialogVisible: false,
         changeProfileImageDialogVisible: false,
+        editNameDialogVisible: false,
       };
     case _OPEN_NEW_BOOK_DIALOG:
       return {
@@ -36,6 +40,7 @@ export default function dialogReducer(state = initialState, action) {
         addPhoneDialogVisible: false,
         addBookDialogVisible: true,
         changeProfileImageDialogVisible: false,
+        editNameDialogVisible: false,
       };
     case _OPEN_NEW_PROFILE_IMAGE_DIALOG:
       return {
@@ -43,6 +48,15 @@ export default function dialogReducer(state = initialState, action) {
         addPhoneDialogVisible: false,
         addBookDialogVisible: false,
         changeProfileImageDialogVisible: true,
+        editNameDialogVisible: false,
+      };
+    case _OPEN_EDIT_NAME_DIALOG:
+      return {
+        addAddressDialogVisibile: false,
+        addPhoneDialogVisible: false,
+        addBookDialogVisible: false,
+        changeProfileImageDialogVisible: false,
+        editNameDialogVisible: true,
       };
 
     default:
