@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { saveItem, removeItem } from "../../actions/savedItemsActions";
 import { toast } from "react-toastify";
 import { _SERIES, _CHARACTER } from "../../utility/sources/itemTypes";
+import "./styles.css";
 
 export default function SaveItemsButton(props) {
   const dispatch = useDispatch();
@@ -39,12 +40,13 @@ export default function SaveItemsButton(props) {
       onClick={(e) => {
         handleClick(e);
       }}
+      className="save-items-button"
       variant="contained"
-      className="mx-auto"
       style={{
         borderRadius: "0",
-        backgroundColor: included ? "#d14031" : "#70af85",
-        color: "white",
+        backgroundColor: included ? "#d14031" : "#ffce76",
+        boxShadow: "0 0 0.25rem grey",
+        color: included ? "#f0ece2" : "#1d1919",
         marginRight: "auto",
         marginLeft: "auto",
       }}

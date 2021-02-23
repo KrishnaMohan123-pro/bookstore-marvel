@@ -3,6 +3,7 @@ import { Button, ButtonGroup } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import "./styles.css";
 import {
   addToCart,
   removeFromCart,
@@ -96,11 +97,13 @@ export default function CartButton(props) {
         size="small"
         style={{
           borderRadius: "0",
-          backgroundColor: included ? "#d14031" : "#70af85",
+          backgroundColor: included ? "grey" : "#70af85",
           color: "white",
+          padding: "0.5rem 2.5rem",
         }}
+        disabled={included}
       >
-        {included ? "Remove" : "Add"}
+        {included ? (quantity ? quantity : "0") : "Add"}
       </Button>
 
       {included ? (

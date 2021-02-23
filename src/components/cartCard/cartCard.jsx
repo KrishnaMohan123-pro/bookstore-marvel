@@ -2,9 +2,20 @@ import React from "react";
 import CartButton from "../CartButton/CartButton";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Container, Grid, Divider } from "@material-ui/core";
+import {
+  Container,
+  Grid,
+  Divider,
+  IconButton,
+  Button,
+} from "@material-ui/core";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import { removeFromCart } from "../../actions/cartActions";
+import { useDispatch } from "react-redux";
+import "./styles.css";
 
 export default function CartCard(props) {
+  const dispatch = useDispatch();
   const history = useHistory();
   const cart = useSelector((state) => state.cart).cart;
   let quantity = 0;
@@ -16,6 +27,20 @@ export default function CartCard(props) {
   return (
     <Container className="cart-item">
       <Grid container className="cart-item-container">
+        {window.innerWidth < 500 ? null : (
+          <Grid item xl={1} lg={1} md={1} sm={1}>
+            <IconButton
+              className="cart-remove-icon-button"
+              disableRipple
+              onClick={() => {
+                dispatch(removeFromCart({ id: props.id }));
+              }}
+            >
+              <HighlightOffIcon />
+            </IconButton>
+          </Grid>
+        )}
+
         <Grid
           item
           xl={2}
@@ -77,15 +102,28 @@ export default function CartCard(props) {
           md={2}
           sm={2}
           xs={3}
-          className="cart-item-quantity-box"
+          className="cart-item-total-box"
         >
-          <p>{`${quantity}`}</p>
+          <p>{`$ ${quantity * props.price}`}</p>
         </Grid>
+        {window.innerWidth > 499 ? null : (
+          <Grid item xl={1} lg={1} md={1} sm={1} xs={12}>
+            <Button
+              className="cart-remove-icon-button"
+              disableRipple
+              onClick={() => {
+                dispatch(removeFromCart({ id: props.id }));
+              }}
+            >
+              Remove
+            </Button>
+          </Grid>
+        )}
         <Grid
           item
-          xl={3}
-          lg={3}
-          md={3}
+          xl={2}
+          lg={2}
+          md={2}
           sm={12}
           xs={12}
           className="cart-item-action-box item-price"
@@ -101,6 +139,7 @@ export default function CartCard(props) {
           </div>
         </Grid>
       </Grid>
+
       <Divider style={{ marginTop: "1rem" }} />
     </Container>
   );

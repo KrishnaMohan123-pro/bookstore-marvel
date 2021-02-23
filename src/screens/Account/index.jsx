@@ -6,8 +6,6 @@ import { Container, Grid } from "@material-ui/core";
 import CameraAltIcon from "@material-ui/icons/CameraAlt";
 import AddNewBookForm from "../../utility/forms/addNewBookForm";
 import ChangeProfileImageForm from "../../utility/forms/changeProfileImageForm";
-import { useHistory } from "react-router-dom";
-import SaveItemsButton from "../../components/Buttons/saveItemsButton";
 import ProfileName from "../../components/AccoutComponents/ProfileName";
 import ProfileEmail from "../../components/AccoutComponents/ProfileEmail";
 import ProfilePhone from "../../components/AccoutComponents/ProfilePhone";
@@ -15,7 +13,6 @@ import ProfileAddress from "../../components/AccoutComponents/ProfileAddress";
 import SavedItemsDrawer from "../../components/SavedItemsDrawer/SavedItemsDrawer";
 
 export default function Account() {
-  const history = useHistory();
   const loggedIn = useSelector((state) => state.loggedIn);
   const user = useSelector((state) => state.auth.user);
   const auth = useSelector((state) => state.auth);

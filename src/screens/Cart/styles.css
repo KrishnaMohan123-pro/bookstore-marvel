@@ -28,7 +28,7 @@
 }
 .pay-button {
   margin-top: 5%;
-  margin-left: auto;
+  margin: 0 auto;
 }
 #cart-items-total {
   margin-top: 1rem;

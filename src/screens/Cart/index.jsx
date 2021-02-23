@@ -4,7 +4,6 @@ import "./styles.css";
 import { Link } from "react-router-dom";
 import { Container, Grid, Divider } from "@material-ui/core";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
-import ClearIcon from "@material-ui/icons/Clear";
 import CartCard from "../../components/cartCard/cartCard";
 import PayButton from "../../services/razorPay/frontend/index";
 export default function Cart() {
@@ -52,14 +51,18 @@ export default function Cart() {
       <section id="cart-item-table-headers">
         <Container>
           <Grid container>
+            {window.innerWidth < 500 ? null : (
+              <Grid item xl={1} lg={1} md={1} sm={7} xs={1}></Grid>
+            )}
+
             <Grid item xl={5} lg={5} md={5} sm={7} xs={5}>
               Product
             </Grid>
-            <Grid item xl={2} lg={2} md={2} sm={2} xs={3}>
+            <Grid item xl={2} lg={2} md={2} sm={2} xs={4}>
               Price
             </Grid>
-            <Grid item xl={2} lg={2} md={2} sm={2} xs={2}>
-              Quantity
+            <Grid item xl={2} lg={2} md={2} sm={2} xs={3}>
+              Total
             </Grid>
           </Grid>
           <Divider />
@@ -80,65 +83,21 @@ export default function Cart() {
         })}
       </section>
       <section id="cart-items-total">
-        <h1 className="cart-items-total-heading">Total Payable Amount</h1>
         <Container className="cart-items-total-container">
           <Grid container>
-            <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
-              <Grid container>
-                <Grid item xl={2} lg={2} md={2} sm={2} xs={3}>
-                  Price
-                </Grid>
-                <Grid item xl={1} lg={1} md={1} sm={1} xs={1}></Grid>
-                <Grid item xl={2} lg={2} md={2} sm={2} xs={4}>
-                  Quantity
-                </Grid>
-                <Grid item xl={1} lg={1} md={1} sm={1} xs={1}></Grid>
-                <Grid item xl={2} lg={2} md={2} sm={2} xs={3}>
-                  Total
-                </Grid>
-              </Grid>
-              <Divider className="total-grid-divider" />
-              <Grid container direction="column">
-                {cartItems.map((item) => {
-                  return (
-                    <Grid item key={item.id}>
-                      <Grid container>
-                        <Grid item xl={2} lg={2} md={2} sm={2} xs={3}>
-                          {item.price}
-                        </Grid>
-                        <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
-                          <ClearIcon />
-                        </Grid>
-                        <Grid item xl={2} lg={2} md={2} sm={2} xs={4}>
-                          {item.quantity}
-                        </Grid>
-                        <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
-                          =
-                        </Grid>
-                        <Grid item xl={2} lg={2} md={2} sm={2} xs={3}>
-                          {item.price * item.quantity}
-                        </Grid>
-                      </Grid>
-                      <Divider className="total-grid-divider" />
-                    </Grid>
-                  );
-                })}
-              </Grid>
-              <Grid container>
-                <Grid item xl={5} lg={5} md={5} sm={5} xs={8}>
-                  <p style={{ fontFamily: "Dancing Script" }}>Total Amount</p>
-                </Grid>
-                <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
-                  =
-                </Grid>
-                <Grid item xl={2} lg={2} md={2} sm={2} xs={3}>
-                  {total.toFixed(2)}
-                </Grid>
-              </Grid>
-              <Divider className="total-grid-divider" />
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+              <p
+                style={{
+                  margin: "0 auto",
+                  fontFamily: "Bebas Neue",
+                  fontSize: "1.5rem",
+                }}
+              >
+                Total Amount: $ {total.toFixed(2)}
+              </p>
             </Grid>
-            <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
-              <div className="pay-button">
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+              <div className="pay-button-box">
                 <PayButton />
               </div>
             </Grid>

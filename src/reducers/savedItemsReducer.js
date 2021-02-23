@@ -20,10 +20,10 @@ export default function savedItemsReducer(state = initialState, action) {
       toast.error("Removed from list");
       return { series: action.payload, character: [...state.character] };
     case _SAVE_CHARACTER:
-      toast.success("Added to list");
+      toast.success("Item Bookmarked");
       return { series: [...state.series], character: action.payload };
     case _SAVE_SERIES:
-      toast.success("Added to list");
+      toast.success("Item Bookmarked");
       return { series: action.payload, character: [...state.character] };
     case _INITIALISE_SAVED_LIST_CHARACTER:
       return {
