@@ -104,7 +104,7 @@ export default function Character(props) {
       <Grid container spacing={0}>
         <Grid item xl={5} lg={5} md={5} sm={12} xs={12}>
           <Grid container direction="column" style={{ position: "relative" }}>
-            <div className="product-img-bg-1"></div>
+            {/* <div className="product-img-bg-1"></div> */}
             <Grid className="character-image-box" item>
               <img
                 alt={character.name}

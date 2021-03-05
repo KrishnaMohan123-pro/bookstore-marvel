@@ -4,6 +4,7 @@ import {
   dataLoadingAction,
   stopLoadingAction,
 } from "../actionCreators/loadActionCreators";
+import { _SERIES, _CHARACTER, _BOOK } from "../../utility/sources/itemTypes";
 
 export function allProductsFetch(type, offSet) {
   return async (dispatch, getState, { getFirebase }) => {
@@ -11,7 +12,13 @@ export function allProductsFetch(type, offSet) {
     const response = await fetchAllProducts(type, offSet);
     const products = [];
     response.data.results.forEach((result) => products.push(result));
-    dispatch(allProductsFetchAction(products));
+    dispatch(allProductsFetchAction(type, products));
     dispatch(stopLoadingAction());
+  };
+}
+
+export function clearAllProducts() {
+  return (dispatch, getState, { getFirebase }) => {
+    dispatch({ type: "CLEAR_ALL_PRODUCTS" });
   };
 }

@@ -10,7 +10,13 @@ import {
   _COMICS_DATA_LOAD_ERROR,
 } from "../actionsList/dataFetchActionsList";
 
-import { _LOAD_ALL_PRODUCTS } from "../actionsList/allProductsActionsList";
+import {
+  _LOAD_ALL_PRODUCTS,
+  _LOAD_ALL_COMICS,
+  _LOAD_ALL_CHARACTERS,
+  _LOAD_ALL_SERIES,
+} from "../actionsList/allProductsActionsList";
+import { _BOOK, _CHARACTER, _SERIES } from "../../utility/sources/itemTypes";
 
 export function fetchCharacterAction(characterData) {
   return { type: _CHARACTER_DATA_LOAD, payload: characterData };
@@ -51,6 +57,22 @@ export function fetchSeriesErrorAction() {
   };
 }
 
-export function allProductsFetchAction(products) {
-  return { type: _LOAD_ALL_PRODUCTS, payload: products };
+export function allProductsFetchAction(type, products) {
+  switch (type) {
+    case _BOOK:
+      return { type: _LOAD_ALL_COMICS, payload: products };
+    case _SERIES:
+      return { type: _LOAD_ALL_SERIES, payload: products };
+    case _CHARACTER:
+      return { type: _LOAD_ALL_CHARACTERS, payload: products };
+  }
+}
+export function allSeriesFetchAction(series) {
+  return { type: _LOAD_ALL_SERIES, payload: series };
+}
+export function allCharactersFetchAction(characters) {
+  return { type: _LOAD_ALL_CHARACTERS, payload: characters };
+}
+export function allComicsFetchAction(comics) {
+  return { type: _LOAD_ALL_COMICS, payload: comics };
 }

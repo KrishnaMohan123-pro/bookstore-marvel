@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./styles.css";
 import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { allProductsFetch } from "../../actions/FetchActions/allProductsFetchActions";
@@ -8,6 +7,7 @@ import { _MARVEL } from "../../utility/sources/sources";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { Container, Grid, Button, CircularProgress } from "@material-ui/core";
 import Loader from "../../components/Loader/loader";
+import "./styles.css";
 export default function AllItems() {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -15,8 +15,22 @@ export default function AllItems() {
   const loader = useSelector((state) => state.loader.data);
   const searchParams = new URLSearchParams(search);
   const itemCategory = searchParams.get("itemCategory");
-  const allProducts = useSelector((state) => state.allProducts);
+  const fetchedProducts = useSelector((state) => state.allProducts);
   const [offSet, setOffset] = useState(0);
+  var allProducts = [];
+  switch (itemCategory) {
+    case "character":
+      allProducts = fetchedProducts.characters;
+      break;
+    case "book":
+      allProducts = fetchedProducts.comics;
+      break;
+    case "series":
+      allProducts = fetchedProducts.series;
+      break;
+    default:
+      console.log("DEFAULT");
+  }
 
   useEffect(() => {
     dispatch(allProductsFetch(itemCategory, offSet));
@@ -26,13 +40,27 @@ export default function AllItems() {
   }
   return (
     <main>
-      <p>
+      <p
+        classsName="all-items-title"
+        style={{
+          fontFamily: "Dancing Script",
+          fontSize: "4rem",
+          backgroundImage: "linear-gradient(#c7ffd8, #f9f871, #c7ffd8)",
+          padding: "2rem 0",
+          margin: 0,
+        }}
+      >
         All{" "}
         {itemCategory === _SERIES
           ? itemCategory.toUpperCase()
           : itemCategory.toUpperCase() + "S"}
       </p>
-      <section>
+      <section
+        style={{
+          backgroundImage: "linear-gradient( #e4fbff, #b8b5ff)",
+          padding: "2rem 0",
+        }}
+      >
         <Container>
           <Grid container>
             {allProducts.map((product) => {
@@ -56,7 +84,7 @@ export default function AllItems() {
           </Grid>
         </Container>
       </section>
-      <section>
+      <section style={{ backgroundColor: "#b8b5ff", paddingBottom: "2rem" }}>
         {loader ? (
           <CircularProgress />
         ) : (

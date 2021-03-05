@@ -44,7 +44,6 @@ export default function SavedItemsDrawer(props) {
   const list = () => (
     <div
       role="presentation"
-      onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
       className={clsx(classes.list)}
     >
@@ -62,7 +61,7 @@ export default function SavedItemsDrawer(props) {
                 <Grid item xl={4} lg={4} md={4} sm={4} xs={4}>
                   <Link
                     to={{
-                      pathname: `/${item.type}`,
+                      pathname: `/${item.type}/${item.id}`,
                       search: `?source=${item.source}`,
                     }}
                   >
