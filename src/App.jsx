@@ -10,7 +10,6 @@ import Character from "./screens/Character/index";
 import Characters from "./screens/Characters/index";
 import Series from "./screens/Series/Series";
 import AllItems from "./screens/AllItems/index";
-// import Footer from "./components/Footer/footer";
 import BackdropLoader from "./components/BackdropLoader/backdropLoader";
 import { useSelector, useDispatch } from "react-redux";
 import ProtectedRoute from "./ProtectedRoute";

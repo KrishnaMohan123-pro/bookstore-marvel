@@ -4,7 +4,6 @@ import {
   dataLoadingAction,
   stopLoadingAction,
 } from "../actionCreators/loadActionCreators";
-import { _SERIES, _CHARACTER, _BOOK } from "../../utility/sources/itemTypes";
 
 export function allProductsFetch(type, offSet) {
   return async (dispatch, getState, { getFirebase }) => {
